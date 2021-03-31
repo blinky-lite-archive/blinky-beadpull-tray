@@ -1,7 +1,7 @@
 {
   "deviceType": "nb-freezer-mon",
   "name": "01",
-  "arcPeriod": 60000,
+  "arcPeriod": 500,
   "timeStamp": 1610962831200,
   "lastArchive": 1610962777220,
   "linkQuality": {
@@ -27,7 +27,7 @@
   "signalLevel": {
     "action": "reading",
     "type": "scalar",
-    "value": -11,
+    "value": -15,
     "unit": "dBm",
     "alarm": {
       "value": 0,
@@ -67,7 +67,7 @@
   "freezerState": {
     "action": "reading",
     "type": "scalar",
-    "value": 0,
+    "value": 1,
     "unit": "unit",
     "alarm": {
       "value": 0,
@@ -78,8 +78,8 @@
         "hihi": 3
       },
       "notify": {
-        "name": "McGinnis",
-        "number": "46725722472",
+        "name": "",
+        "number": "",
         "time": 0
       }
     }
@@ -98,8 +98,28 @@
         "hihi": 3
       },
       "notify": {
-        "name": "McGinnis",
-        "number": "46725722472",
+        "name": "",
+        "number": "",
+        "time": 0
+      }
+    }
+  },
+  "archiveData": {
+    "action": "reading",
+    "type": "scalar",
+    "value": 0,
+    "unit": "unit",
+    "alarm": {
+      "value": 0,
+      "limits": {
+        "lolo": -2,
+        "low": -1,
+        "high": 2,
+        "hihi": 3
+      },
+      "notify": {
+        "name": "",
+        "number": "",
         "time": 0
       }
     }
