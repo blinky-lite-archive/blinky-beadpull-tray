@@ -1,5 +1,5 @@
 {
-  "deviceType": "nb-freezer-mon",
+  "deviceType": "nwa-znb4",
   "name": "01",
   "arcPeriod": 500,
   "timeStamp": 1610962831200,
@@ -56,66 +56,6 @@
         "low": -1,
         "high": 2,
         "hihi": 2
-      },
-      "notify": {
-        "name": "",
-        "number": "",
-        "time": 0
-      }
-    }
-  },
-  "freezerState": {
-    "action": "reading",
-    "type": "scalar",
-    "value": 1,
-    "unit": "unit",
-    "alarm": {
-      "value": 0,
-      "limits": {
-        "lolo": -2,
-        "low": -1,
-        "high": 2,
-        "hihi": 3
-      },
-      "notify": {
-        "name": "",
-        "number": "",
-        "time": 0
-      }
-    }
-  },
-  "powerState": {
-    "action": "reading",
-    "type": "scalar",
-    "value": 1,
-    "unit": "unit",
-    "alarm": {
-      "value": 0,
-      "limits": {
-        "lolo": -2,
-        "low": -1,
-        "high": 2,
-        "hihi": 3
-      },
-      "notify": {
-        "name": "",
-        "number": "",
-        "time": 0
-      }
-    }
-  },
-  "archiveData": {
-    "action": "reading",
-    "type": "scalar",
-    "value": 0,
-    "unit": "unit",
-    "alarm": {
-      "value": 0,
-      "limits": {
-        "lolo": -2,
-        "low": -1,
-        "high": 2,
-        "hihi": 3
       },
       "notify": {
         "name": "",
