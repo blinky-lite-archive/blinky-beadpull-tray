@@ -414,8 +414,8 @@
         "correl": "",
         "expiry": "",
         "broker": "79250bf3.365cc4",
-        "x": 670,
-        "y": 120,
+        "x": 1310,
+        "y": 40,
         "wires": []
     },
     {
@@ -423,7 +423,7 @@
         "type": "mqtt in",
         "z": "5f562f66.a301e",
         "name": "Blinker Stepper 02 Readings",
-        "topic": "blinky-lite-v2/blinky-stepper/02/reading",
+        "topic": "blinky-lite-v3/blinky-stepper/02/reading",
         "qos": "0",
         "datatype": "auto",
         "broker": "79250bf3.365cc4",
@@ -464,48 +464,6 @@
         "initialize": "",
         "finalize": "",
         "x": 470,
-        "y": 40,
-        "wires": [
-            [
-                "42c6e9ce.4932e8"
-            ]
-        ]
-    },
-    {
-        "id": "d976b431.f90598",
-        "type": "gzip",
-        "z": "5f562f66.a301e",
-        "name": "",
-        "x": 510,
-        "y": 120,
-        "wires": [
-            [
-                "93049b70.2dc5c8"
-            ]
-        ]
-    },
-    {
-        "id": "42c6e9ce.4932e8",
-        "type": "gzip",
-        "z": "5f562f66.a301e",
-        "name": "",
-        "x": 610,
-        "y": 40,
-        "wires": [
-            [
-                "cd99fe0e.38599"
-            ]
-        ]
-    },
-    {
-        "id": "cd99fe0e.38599",
-        "type": "json",
-        "z": "5f562f66.a301e",
-        "name": "",
-        "property": "payload",
-        "action": "",
-        "pretty": false,
-        "x": 730,
         "y": 40,
         "wires": [
             [
@@ -762,7 +720,7 @@
         "initialize": "",
         "finalize": "",
         "libs": [],
-        "x": 920,
+        "x": 660,
         "y": 40,
         "wires": []
     },
@@ -800,18 +758,18 @@
         "type": "function",
         "z": "5f562f66.a301e",
         "name": "Move Motor",
-        "func": "var device = flow.get('blinky-stepper-02');\nif (device == undefined) return null;\ndevice.moveMotor.value = 1;\ndevice.stayAwakeAfterRotation.value = 1;\nvar newMsg = \n{\n    topic: 'blinky-lite-v2/blinky-stepper/02/setting',\n    payload: JSON.stringify(device)\n}\nreturn newMsg;\n\n",
+        "func": "var device = flow.get('blinky-stepper-02');\nif (device == undefined) return null;\ndevice.moveMotor.value = 1;\nvar newMsg = \n{\n    topic: 'blinky-lite-v3/blinky-stepper/02/setting/setting',\n    payload: JSON.stringify({'attr': 'moveMotor', 'value':1})\n}\nreturn newMsg;\n\n",
         "outputs": 1,
         "noerr": 0,
         "initialize": "",
         "finalize": "",
         "libs": [],
-        "x": 270,
+        "x": 230,
         "y": 220,
         "wires": [
             [
-                "d976b431.f90598",
-                "324897e4.729288"
+                "324897e4.729288",
+                "b78fbadf.c15378"
             ]
         ]
     },
@@ -858,9 +816,7 @@
         "x": 280,
         "y": 120,
         "wires": [
-            [
-                "d976b431.f90598"
-            ]
+            []
         ]
     },
     {
@@ -906,9 +862,7 @@
         "x": 280,
         "y": 160,
         "wires": [
-            [
-                "d976b431.f90598"
-            ]
+            []
         ]
     },
     {
@@ -926,7 +880,7 @@
         "randomLast": "5",
         "randomUnits": "seconds",
         "drop": false,
-        "x": 460,
+        "x": 380,
         "y": 220,
         "wires": [
             [
@@ -935,54 +889,22 @@
         ]
     },
     {
-        "id": "17319af1.e35bc5",
-        "type": "switch",
-        "z": "5f562f66.a301e",
-        "name": "",
-        "property": "payload",
-        "propertyType": "msg",
-        "rules": [
-            {
-                "t": "eq",
-                "v": "1",
-                "vt": "num"
-            },
-            {
-                "t": "eq",
-                "v": "0",
-                "vt": "str"
-            }
-        ],
-        "checkall": "true",
-        "repair": false,
-        "outputs": 2,
-        "x": 770,
-        "y": 280,
-        "wires": [
-            [
-                "324897e4.729288"
-            ],
-            [
-                "be0920a6.0a0e5"
-            ]
-        ]
-    },
-    {
         "id": "64a437fc.bc10e8",
         "type": "function",
         "z": "5f562f66.a301e",
-        "name": "Motor State",
-        "func": "msg.payload = flow.get('blinky-stepper-02').moveMotor.value;\nreturn msg;",
+        "name": "ping Stepper",
+        "func": "var newMsg = \n{\n    topic: 'blinky-lite-v3/blinky-stepper/02/setting/ping',\n    payload: JSON.stringify(true)\n}\nreturn [newMsg];\n\n",
         "outputs": 1,
         "noerr": 0,
         "initialize": "",
         "finalize": "",
         "libs": [],
-        "x": 610,
+        "x": 550,
         "y": 220,
         "wires": [
             [
-                "17319af1.e35bc5"
+                "36d61fb.9f305e",
+                "a846c692.64bc88"
             ]
         ]
     },
@@ -995,8 +917,8 @@
         "out": "char",
         "splitc": "\\n",
         "name": "",
-        "x": 770,
-        "y": 360,
+        "x": 1330,
+        "y": 220,
         "wires": [
             [
                 "310f121b.2c82ce"
@@ -1014,8 +936,8 @@
         "initialize": "",
         "finalize": "",
         "libs": [],
-        "x": 500,
-        "y": 360,
+        "x": 1130,
+        "y": 220,
         "wires": [
             [
                 "a71cb4ba.b7cd38"
@@ -1027,14 +949,14 @@
         "type": "function",
         "z": "5f562f66.a301e",
         "name": "PullData",
-        "func": "var nwaData = msg.payload.toString().split(',');\nvar pullData = \n{\n    s11Mag   : Number(nwaData[0]),\n    s11Phase : Number(nwaData[1]),\n    beadPos  : 7.448 * flow.get('blinky-stepper-02').nrevs.value,\n}\nvar dataLine =  pullData.beadPos.toFixed(3) + ',' + pullData.s11Mag.toFixed(9) + ',' + pullData.s11Phase.toFixed(4);\nif (!flow.get('AllowScan') ||(pullData.beadPos < flow.get('scanInLimit')) || (pullData.beadPos > flow.get('scanOutLimit')) )\n{\n    var device = flow.get('blinky-stepper-02');\n    device.moveMotor.value = 0;\n    device.stayAwakeAfterRotation.value = 0;\n    var stopScanMsg = \n    {\n        topic: 'blinky-lite-v2/blinky-stepper/02/setting',\n        payload: JSON.stringify(device)\n    }\n    return [null,stopScanMsg, {topic : 'pullData', payload : pullData}];\n}\nreturn [{topic : 'pullData', payload : dataLine}, null, {topic : 'pullData', payload : pullData}];",
+        "func": "var nwaData = msg.payload.toString().split(',');\nvar pullData = \n{\n    s11Mag   : Number(nwaData[0]),\n    s11Phase : Number(nwaData[1]),\n    beadPos  : flow.get('blinky-stepper-02').stepLocation.value,\n}\nvar dataLine =  pullData.beadPos.toFixed(0) + ',' + pullData.s11Mag.toFixed(9) + ',' + pullData.s11Phase.toFixed(4);\nif (!flow.get('AllowScan') ||(pullData.beadPos < flow.get('scanInLimit')) || (pullData.beadPos > flow.get('scanOutLimit')) )\n{\n    var stopScanMsg = \n    {\n        topic: 'blinky-lite-v3/blinky-stepper/02/setting/setting',\n        payload: JSON.stringify({'attr': 'stayAwakeAfterRotation', 'value':0})\n    }\n    return [null,stopScanMsg, {topic : 'pullData', payload : pullData}];\n}\nreturn [{topic : 'pullData', payload : dataLine}, null, {topic : 'pullData', payload : pullData}];",
         "outputs": 3,
         "noerr": 0,
         "initialize": "",
         "finalize": "",
         "libs": [],
-        "x": 960,
-        "y": 360,
+        "x": 1520,
+        "y": 220,
         "wires": [
             [
                 "6c81bfe.366d24"
@@ -1057,8 +979,8 @@
         "createDir": false,
         "overwriteFile": "false",
         "encoding": "none",
-        "x": 1150,
-        "y": 360,
+        "x": 1720,
+        "y": 200,
         "wires": [
             [
                 "28326986.c1e0c6"
@@ -1077,8 +999,8 @@
         "complete": "false",
         "statusVal": "",
         "statusType": "auto",
-        "x": 1150,
-        "y": 460,
+        "x": 1910,
+        "y": 300,
         "wires": []
     },
     {
@@ -1095,7 +1017,7 @@
         "y": 480,
         "wires": [
             [
-                "9115ea87.0ca208"
+                "a2c45645.be6a18"
             ]
         ]
     },
@@ -1137,7 +1059,7 @@
         "once": true,
         "onceDelay": 0.1,
         "topic": "scanInLimit",
-        "payload": "-410",
+        "payload": "-10900",
         "payloadType": "num",
         "x": 150,
         "y": 580,
@@ -1348,19 +1270,20 @@
         "links": [
             "f5801a8b.d6f388"
         ],
-        "x": 1155,
-        "y": 420,
+        "x": 1855,
+        "y": 200,
         "wires": []
     },
     {
         "id": "f5801a8b.d6f388",
         "type": "link in",
         "z": "5f562f66.a301e",
-        "name": "Move Motor",
+        "name": "Move Motor In",
         "links": [
-            "28326986.c1e0c6"
+            "28326986.c1e0c6",
+            "932321d9.f1eea"
         ],
-        "x": 95,
+        "x": 115,
         "y": 260,
         "wires": [
             [
@@ -1378,7 +1301,7 @@
         "splitc": "\\n",
         "name": "",
         "x": 530,
-        "y": 1240,
+        "y": 920,
         "wires": [
             [
                 "df5cd3ae.645f4"
@@ -1397,7 +1320,7 @@
         "finalize": "",
         "libs": [],
         "x": 280,
-        "y": 1240,
+        "y": 920,
         "wires": [
             [
                 "fc29d176.a826b"
@@ -1426,7 +1349,7 @@
         "payload": "true",
         "payloadType": "bool",
         "x": 110,
-        "y": 1240,
+        "y": 920,
         "wires": [
             [
                 "20fd6cd4.8e4b24"
@@ -1445,7 +1368,7 @@
         "finalize": "",
         "libs": [],
         "x": 720,
-        "y": 1240,
+        "y": 920,
         "wires": [
             [
                 "46982bdd.a0ea84"
@@ -1464,8 +1387,8 @@
         "complete": "false",
         "statusVal": "",
         "statusType": "auto",
-        "x": 910,
-        "y": 1240,
+        "x": 890,
+        "y": 920,
         "wires": []
     },
     {
@@ -1476,23 +1399,26 @@
         "links": [
             "efbf6c36.a2d0c"
         ],
-        "x": 995,
-        "y": 420,
+        "x": 1855,
+        "y": 260,
         "wires": []
     },
     {
         "id": "efbf6c36.a2d0c",
         "type": "link in",
         "z": "5f562f66.a301e",
-        "name": "Publish to Motor",
+        "name": "Publish to Stepper",
         "links": [
-            "527c0526.c99aec"
+            "527c0526.c99aec",
+            "ac021ea4.5f68e",
+            "b78fbadf.c15378",
+            "a846c692.64bc88"
         ],
-        "x": 455,
-        "y": 160,
+        "x": 1175,
+        "y": 40,
         "wires": [
             [
-                "d976b431.f90598"
+                "93049b70.2dc5c8"
             ]
         ]
     },
@@ -1506,7 +1432,7 @@
         "splitc": "\\n",
         "name": "",
         "x": 530,
-        "y": 1300,
+        "y": 980,
         "wires": [
             [
                 "6c4d3461.3203ac"
@@ -1518,14 +1444,14 @@
         "type": "function",
         "z": "5f562f66.a301e",
         "name": "CALC1:MARK1:x",
-        "func": "msg.payload = \"CALC1:MARK1:X 2997830000\\n\"\n//msg.payload = \"CALC1:MARK1:Y?\\n\"\nreturn msg;",
+        "func": "msg.payload = \"CALC1:MARK1:X 2996300000\\n\"\n//msg.payload = \"CALC1:MARK1:Y?\\n\"\nreturn msg;",
         "outputs": 1,
         "noerr": 0,
         "initialize": "",
         "finalize": "",
         "libs": [],
         "x": 280,
-        "y": 1300,
+        "y": 980,
         "wires": [
             [
                 "7143d2aa.87707c"
@@ -1554,7 +1480,7 @@
         "payload": "true",
         "payloadType": "bool",
         "x": 110,
-        "y": 1300,
+        "y": 980,
         "wires": [
             [
                 "7929f446.ef381c"
@@ -1573,7 +1499,7 @@
         "finalize": "",
         "libs": [],
         "x": 720,
-        "y": 1300,
+        "y": 980,
         "wires": [
             [
                 "7fd2d86d.e84b18"
@@ -1592,8 +1518,574 @@
         "complete": "false",
         "statusVal": "",
         "statusType": "auto",
+        "x": 890,
+        "y": 980,
+        "wires": []
+    },
+    {
+        "id": "81a16614.311608",
+        "type": "tcp request",
+        "z": "5f562f66.a301e",
+        "server": "192.168.10.10",
+        "port": "5025",
+        "out": "char",
+        "splitc": "\\n",
+        "name": "",
+        "x": 530,
+        "y": 1120,
+        "wires": [
+            [
+                "6657aa78.aff854"
+            ]
+        ]
+    },
+    {
+        "id": "57aa8ce3.ecf5f4",
+        "type": "function",
+        "z": "5f562f66.a301e",
+        "name": "FREQ:CENT?",
+        "func": "msg.payload = \"FREQ:CENT?\\n\"\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 270,
+        "y": 1120,
+        "wires": [
+            [
+                "81a16614.311608"
+            ]
+        ]
+    },
+    {
+        "id": "df623b8.ed4e7c8",
+        "type": "inject",
+        "z": "5f562f66.a301e",
+        "name": "true",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "true",
+        "payloadType": "bool",
+        "x": 110,
+        "y": 1120,
+        "wires": [
+            [
+                "57aa8ce3.ecf5f4"
+            ]
+        ]
+    },
+    {
+        "id": "6657aa78.aff854",
+        "type": "function",
+        "z": "5f562f66.a301e",
+        "name": "PullData",
+        "func": "msg.payload = msg.payload.toString();\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 720,
+        "y": 1120,
+        "wires": [
+            [
+                "30f502b7.78885e"
+            ]
+        ]
+    },
+    {
+        "id": "30f502b7.78885e",
+        "type": "debug",
+        "z": "5f562f66.a301e",
+        "name": "",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 870,
+        "y": 1120,
+        "wires": []
+    },
+    {
+        "id": "71158c48.fc0a64",
+        "type": "tcp request",
+        "z": "5f562f66.a301e",
+        "server": "192.168.10.10",
+        "port": "5025",
+        "out": "char",
+        "splitc": "\\n",
+        "name": "",
+        "x": 530,
+        "y": 1180,
+        "wires": [
+            [
+                "7e28d40a.c2b37c"
+            ]
+        ]
+    },
+    {
+        "id": "4d1129bc.cf7b98",
+        "type": "function",
+        "z": "5f562f66.a301e",
+        "name": "FREQ:CENT",
+        "func": "msg.payload = \"FREQ:CENT     3000000000\\n\"\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 260,
+        "y": 1180,
+        "wires": [
+            [
+                "71158c48.fc0a64"
+            ]
+        ]
+    },
+    {
+        "id": "3619ae15.041232",
+        "type": "inject",
+        "z": "5f562f66.a301e",
+        "name": "true",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "true",
+        "payloadType": "bool",
+        "x": 110,
+        "y": 1180,
+        "wires": [
+            [
+                "4d1129bc.cf7b98"
+            ]
+        ]
+    },
+    {
+        "id": "7e28d40a.c2b37c",
+        "type": "function",
+        "z": "5f562f66.a301e",
+        "name": "PullData",
+        "func": "msg.payload = msg.payload.toString();\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 720,
+        "y": 1180,
+        "wires": [
+            [
+                "c2b4f915.489918"
+            ]
+        ]
+    },
+    {
+        "id": "c2b4f915.489918",
+        "type": "debug",
+        "z": "5f562f66.a301e",
+        "name": "",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 870,
+        "y": 1180,
+        "wires": []
+    },
+    {
+        "id": "617b6fbd.1ef96",
+        "type": "tcp request",
+        "z": "5f562f66.a301e",
+        "server": "192.168.10.10",
+        "port": "5025",
+        "out": "char",
+        "splitc": "\\n",
+        "name": "",
+        "x": 530,
+        "y": 1280,
+        "wires": [
+            [
+                "bcd9e058.b8d11"
+            ]
+        ]
+    },
+    {
+        "id": "f6a8a93.28a4a58",
+        "type": "function",
+        "z": "5f562f66.a301e",
+        "name": "FREQ:SPAN?",
+        "func": "msg.payload = \"FREQ:SPAN?\\n\"\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 270,
+        "y": 1280,
+        "wires": [
+            [
+                "617b6fbd.1ef96"
+            ]
+        ]
+    },
+    {
+        "id": "9f89f7e3.90c188",
+        "type": "inject",
+        "z": "5f562f66.a301e",
+        "name": "true",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "true",
+        "payloadType": "bool",
+        "x": 110,
+        "y": 1280,
+        "wires": [
+            [
+                "f6a8a93.28a4a58"
+            ]
+        ]
+    },
+    {
+        "id": "bcd9e058.b8d11",
+        "type": "function",
+        "z": "5f562f66.a301e",
+        "name": "PullData",
+        "func": "msg.payload = msg.payload.toString();\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 720,
+        "y": 1280,
+        "wires": [
+            [
+                "ea208592.f6e6c8"
+            ]
+        ]
+    },
+    {
+        "id": "ea208592.f6e6c8",
+        "type": "debug",
+        "z": "5f562f66.a301e",
+        "name": "",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 870,
+        "y": 1280,
+        "wires": []
+    },
+    {
+        "id": "b639abc1.cb90e8",
+        "type": "tcp request",
+        "z": "5f562f66.a301e",
+        "server": "192.168.10.10",
+        "port": "5025",
+        "out": "char",
+        "splitc": "\\n",
+        "name": "",
+        "x": 530,
+        "y": 1340,
+        "wires": [
+            [
+                "7dc5d0a5.3f846"
+            ]
+        ]
+    },
+    {
+        "id": "e5304f72.6d6db",
+        "type": "function",
+        "z": "5f562f66.a301e",
+        "name": "FREQ:SPAN",
+        "func": "msg.payload = \"FREQ:SPAN     20000000\\n\"\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 260,
+        "y": 1340,
+        "wires": [
+            [
+                "b639abc1.cb90e8"
+            ]
+        ]
+    },
+    {
+        "id": "caab2d33.7b154",
+        "type": "inject",
+        "z": "5f562f66.a301e",
+        "name": "true",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "true",
+        "payloadType": "bool",
+        "x": 110,
+        "y": 1340,
+        "wires": [
+            [
+                "e5304f72.6d6db"
+            ]
+        ]
+    },
+    {
+        "id": "7dc5d0a5.3f846",
+        "type": "function",
+        "z": "5f562f66.a301e",
+        "name": "PullData",
+        "func": "msg.payload = msg.payload.toString();\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 720,
+        "y": 1340,
+        "wires": [
+            [
+                "ca5716fa.a90a68"
+            ]
+        ]
+    },
+    {
+        "id": "ca5716fa.a90a68",
+        "type": "debug",
+        "z": "5f562f66.a301e",
+        "name": "",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 870,
+        "y": 1340,
+        "wires": []
+    },
+    {
+        "id": "a2c45645.be6a18",
+        "type": "function",
+        "z": "5f562f66.a301e",
+        "name": "Set Stay Awake on Motor",
+        "func": "var device = flow.get('blinky-stepper-02');\nif (device == undefined) return null;\nvar newMsg = \n{\n    topic: 'blinky-lite-v3/blinky-stepper/02/setting/setting',\n    payload: JSON.stringify({'attr': 'stayAwakeAfterRotation', 'value':1})\n}\nreturn [msg,newMsg];\n\n",
+        "outputs": 2,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 670,
+        "y": 480,
+        "wires": [
+            [
+                "bf084b12.9a8cf8"
+            ],
+            [
+                "ac021ea4.5f68e"
+            ]
+        ]
+    },
+    {
+        "id": "bf084b12.9a8cf8",
+        "type": "delay",
+        "z": "5f562f66.a301e",
+        "name": "",
+        "pauseType": "delay",
+        "timeout": "1",
+        "timeoutUnits": "seconds",
+        "rate": "1",
+        "nbRateUnits": "1",
+        "rateUnits": "second",
+        "randomFirst": "1",
+        "randomLast": "5",
+        "randomUnits": "seconds",
+        "drop": false,
+        "x": 880,
+        "y": 480,
+        "wires": [
+            [
+                "932321d9.f1eea"
+            ]
+        ]
+    },
+    {
+        "id": "932321d9.f1eea",
+        "type": "link out",
+        "z": "5f562f66.a301e",
+        "name": "Stay Awake delayed",
+        "links": [
+            "f5801a8b.d6f388"
+        ],
+        "x": 975,
+        "y": 480,
+        "wires": []
+    },
+    {
+        "id": "ac021ea4.5f68e",
+        "type": "link out",
+        "z": "5f562f66.a301e",
+        "name": "Stay awake",
+        "links": [
+            "efbf6c36.a2d0c"
+        ],
+        "x": 835,
+        "y": 540,
+        "wires": []
+    },
+    {
+        "id": "b78fbadf.c15378",
+        "type": "link out",
+        "z": "5f562f66.a301e",
+        "name": "Move Motor Out",
+        "links": [
+            "efbf6c36.a2d0c"
+        ],
+        "x": 335,
+        "y": 260,
+        "wires": []
+    },
+    {
+        "id": "a846c692.64bc88",
+        "type": "link out",
+        "z": "5f562f66.a301e",
+        "name": "Ping Setpper out",
+        "links": [
+            "efbf6c36.a2d0c"
+        ],
+        "x": 675,
+        "y": 260,
+        "wires": []
+    },
+    {
+        "id": "36d61fb.9f305e",
+        "type": "delay",
+        "z": "5f562f66.a301e",
+        "name": "",
+        "pauseType": "delay",
+        "timeout": "1",
+        "timeoutUnits": "seconds",
+        "rate": "1",
+        "nbRateUnits": "1",
+        "rateUnits": "second",
+        "randomFirst": "1",
+        "randomLast": "5",
+        "randomUnits": "seconds",
+        "drop": false,
+        "x": 720,
+        "y": 220,
+        "wires": [
+            [
+                "7f7f46b.e1c4fb8"
+            ]
+        ]
+    },
+    {
+        "id": "b0755621.d41868",
+        "type": "link in",
+        "z": "5f562f66.a301e",
+        "name": "Ping Stepper in",
+        "links": [
+            "4aba1825.f884f8"
+        ],
+        "x": 415,
+        "y": 180,
+        "wires": [
+            [
+                "64a437fc.bc10e8"
+            ]
+        ]
+    },
+    {
+        "id": "7f7f46b.e1c4fb8",
+        "type": "function",
+        "z": "5f562f66.a301e",
+        "name": "Check Stepper Location",
+        "func": "if (flow.get('blinky-stepper-02').moveMotor.value == 1)\n{\n    return [null,{topic:\"ping\",payload:true}];\n}\nelse\n{\n    return [{topic:\"motorMoved\",payload:true},null];\n}\n\nreturn msg;",
+        "outputs": 2,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
         "x": 910,
-        "y": 1300,
+        "y": 220,
+        "wires": [
+            [
+                "be0920a6.0a0e5"
+            ],
+            [
+                "4aba1825.f884f8"
+            ]
+        ]
+    },
+    {
+        "id": "4aba1825.f884f8",
+        "type": "link out",
+        "z": "5f562f66.a301e",
+        "name": "Check Stepper Location out to Ping",
+        "links": [
+            "b0755621.d41868"
+        ],
+        "x": 1055,
+        "y": 260,
         "wires": []
     }
 ]
