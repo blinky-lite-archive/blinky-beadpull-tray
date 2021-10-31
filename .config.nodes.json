@@ -1,7 +1,7 @@
 {
     "node-red": {
         "name": "node-red",
-        "version": "1.3.5-git",
+        "version": "2.1.3-git",
         "local": false,
         "user": false,
         "nodes": {
@@ -64,7 +64,8 @@
                 "name": "link",
                 "types": [
                     "link in",
-                    "link out"
+                    "link out",
+                    "link call"
                 ],
                 "enabled": true,
                 "local": false,
@@ -181,6 +182,17 @@
                 "user": false,
                 "module": "node-red",
                 "file": "/home/pi/nwa-znb4-tray/node_modules/@node-red/nodes/core/function/90-exec.js"
+            },
+            "rbe": {
+                "name": "rbe",
+                "types": [
+                    "rbe"
+                ],
+                "enabled": true,
+                "local": false,
+                "user": false,
+                "module": "node-red",
+                "file": "/home/pi/nwa-znb4-tray/node_modules/@node-red/nodes/core/function/rbe.js"
             },
             "tls": {
                 "name": "tls",
@@ -395,7 +407,7 @@
     },
     "node-red-dashboard": {
         "name": "node-red-dashboard",
-        "version": "2.29.3",
+        "version": "3.1.0",
         "local": true,
         "user": true,
         "nodes": {
@@ -629,63 +641,6 @@
                 "user": false,
                 "module": "node-red-dashboard",
                 "file": "/home/pi/nwa-znb4-tray/node_modules/node-red-dashboard/nodes/ui_spacer.js"
-            }
-        }
-    },
-    "node-red-node-rbe": {
-        "name": "node-red-node-rbe",
-        "version": "0.5.0",
-        "local": true,
-        "user": false,
-        "nodes": {
-            "rbe": {
-                "name": "rbe",
-                "types": [
-                    "rbe"
-                ],
-                "enabled": true,
-                "local": true,
-                "user": false,
-                "module": "node-red-node-rbe",
-                "file": "/home/pi/nwa-znb4-tray/node_modules/node-red-node-rbe/rbe.js"
-            }
-        }
-    },
-    "node-red-node-tail": {
-        "name": "node-red-node-tail",
-        "version": "0.3.1",
-        "local": true,
-        "user": false,
-        "nodes": {
-            "tail": {
-                "name": "tail",
-                "types": [
-                    "tail"
-                ],
-                "enabled": true,
-                "local": true,
-                "user": false,
-                "module": "node-red-node-tail",
-                "file": "/home/pi/nwa-znb4-tray/node_modules/node-red-node-tail/28-tail.js"
-            }
-        }
-    },
-    "node-red-contrib-gzip": {
-        "name": "node-red-contrib-gzip",
-        "version": "0.0.3",
-        "local": true,
-        "user": true,
-        "nodes": {
-            "markdown": {
-                "name": "markdown",
-                "types": [
-                    "gzip"
-                ],
-                "enabled": true,
-                "local": true,
-                "user": false,
-                "module": "node-red-contrib-gzip",
-                "file": "/home/pi/nwa-znb4-tray/node_modules/node-red-contrib-gzip/lib/gzip.js"
             }
         }
     }
