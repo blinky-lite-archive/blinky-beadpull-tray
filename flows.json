@@ -1,10 +1,19 @@
 [
     {
-        "id": "5f562f66.a301e",
+        "id": "7419e6f670b0c2f6",
         "type": "tab",
-        "label": "Device A",
+        "label": "DeviceA",
         "disabled": false,
-        "info": ""
+        "info": "",
+        "env": []
+    },
+    {
+        "id": "152d879257fe666c",
+        "type": "tab",
+        "label": "web-app",
+        "disabled": false,
+        "info": "",
+        "env": []
     },
     {
         "id": "2c5d25cb.3428ca",
@@ -401,75 +410,10 @@
         }
     },
     {
-        "id": "93049b70.2dc5c8",
-        "type": "mqtt out",
-        "z": "5f562f66.a301e",
-        "name": "Publish Readings",
-        "topic": "",
-        "qos": "0",
-        "retain": "false",
-        "respTopic": "",
-        "contentType": "",
-        "userProps": "",
-        "correl": "",
-        "expiry": "",
-        "broker": "79250bf3.365cc4",
-        "x": 1310,
-        "y": 40,
-        "wires": []
-    },
-    {
-        "id": "5023092b.a0fe38",
-        "type": "mqtt in",
-        "z": "5f562f66.a301e",
-        "name": "Blinker Stepper 02 Readings",
-        "topic": "blinky-lite-v3/blinky-stepper/02/reading",
-        "qos": "0",
-        "datatype": "auto",
-        "broker": "79250bf3.365cc4",
-        "nl": false,
-        "rap": false,
-        "x": 140,
-        "y": 40,
-        "wires": [
-            [
-                "257906ae.f6991a"
-            ]
-        ]
-    },
-    {
-        "id": "257906ae.f6991a",
-        "type": "json",
-        "z": "5f562f66.a301e",
-        "name": "",
-        "property": "payload",
-        "action": "obj",
-        "pretty": false,
-        "x": 330,
-        "y": 40,
-        "wires": [
-            [
-                "c2106663.a49658"
-            ]
-        ]
-    },
-    {
-        "id": "c2106663.a49658",
-        "type": "function",
-        "z": "5f562f66.a301e",
-        "name": "Filter MQTT",
-        "func": "return {topic:msg.topic.split('/')[3], payload:msg.payload};",
-        "outputs": 1,
-        "noerr": 0,
-        "initialize": "",
-        "finalize": "",
-        "x": 470,
-        "y": 40,
-        "wires": [
-            [
-                "ecf9453c.da13a8"
-            ]
-        ]
+        "id": "44b51478.9c022c",
+        "type": "websocket-listener",
+        "path": "/blinky-beadpull/websocket",
+        "wholemsg": "false"
     },
     {
         "id": "c104210d.418eb",
@@ -480,7 +424,7 @@
         "fieldType": "msg",
         "format": "html",
         "syntax": "mustache",
-        "template": "<!-- navBar -->\n    <div class=\"jumbotron\" width=\"100%\">\n        <table width=\"100%\">\n            <tr>\n                <td style=\"text-align:left; vertical-align:middle;\"  width=\"20%\">\n                    <a href='https://www.blinky-lite.io/' target='_blank'>\n                        <img src=\"/img/BlinkyLogo.gif\" height=\"75px\"/>\n                    </a>                \n                </td>\n                <td width=\"60%\" style=\"text-align:center; vertical-align:middle;\">\n                    <h1 class=\"jumbotron-title big-text bold-text\">\n                        <img src=\"/img/{{{payload.navBarIcon}}}\" height=\"75px\" style=\"padding-right:20px;\"/><span>{{{payload.title}}}</span>\n                    </h1>\n                </td>\n                <td style=\"text-align:right; vertical-align:middle;\" width=\"20%\">\n                    <a href='/apps'><img src=\"/img/appsYellow.png\" height=\"75px\"/></a>\n                </td>\n            </tr>\n        </table>\n    </div>",
+        "template": "<!-- navBar -->\n    <div class=\"jumbotron\" width=\"100%\">\n        <table width=\"100%\">\n            <tr>\n                <td style=\"text-align:left; vertical-align:middle;\"  width=\"20%\">\n                    <img src=\"/img/bl-mc-icon-inverse.png\" height=\"75px\"/>\n                </td>\n                <td width=\"60%\" style=\"text-align:center; vertical-align:middle;\">\n                    <h1 class=\"jumbotron-title big-text bold-text\">\n                        <img src=\"/img/{{{payload.navBarIcon}}}\" height=\"75px\" style=\"padding-right:20px;\"/><span>{{{payload.title}}}</span>\n                    </h1>\n                </td>\n                <td style=\"text-align:right; vertical-align:middle;\" width=\"20%\">\n                    <a href='/apps'><img src=\"/img/appsYellow.png\" height=\"75px\"/></a>\n                </td>\n            </tr>\n        </table>\n    </div>",
         "output": "str",
         "x": 200,
         "y": 80,
@@ -535,7 +479,7 @@
         "fieldType": "msg",
         "format": "html",
         "syntax": "mustache",
-        "template": "    <meta charset=\"UTF-8\">\n    <link rel=\"icon\" href=\"/img/favicon.ico?v=4\" type=\"image/x-icon\"/>\n    <title>{{payload.title}}</title>\n    <link rel=\"stylesheet\" href=\"/css/bootstrap.css\"/>\n    <link rel=\"stylesheet\" href=\"/jquery/jquery-ui.css\"/>\n    <link rel=\"stylesheet\" href=\"/jquery/jquery-ui-timepicker-addon.css\"/>\n    <script src=\"/jquery/jquery.js\"></script>\n    <script src=\"/jquery/jquery-ui.js\"></script>\n    <script src=\"/jquery/jquery-ui-timepicker-addon.js\"></script>\n    <script src=\"/scripts/plotly-latest.min.js\"></script>\n    <script src=\"/scripts/pako.min.js\"></script>\n{{{payload.extraScripts}}}\n    <style>\n{{{payload.css}}}\n    </style>\n    <style>\n{{{payload.extraCss}}}\n    </style>\n    <script>\n{{{payload.utilityScripts}}}\n    </script>\n    <script>\n{{{payload.javascript}}}\n    </script>",
+        "template": "    <meta charset=\"UTF-8\">\n    <link rel=\"icon\" href=\"/img/favicon.ico?v=4\" type=\"image/x-icon\"/>\n    <title>{{payload.title}}</title>\n    <link rel=\"stylesheet\" href=\"/css/bootstrap.css\"/>\n    <link rel=\"stylesheet\" href=\"/jquery/jquery-ui.css\"/>\n    <link rel=\"stylesheet\" href=\"/jquery/jquery-ui-timepicker-addon.css\"/>\n    <script src=\"/jquery/jquery.js\"></script>\n    <script src=\"/jquery/jquery-ui.js\"></script>\n    <script src=\"/jquery/jquery-ui-timepicker-addon.js\"></script>\n    <script src=\"/scripts/plotly-latest.min.js\"></script>\n{{{payload.extraScripts}}}\n    <style>\n{{{payload.css}}}\n    </style>\n    <style>\n{{{payload.extraCss}}}\n    </style>\n    <script>\n{{{payload.utilityScripts}}}\n    </script>\n    <script>\n{{{payload.javascript}}}\n    </script>",
         "output": "str",
         "x": 570,
         "y": 40,
@@ -681,10 +625,27 @@
         ]
     },
     {
-        "id": "eaf7a5e1.fb0218",
+        "id": "e20ca15fb632434b",
+        "type": "function",
+        "z": "7419e6f670b0c2f6",
+        "name": "Save device config in Memory",
+        "func": "msg.payload.settingInProgress = 0;\nmsg.payload.scan.value = 0;\nmsg.payload.homeBead.value = 0;\nflow.set('device', msg.payload);\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 850,
+        "y": 60,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "fc2eb29072424bfd",
         "type": "inject",
-        "z": "5f562f66.a301e",
-        "name": "Start Scan",
+        "z": "7419e6f670b0c2f6",
+        "name": "deviceA",
         "props": [
             {
                 "p": "payload"
@@ -696,179 +657,959 @@
         ],
         "repeat": "",
         "crontab": "",
-        "once": false,
-        "onceDelay": 0.1,
-        "topic": "",
-        "payload": "",
-        "payloadType": "date",
+        "once": true,
+        "onceDelay": "2",
+        "topic": "deviceA",
+        "payload": "MQTTDEVICEA",
+        "payloadType": "env",
         "x": 120,
-        "y": 480,
+        "y": 60,
         "wires": [
             [
-                "5e2bfd16.5860d4"
+                "30b018e34b199814"
             ]
         ]
     },
     {
-        "id": "ecf9453c.da13a8",
+        "id": "c7d1bc1a67fe9dc2",
+        "type": "file in",
+        "z": "7419e6f670b0c2f6",
+        "name": "Read device config",
+        "filename": "",
+        "format": "utf8",
+        "chunk": false,
+        "sendError": false,
+        "encoding": "none",
+        "x": 490,
+        "y": 60,
+        "wires": [
+            [
+                "27ecc7397c9f962d"
+            ]
+        ]
+    },
+    {
+        "id": "27ecc7397c9f962d",
+        "type": "json",
+        "z": "7419e6f670b0c2f6",
+        "name": "",
+        "property": "payload",
+        "action": "obj",
+        "pretty": false,
+        "x": 650,
+        "y": 60,
+        "wires": [
+            [
+                "e20ca15fb632434b"
+            ]
+        ]
+    },
+    {
+        "id": "30b018e34b199814",
         "type": "function",
-        "z": "5f562f66.a301e",
-        "name": "Save blinky-stepper-02",
-        "func": "flow.set('blinky-stepper-02',msg.payload);\nreturn msg;",
-        "outputs": 0,
+        "z": "7419e6f670b0c2f6",
+        "name": "Init flow Variables",
+        "func": "var mqttSplit = msg.payload.split('/');\nvar deviceProps = {\n    project     :   mqttSplit[0],\n    deviceType  :   mqttSplit[1],\n    name        :   mqttSplit[2],\n    configFile  :   mqttSplit[1] + '-' + mqttSplit[2] + '.json',\n    mapFile     :   mqttSplit[1] + '-' + mqttSplit[2] + '-map.json'\n};\nflow.set('deviceProps',deviceProps);\nreturn {topic: 'readFile', 'filename':deviceProps.configFile};",
+        "outputs": 1,
         "noerr": 0,
         "initialize": "",
         "finalize": "",
         "libs": [],
-        "x": 660,
-        "y": 40,
+        "x": 290,
+        "y": 60,
+        "wires": [
+            [
+                "c7d1bc1a67fe9dc2"
+            ]
+        ]
+    },
+    {
+        "id": "5779bd77397a4f17",
+        "type": "file",
+        "z": "7419e6f670b0c2f6",
+        "name": "Init Settings",
+        "filename": "",
+        "appendNewline": true,
+        "createDir": false,
+        "overwriteFile": "true",
+        "encoding": "none",
+        "x": 1370,
+        "y": 340,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "6506eac4254d5feb",
+        "type": "function",
+        "z": "7419e6f670b0c2f6",
+        "name": "Save Settings to File",
+        "func": "var jsonPretty = JSON.stringify(flow.get('device'),null,2);\nreturn {topic: msg.payload, payload:jsonPretty, 'filename':flow.get('deviceProps').configFile};",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 1180,
+        "y": 340,
+        "wires": [
+            [
+                "5779bd77397a4f17"
+            ]
+        ]
+    },
+    {
+        "id": "080e8b7be1b3f16a",
+        "type": "link in",
+        "z": "7419e6f670b0c2f6",
+        "name": "Device A web socket in",
+        "links": [
+            "ea909034.6fb25",
+            "54310e9b7f6d7f49"
+        ],
+        "x": 55,
+        "y": 240,
+        "wires": [
+            [
+                "082b52af535c3321"
+            ]
+        ]
+    },
+    {
+        "id": "80e5dcb40b864249",
+        "type": "json",
+        "z": "7419e6f670b0c2f6",
+        "name": "",
+        "property": "payload",
+        "action": "obj",
+        "pretty": false,
+        "x": 310,
+        "y": 160,
+        "wires": [
+            [
+                "4eedce1128796fe2"
+            ]
+        ]
+    },
+    {
+        "id": "59f0086d1e50fb2a",
+        "type": "exec",
+        "z": "7419e6f670b0c2f6",
+        "command": "pm2 restart red",
+        "addpay": false,
+        "append": "",
+        "useSpawn": "false",
+        "timer": "",
+        "oldrc": false,
+        "name": "Restart",
+        "x": 500,
+        "y": 960,
+        "wires": [
+            [],
+            [],
+            []
+        ]
+    },
+    {
+        "id": "dcaeb5f28d993109",
+        "type": "switch",
+        "z": "7419e6f670b0c2f6",
+        "name": "Reset Tray",
+        "property": "payload",
+        "propertyType": "msg",
+        "rules": [
+            {
+                "t": "eq",
+                "v": "1",
+                "vt": "num"
+            },
+            {
+                "t": "eq",
+                "v": "2",
+                "vt": "num"
+            }
+        ],
+        "checkall": "true",
+        "repair": false,
+        "outputs": 2,
+        "x": 310,
+        "y": 980,
+        "wires": [
+            [
+                "59f0086d1e50fb2a"
+            ],
+            [
+                "87dc68aae06d77df"
+            ]
+        ]
+    },
+    {
+        "id": "87dc68aae06d77df",
+        "type": "exec",
+        "z": "7419e6f670b0c2f6",
+        "command": "sudo reboot",
+        "addpay": false,
+        "append": "",
+        "useSpawn": "false",
+        "timer": "",
+        "oldrc": false,
+        "name": "Reboot",
+        "x": 500,
+        "y": 1020,
+        "wires": [
+            [],
+            [],
+            []
+        ]
+    },
+    {
+        "id": "7f81d57f1839a56a",
+        "type": "delay",
+        "z": "7419e6f670b0c2f6",
+        "name": "",
+        "pauseType": "delay",
+        "timeout": "2",
+        "timeoutUnits": "seconds",
+        "rate": "1",
+        "nbRateUnits": "1",
+        "rateUnits": "second",
+        "randomFirst": "1",
+        "randomLast": "5",
+        "randomUnits": "seconds",
+        "drop": false,
+        "allowrate": false,
+        "outputs": 1,
+        "x": 160,
+        "y": 980,
+        "wires": [
+            [
+                "dcaeb5f28d993109"
+            ]
+        ]
+    },
+    {
+        "id": "c44e8a307e417ea3",
+        "type": "function",
+        "z": "7419e6f670b0c2f6",
+        "name": "Readings Alarm Scan",
+        "func": "if (!msg.payload) return null;\nvar device = flow.get('device');\ndevice.linkQuality.value     = global.get('linkQuality');\ndevice.signalLevel.value     = global.get('signalLevel');\nvar alarmFlagReading = scalarAlarmScan(device, 'reading');\nvar alarmFlagSetting = scalarAlarmScan(device, 'setting');\nvar newMsg = null;\nif (alarmFlagReading || alarmFlagSetting)\n{\n    newMsg = \n    {\n        topic: 'alarm',\n        payload: true\n    }\n}\nreturn newMsg;\n\nfunction getActionArray(device, type, actionType)\n{\n    var actionArray = [];\n    var keys = Object.keys(device);\n    for (var ii = 0; ii < keys.length; ++ii)\n    {\n        if (device[keys[ii]].hasOwnProperty('type'))\n        {\n            if (device[keys[ii]].type == type)\n            {\n                if (device[keys[ii]].action == actionType)\n                {\n                    actionArray.push(device[keys[ii]]);\n                }\n            }\n        }\n    }\n    return actionArray;\n}\nfunction scalarAlarmScan(device, actionType)\n{\n    var alarmFlag = false;\n    var actionArray = getActionArray(device, 'scalar', actionType);\n    if (actionArray.length > 0)\n    {\n        for (var ii = 0; ii < actionArray.length; ++ii)\n        {\n            actionArray[ii].alarm.value = 0;\n            if (!isNaN(actionArray[ii].value))\n            {\n                if (actionArray[ii].value <= actionArray[ii].alarm.limits.low)  actionArray[ii].alarm.value = 1;\n                if (actionArray[ii].value <= actionArray[ii].alarm.limits.lolo) actionArray[ii].alarm.value = 3;\n                if (actionArray[ii].value >= actionArray[ii].alarm.limits.high) actionArray[ii].alarm.value = 2;\n                if (actionArray[ii].value >= actionArray[ii].alarm.limits.hihi) actionArray[ii].alarm.value = 4;\n            }\n            if (actionArray[ii].alarm.value > 0)  alarmFlag = true\n        }\n    }\n    return alarmFlag;\n}\n",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 900,
+        "y": 640,
+        "wires": [
+            [
+                "d0f2dcf717dec57d"
+            ]
+        ]
+    },
+    {
+        "id": "dfb8a6f09ed18976",
+        "type": "function",
+        "z": "7419e6f670b0c2f6",
+        "name": "Prepare MQTT topic",
+        "func": "var mqttArray = msg.topic.split('/');\nvar device = \n{\n    project     : mqttArray[0],\n    deviceType  : mqttArray[1],\n    name        : mqttArray[2],\n    prop        : mqttArray[3],\n};\nreturn {topic : msg.topic, payload:{topic:'readings', mqttDevice : device, payload:msg.payload}};",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "x": 1260,
+        "y": 260,
+        "wires": [
+            [
+                "9c19993afce72c6e"
+            ]
+        ]
+    },
+    {
+        "id": "94dddf198fbea2df",
+        "type": "function",
+        "z": "7419e6f670b0c2f6",
+        "name": "Create Readings",
+        "func": "var device = flow.get('device');\nif (device.archiveNow > 0) return null;\nvar initCube = 0;\n//node.warn(device);\nvar initCubeMsg = null;\nif (initCube == 1)\n{\n    initCubeMsg = {topic:\"initCube\",payload:true};\n    device.settingInProgress = 1;\n}\nreturn  [{topic:'newSettingDone', payload:true},initCubeMsg];\n",
+        "outputs": 2,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 690,
+        "y": 640,
+        "wires": [
+            [
+                "c44e8a307e417ea3"
+            ],
+            [
+                "74c6d394f2452a62",
+                "f0c1e263384a520f"
+            ]
+        ]
+    },
+    {
+        "id": "9c19993afce72c6e",
+        "type": "link out",
+        "z": "7419e6f670b0c2f6",
+        "name": "Device A web socket out",
+        "mode": "link",
+        "links": [
+            "d033193d.436d68",
+            "8e5f3b8b53616d4a"
+        ],
+        "x": 1395,
+        "y": 260,
         "wires": []
     },
     {
-        "id": "29983266.33bebe",
-        "type": "inject",
-        "z": "5f562f66.a301e",
-        "name": "Inject",
-        "props": [
-            {
-                "p": "payload"
-            },
-            {
-                "p": "topic",
-                "vt": "str"
-            }
-        ],
-        "repeat": "",
-        "crontab": "",
-        "once": false,
-        "onceDelay": 0.1,
-        "topic": "",
-        "payload": "",
-        "payloadType": "date",
-        "x": 90,
-        "y": 220,
+        "id": "feb0c9be3896e508",
+        "type": "function",
+        "z": "7419e6f670b0c2f6",
+        "name": "Create Setting",
+        "func": "var device = flow.get('device');\nvar modbusSettingMsg = \n{\n    topic : msg.topic, \n    payload : { value: msg.payload.value, 'fc': 0x6, 'unitid': 1, 'address': -1 , 'quantity': 1 } \n}\nvar modbusMessage = false;\nswitch(msg.payload.attr)\n{\n    default:\n        modbusMessage = false;\n        break;\n}\nvar msgArray = [null,null,null];\nvar settingInProgressMsg = {topic:'settingInProgress', payload:true};\ndevice.settingInProgress = 1;\nif (modbusMessage)\n{\n    msgArray = [modbusSettingMsg, settingInProgressMsg, null];\n}\nelse\n{\n    msgArray = [null,settingInProgressMsg,msg];\n}\nreturn msgArray;",
+        "outputs": 3,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 180,
+        "y": 340,
         "wires": [
+            [],
             [
-                "9115ea87.0ca208"
+                "86f177df381b40a3"
+            ],
+            [
+                "8ab264450a444a5c"
             ]
         ]
     },
     {
-        "id": "9115ea87.0ca208",
+        "id": "3dc8a08d6a891e59",
+        "type": "link out",
+        "z": "7419e6f670b0c2f6",
+        "name": "New Setting In",
+        "links": [
+            "706d51cc29f8cf61"
+        ],
+        "x": 755,
+        "y": 140,
+        "wires": []
+    },
+    {
+        "id": "706d51cc29f8cf61",
+        "type": "link in",
+        "z": "7419e6f670b0c2f6",
+        "name": "Modbus setting in",
+        "links": [
+            "3dc8a08d6a891e59"
+        ],
+        "x": 55,
+        "y": 340,
+        "wires": [
+            [
+                "feb0c9be3896e508"
+            ]
+        ]
+    },
+    {
+        "id": "0244634fdb568467",
+        "type": "switch",
+        "z": "7419e6f670b0c2f6",
+        "name": "",
+        "property": "topic",
+        "propertyType": "msg",
+        "rules": [
+            {
+                "t": "eq",
+                "v": "setting",
+                "vt": "str"
+            },
+            {
+                "t": "eq",
+                "v": "ping",
+                "vt": "str"
+            },
+            {
+                "t": "eq",
+                "v": "config",
+                "vt": "str"
+            },
+            {
+                "t": "eq",
+                "v": "reset",
+                "vt": "str"
+            }
+        ],
+        "checkall": "true",
+        "repair": false,
+        "outputs": 4,
+        "x": 650,
+        "y": 160,
+        "wires": [
+            [
+                "3dc8a08d6a891e59"
+            ],
+            [
+                "78dc1ef55e87344f"
+            ],
+            [
+                "e7ab55f925ca7596"
+            ],
+            [
+                "661b575f3eb57a5f"
+            ]
+        ]
+    },
+    {
+        "id": "4eedce1128796fe2",
         "type": "function",
-        "z": "5f562f66.a301e",
-        "name": "Move Motor",
-        "func": "var device = flow.get('blinky-stepper-02');\nif (device == undefined) return null;\ndevice.moveMotor.value = 1;\nvar newMsg = \n{\n    topic: 'blinky-lite-v3/blinky-stepper/02/setting/setting',\n    payload: JSON.stringify({'attr': 'moveMotor', 'value':1})\n}\nreturn newMsg;\n\n",
+        "z": "7419e6f670b0c2f6",
+        "name": "Filter MQTT",
+        "func": "return {topic:msg.topic.split('/')[4], payload:msg.payload};",
         "outputs": 1,
         "noerr": 0,
         "initialize": "",
         "finalize": "",
         "libs": [],
-        "x": 230,
-        "y": 220,
+        "x": 470,
+        "y": 160,
         "wires": [
             [
-                "324897e4.729288",
-                "b78fbadf.c15378"
+                "0244634fdb568467"
             ]
         ]
     },
     {
-        "id": "bfd5a921.547dc8",
-        "type": "inject",
-        "z": "5f562f66.a301e",
-        "name": "Inject",
-        "props": [
-            {
-                "p": "payload"
-            },
-            {
-                "p": "topic",
-                "vt": "str"
-            }
-        ],
-        "repeat": "",
-        "crontab": "",
-        "once": false,
-        "onceDelay": 0.1,
-        "topic": "",
-        "payload": "",
-        "payloadType": "date",
-        "x": 90,
-        "y": 120,
-        "wires": [
-            [
-                "ed834fbe.e8cda"
-            ]
-        ]
-    },
-    {
-        "id": "ed834fbe.e8cda",
+        "id": "44eaf2022c128f46",
         "type": "function",
-        "z": "5f562f66.a301e",
-        "name": "NumSteps -10",
-        "func": "var device = flow.get('blinky-stepper-02');\nif (device == undefined) return null;\ndevice.noStepsToTurn.value = -10;\nvar newMsg = \n{\n    topic: 'blinky-lite-v2/blinky-stepper/02/setting',\n    payload: JSON.stringify(device)\n}\nreturn newMsg;\n\n",
+        "z": "7419e6f670b0c2f6",
+        "name": "Shift Msg",
+        "func": "return msg.payload;",
         "outputs": 1,
         "noerr": 0,
         "initialize": "",
         "finalize": "",
         "libs": [],
         "x": 280,
-        "y": 120,
-        "wires": [
-            []
-        ]
-    },
-    {
-        "id": "4fd576af.9a8e08",
-        "type": "inject",
-        "z": "5f562f66.a301e",
-        "name": "Inject",
-        "props": [
-            {
-                "p": "payload"
-            },
-            {
-                "p": "topic",
-                "vt": "str"
-            }
-        ],
-        "repeat": "",
-        "crontab": "",
-        "once": false,
-        "onceDelay": 0.1,
-        "topic": "",
-        "payload": "",
-        "payloadType": "date",
-        "x": 90,
-        "y": 160,
+        "y": 240,
         "wires": [
             [
-                "fbb891f8.28a97"
+                "13622004a965559c"
             ]
         ]
     },
     {
-        "id": "fbb891f8.28a97",
+        "id": "13622004a965559c",
         "type": "function",
-        "z": "5f562f66.a301e",
-        "name": "NumSteps  10",
-        "func": "var device = flow.get('blinky-stepper-02');\nif (device == undefined) return null;\ndevice.noStepsToTurn.value = 10;\nvar newMsg = \n{\n    topic: 'blinky-lite-v2/blinky-stepper/02/setting',\n    payload: JSON.stringify(device)\n}\nreturn newMsg;\n\n",
+        "z": "7419e6f670b0c2f6",
+        "name": "Filter Websocket",
+        "func": "var inputDeviceProps = msg.payload.topic.split('/');\nvar deviceProps = flow.get('deviceProps')\nif (inputDeviceProps[0] != deviceProps.project) return null;\nif (inputDeviceProps[1] != deviceProps.deviceType) return null;\nif (inputDeviceProps[2] != deviceProps.name) return null;\nreturn {topic:msg.topic, payload:msg.payload.payload};\n",
         "outputs": 1,
         "noerr": 0,
         "initialize": "",
         "finalize": "",
         "libs": [],
-        "x": 280,
-        "y": 160,
+        "x": 460,
+        "y": 240,
         "wires": [
-            []
+            [
+                "0244634fdb568467"
+            ]
         ]
     },
     {
-        "id": "324897e4.729288",
+        "id": "082b52af535c3321",
+        "type": "json",
+        "z": "7419e6f670b0c2f6",
+        "name": "",
+        "property": "payload",
+        "action": "obj",
+        "pretty": false,
+        "x": 150,
+        "y": 240,
+        "wires": [
+            [
+                "44eaf2022c128f46"
+            ]
+        ]
+    },
+    {
+        "id": "13f60be205b89b7d",
+        "type": "function",
+        "z": "7419e6f670b0c2f6",
+        "name": "Publish device",
+        "func": "if (!msg.payload) return null;\nvar device = flow.get('device');\nvar newMsg = \n{\n    topic: flow.get('deviceProps').project + '/' + flow.get('deviceProps').deviceType + '/' + flow.get('deviceProps').name + '/reading',\n    payload: JSON.stringify(device)\n};\nreturn  newMsg;  \n",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 1040,
+        "y": 220,
+        "wires": [
+            [
+                "dfb8a6f09ed18976",
+                "2b730378156b040d"
+            ]
+        ]
+    },
+    {
+        "id": "2150949730b4ba06",
+        "type": "link in",
+        "z": "7419e6f670b0c2f6",
+        "name": "Publish Device In",
+        "links": [
+            "20fe21048e9b9b39",
+            "86f177df381b40a3",
+            "aaabe575198f3fcc",
+            "5acddb44fd53cefc",
+            "10e5520c8e21050f",
+            "2728624acd3a5537",
+            "8287f2bf4cdd395b",
+            "f0c1e263384a520f",
+            "761d94ca7c02287b",
+            "ea4ae6a16ae9d3f5",
+            "62c3829a5c30cc2d",
+            "f2dd6600413a040c",
+            "3956daee839b899a",
+            "57e5757ed3278d69"
+        ],
+        "x": 915,
+        "y": 220,
+        "wires": [
+            [
+                "13f60be205b89b7d"
+            ]
+        ]
+    },
+    {
+        "id": "20fe21048e9b9b39",
+        "type": "link out",
+        "z": "7419e6f670b0c2f6",
+        "name": "Alarm Scan out",
+        "links": [
+            "2150949730b4ba06"
+        ],
+        "x": 1235,
+        "y": 640,
+        "wires": []
+    },
+    {
+        "id": "78dc1ef55e87344f",
+        "type": "link out",
+        "z": "7419e6f670b0c2f6",
+        "name": "Ping Out",
+        "mode": "link",
+        "links": [
+            "cb723eef4eb12e91"
+        ],
+        "x": 755,
+        "y": 180,
+        "wires": []
+    },
+    {
+        "id": "86f177df381b40a3",
+        "type": "link out",
+        "z": "7419e6f670b0c2f6",
+        "name": "Create Setting out",
+        "mode": "link",
+        "links": [
+            "2150949730b4ba06"
+        ],
+        "x": 315,
+        "y": 340,
+        "wires": []
+    },
+    {
+        "id": "765936897007ed33",
+        "type": "function",
+        "z": "7419e6f670b0c2f6",
+        "name": "Pause Device readings",
+        "func": "var device = flow.get('device');\ndevice.settingInProgress = 1;\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 210,
+        "y": 520,
+        "wires": [
+            [
+                "811ed9a3c4b1d325",
+                "5acddb44fd53cefc"
+            ]
+        ]
+    },
+    {
+        "id": "e7ab55f925ca7596",
+        "type": "link out",
+        "z": "7419e6f670b0c2f6",
+        "name": "Config Out",
+        "links": [
+            "23ede8e3cc8ed0c4"
+        ],
+        "x": 755,
+        "y": 220,
+        "wires": []
+    },
+    {
+        "id": "23ede8e3cc8ed0c4",
+        "type": "link in",
+        "z": "7419e6f670b0c2f6",
+        "name": "Pause Device Readings in",
+        "links": [
+            "e7ab55f925ca7596"
+        ],
+        "x": 55,
+        "y": 520,
+        "wires": [
+            [
+                "765936897007ed33"
+            ]
+        ]
+    },
+    {
+        "id": "811ed9a3c4b1d325",
         "type": "delay",
-        "z": "5f562f66.a301e",
+        "z": "7419e6f670b0c2f6",
+        "name": "",
+        "pauseType": "delay",
+        "timeout": "2",
+        "timeoutUnits": "seconds",
+        "rate": "1",
+        "nbRateUnits": "1",
+        "rateUnits": "second",
+        "randomFirst": "1",
+        "randomLast": "5",
+        "randomUnits": "seconds",
+        "drop": false,
+        "allowrate": false,
+        "outputs": 1,
+        "x": 440,
+        "y": 520,
+        "wires": [
+            [
+                "21cfacd892938a9b"
+            ]
+        ]
+    },
+    {
+        "id": "21cfacd892938a9b",
+        "type": "function",
+        "z": "7419e6f670b0c2f6",
+        "name": "Save config file",
+        "func": "flow.set('device',JSON.parse(JSON.stringify(msg.payload)));\nvar device = flow.get('device');\ndevice.settingInProgress = 1;\n\nreturn {topic:'deviceConfigCompleted', payload:true};",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 620,
+        "y": 520,
+        "wires": [
+            [
+                "c0516b9c0339c754",
+                "a33e3eb6d5d30179"
+            ]
+        ]
+    },
+    {
+        "id": "c0516b9c0339c754",
+        "type": "delay",
+        "z": "7419e6f670b0c2f6",
+        "name": "",
+        "pauseType": "delay",
+        "timeout": "2",
+        "timeoutUnits": "seconds",
+        "rate": "1",
+        "nbRateUnits": "1",
+        "rateUnits": "second",
+        "randomFirst": "1",
+        "randomLast": "5",
+        "randomUnits": "seconds",
+        "drop": false,
+        "allowrate": false,
+        "outputs": 1,
+        "x": 820,
+        "y": 520,
+        "wires": [
+            [
+                "a705b22a29df7c9d"
+            ]
+        ]
+    },
+    {
+        "id": "a705b22a29df7c9d",
+        "type": "function",
+        "z": "7419e6f670b0c2f6",
+        "name": "Continue Device readings",
+        "func": "var device = flow.get('device');\ndevice.settingInProgress = 0;\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 1030,
+        "y": 520,
+        "wires": [
+            [
+                "10e5520c8e21050f"
+            ]
+        ]
+    },
+    {
+        "id": "52c3ee5d26adffbe",
+        "type": "link in",
+        "z": "7419e6f670b0c2f6",
+        "name": "Save Settings to file in",
+        "links": [
+            "aaabe575198f3fcc",
+            "a33e3eb6d5d30179",
+            "8287f2bf4cdd395b",
+            "ea4ae6a16ae9d3f5"
+        ],
+        "x": 1035,
+        "y": 340,
+        "wires": [
+            [
+                "6506eac4254d5feb"
+            ]
+        ]
+    },
+    {
+        "id": "5acddb44fd53cefc",
+        "type": "link out",
+        "z": "7419e6f670b0c2f6",
+        "name": "Pause Device Readings out",
+        "links": [
+            "2150949730b4ba06"
+        ],
+        "x": 395,
+        "y": 480,
+        "wires": []
+    },
+    {
+        "id": "a33e3eb6d5d30179",
+        "type": "link out",
+        "z": "7419e6f670b0c2f6",
+        "name": "Save config file out",
+        "links": [
+            "52c3ee5d26adffbe"
+        ],
+        "x": 775,
+        "y": 480,
+        "wires": []
+    },
+    {
+        "id": "10e5520c8e21050f",
+        "type": "link out",
+        "z": "7419e6f670b0c2f6",
+        "name": "Continue Devie Readings out",
+        "links": [
+            "2150949730b4ba06"
+        ],
+        "x": 1175,
+        "y": 520,
+        "wires": []
+    },
+    {
+        "id": "d0f2dcf717dec57d",
+        "type": "delay",
+        "z": "7419e6f670b0c2f6",
+        "name": "",
+        "pauseType": "rate",
+        "timeout": "5",
+        "timeoutUnits": "seconds",
+        "rate": "1",
+        "nbRateUnits": "5",
+        "rateUnits": "second",
+        "randomFirst": "1",
+        "randomLast": "5",
+        "randomUnits": "seconds",
+        "drop": true,
+        "allowrate": false,
+        "outputs": 1,
+        "x": 1120,
+        "y": 640,
+        "wires": [
+            [
+                "20fe21048e9b9b39"
+            ]
+        ]
+    },
+    {
+        "id": "e72bfb2a3709d790",
+        "type": "inject",
+        "z": "7419e6f670b0c2f6",
+        "name": "Archive clock",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "1",
+        "crontab": "",
+        "once": true,
+        "onceDelay": "8",
+        "topic": "archiveClock",
+        "payloadType": "date",
+        "x": 140,
+        "y": 780,
+        "wires": [
+            [
+                "227a5578c26204a9"
+            ]
+        ]
+    },
+    {
+        "id": "227a5578c26204a9",
+        "type": "function",
+        "z": "7419e6f670b0c2f6",
+        "name": "Archive Pulse",
+        "func": "var device = flow.get('device');\nvar lastArchive = context.get('lastArchive');\nvar now = new Date().getTime();\nif ((now - lastArchive) <= device.arcPeriod) return null;\ncontext.set('lastArchive', now);\nreturn {topic:'archivePulse', payload:true};",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "// Code added here will be run once\n// whenever the node is started.\ncontext.set('lastArchive', new Date().getTime());",
+        "finalize": "",
+        "libs": [],
+        "x": 350,
+        "y": 780,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "2728624acd3a5537",
+        "type": "link out",
+        "z": "7419e6f670b0c2f6",
+        "name": "Archive Pulse Out",
+        "links": [
+            "2150949730b4ba06"
+        ],
+        "x": 475,
+        "y": 780,
+        "wires": []
+    },
+    {
+        "id": "661b575f3eb57a5f",
+        "type": "link out",
+        "z": "7419e6f670b0c2f6",
+        "name": "Reset Out",
+        "links": [
+            "74a8a195ebe277f9"
+        ],
+        "x": 755,
+        "y": 260,
+        "wires": []
+    },
+    {
+        "id": "74a8a195ebe277f9",
+        "type": "link in",
+        "z": "7419e6f670b0c2f6",
+        "name": "Reset in",
+        "links": [
+            "661b575f3eb57a5f"
+        ],
+        "x": 55,
+        "y": 980,
+        "wires": [
+            [
+                "7f81d57f1839a56a"
+            ]
+        ]
+    },
+    {
+        "id": "8287f2bf4cdd395b",
+        "type": "link out",
+        "z": "7419e6f670b0c2f6",
+        "name": "nonModbusSetting Out",
+        "mode": "link",
+        "links": [
+            "2150949730b4ba06",
+            "52c3ee5d26adffbe"
+        ],
+        "x": 1195,
+        "y": 1700,
+        "wires": []
+    },
+    {
+        "id": "a8095950c784cec6",
+        "type": "inject",
+        "z": "7419e6f670b0c2f6",
+        "name": "Archive now",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "archiveNow",
+        "payloadType": "date",
+        "x": 130,
+        "y": 840,
+        "wires": [
+            [
+                "7f0a00602991e721"
+            ]
+        ]
+    },
+    {
+        "id": "7f0a00602991e721",
+        "type": "function",
+        "z": "7419e6f670b0c2f6",
+        "name": "Single Archive Pulse",
+        "func": "var device = flow.get('device');\ndevice.archiveNow = 1;\nreturn {topic:'archivePulse', payload:true};",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "// Code added here will be run once\n// whenever the node is started.\ncontext.set('lastArchive', new Date().getTime());",
+        "finalize": "",
+        "libs": [],
+        "x": 330,
+        "y": 840,
+        "wires": [
+            [
+                "2728624acd3a5537"
+            ]
+        ]
+    },
+    {
+        "id": "2b730378156b040d",
+        "type": "function",
+        "z": "7419e6f670b0c2f6",
+        "name": "Check ArchiveNow",
+        "func": "var device = flow.get(\"device\");\nvar resetArchiveNowMsg = null;\nif (device.archiveNow > 0) resetArchiveNowMsg = {topic:\"resetArchiveNow\", payload:true};\nreturn [msg,resetArchiveNowMsg];",
+        "outputs": 2,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 1250,
+        "y": 180,
+        "wires": [
+            [
+                "5eec44615361be25"
+            ],
+            [
+                "86342bd64d4aed59"
+            ]
+        ]
+    },
+    {
+        "id": "86342bd64d4aed59",
+        "type": "delay",
+        "z": "7419e6f670b0c2f6",
         "name": "",
         "pauseType": "delay",
         "timeout": "1",
@@ -880,438 +1621,816 @@
         "randomLast": "5",
         "randomUnits": "seconds",
         "drop": false,
-        "x": 380,
-        "y": 220,
-        "wires": [
-            [
-                "64a437fc.bc10e8"
-            ]
-        ]
-    },
-    {
-        "id": "64a437fc.bc10e8",
-        "type": "function",
-        "z": "5f562f66.a301e",
-        "name": "ping Stepper",
-        "func": "var newMsg = \n{\n    topic: 'blinky-lite-v3/blinky-stepper/02/setting/ping',\n    payload: JSON.stringify(true)\n}\nreturn [newMsg];\n\n",
+        "allowrate": false,
         "outputs": 1,
-        "noerr": 0,
-        "initialize": "",
-        "finalize": "",
-        "libs": [],
-        "x": 550,
-        "y": 220,
+        "x": 1490,
+        "y": 240,
         "wires": [
             [
-                "36d61fb.9f305e",
-                "a846c692.64bc88"
+                "34c3e2a42c09ea88"
             ]
         ]
     },
     {
-        "id": "a71cb4ba.b7cd38",
-        "type": "tcp request",
-        "z": "5f562f66.a301e",
-        "server": "192.168.10.10",
-        "port": "5025",
-        "out": "char",
-        "splitc": "\\n",
-        "name": "",
-        "x": 1330,
-        "y": 220,
-        "wires": [
-            [
-                "310f121b.2c82ce"
-            ]
-        ]
-    },
-    {
-        "id": "be0920a6.0a0e5",
+        "id": "34c3e2a42c09ea88",
         "type": "function",
-        "z": "5f562f66.a301e",
-        "name": "Start Sweep",
-        "func": "msg.payload = \"INIT:IMM:ALL\\n*WAI\\nCALC1:MARK1:Y?\\n\"\nreturn msg;",
-        "outputs": 1,
+        "z": "7419e6f670b0c2f6",
+        "name": "Reset ArchiveNow",
+        "func": "flow.get(\"device\").archiveNow = 0;\n",
+        "outputs": 0,
         "noerr": 0,
         "initialize": "",
         "finalize": "",
         "libs": [],
-        "x": 1130,
-        "y": 220,
-        "wires": [
-            [
-                "a71cb4ba.b7cd38"
-            ]
-        ]
-    },
-    {
-        "id": "310f121b.2c82ce",
-        "type": "function",
-        "z": "5f562f66.a301e",
-        "name": "PullData",
-        "func": "var nwaData = msg.payload.toString().split(',');\nvar pullData = \n{\n    s11Mag   : Number(nwaData[0]),\n    s11Phase : Number(nwaData[1]),\n    beadPos  : flow.get('blinky-stepper-02').stepLocation.value,\n}\nvar dataLine =  pullData.beadPos.toFixed(0) + ',' + pullData.s11Mag.toFixed(9) + ',' + pullData.s11Phase.toFixed(4);\nif (!flow.get('AllowScan') ||(pullData.beadPos < flow.get('scanInLimit')) || (pullData.beadPos > flow.get('scanOutLimit')) )\n{\n    var stopScanMsg = \n    {\n        topic: 'blinky-lite-v3/blinky-stepper/02/setting/setting',\n        payload: JSON.stringify({'attr': 'stayAwakeAfterRotation', 'value':0})\n    }\n    return [null,stopScanMsg, {topic : 'pullData', payload : pullData}];\n}\nreturn [{topic : 'pullData', payload : dataLine}, null, {topic : 'pullData', payload : pullData}];",
-        "outputs": 3,
-        "noerr": 0,
-        "initialize": "",
-        "finalize": "",
-        "libs": [],
-        "x": 1520,
-        "y": 220,
-        "wires": [
-            [
-                "6c81bfe.366d24"
-            ],
-            [
-                "527c0526.c99aec"
-            ],
-            [
-                "7c8b3cea.62d4c4"
-            ]
-        ]
-    },
-    {
-        "id": "6c81bfe.366d24",
-        "type": "file",
-        "z": "5f562f66.a301e",
-        "name": "",
-        "filename": "/home/pi/beadpull.csv",
-        "appendNewline": true,
-        "createDir": false,
-        "overwriteFile": "false",
-        "encoding": "none",
-        "x": 1720,
-        "y": 200,
-        "wires": [
-            [
-                "28326986.c1e0c6"
-            ]
-        ]
-    },
-    {
-        "id": "7c8b3cea.62d4c4",
-        "type": "debug",
-        "z": "5f562f66.a301e",
-        "name": "",
-        "active": true,
-        "tosidebar": true,
-        "console": false,
-        "tostatus": false,
-        "complete": "false",
-        "statusVal": "",
-        "statusType": "auto",
-        "x": 1910,
-        "y": 300,
+        "x": 1670,
+        "y": 240,
         "wires": []
     },
     {
-        "id": "d831b8ea.99eff8",
-        "type": "file",
-        "z": "5f562f66.a301e",
-        "name": "",
-        "filename": "/home/pi/beadpull.csv",
-        "appendNewline": true,
-        "createDir": false,
-        "overwriteFile": "true",
-        "encoding": "none",
-        "x": 440,
-        "y": 480,
+        "id": "dbab599e598d3f01",
+        "type": "mqtt in",
+        "z": "7419e6f670b0c2f6",
+        "name": "Subscribe DeviceA",
+        "topic": "$(MQTTDEVICEA)",
+        "qos": "0",
+        "datatype": "auto",
+        "broker": "79250bf3.365cc4",
+        "nl": false,
+        "rap": false,
+        "inputs": 0,
+        "x": 130,
+        "y": 160,
         "wires": [
             [
-                "a2c45645.be6a18"
+                "80e5dcb40b864249"
             ]
         ]
     },
     {
-        "id": "5e2bfd16.5860d4",
+        "id": "5eec44615361be25",
+        "type": "mqtt out",
+        "z": "7419e6f670b0c2f6",
+        "name": "Publish Readings",
+        "topic": "",
+        "qos": "0",
+        "retain": "false",
+        "respTopic": "",
+        "contentType": "",
+        "userProps": "",
+        "correl": "",
+        "expiry": "",
+        "broker": "79250bf3.365cc4",
+        "x": 1510,
+        "y": 140,
+        "wires": []
+    },
+    {
+        "id": "74c6d394f2452a62",
+        "type": "delay",
+        "z": "7419e6f670b0c2f6",
+        "name": "",
+        "pauseType": "delay",
+        "timeout": "3",
+        "timeoutUnits": "seconds",
+        "rate": "1",
+        "nbRateUnits": "1",
+        "rateUnits": "second",
+        "randomFirst": "1",
+        "randomLast": "5",
+        "randomUnits": "seconds",
+        "drop": false,
+        "allowrate": false,
+        "outputs": 1,
+        "x": 880,
+        "y": 760,
+        "wires": [
+            [
+                "9ecac5e72feeaa9c"
+            ]
+        ]
+    },
+    {
+        "id": "f0c1e263384a520f",
+        "type": "link out",
+        "z": "7419e6f670b0c2f6",
+        "name": "Start Init Cube",
+        "mode": "link",
+        "links": [
+            "2150949730b4ba06"
+        ],
+        "x": 835,
+        "y": 700,
+        "wires": []
+    },
+    {
+        "id": "5aebb0b38ba2e191",
+        "type": "link in",
+        "z": "7419e6f670b0c2f6",
+        "name": "read device config in",
+        "links": [
+            "961b85c2472cee35"
+        ],
+        "x": 355,
+        "y": 100,
+        "wires": [
+            [
+                "c7d1bc1a67fe9dc2"
+            ]
+        ]
+    },
+    {
+        "id": "961b85c2472cee35",
+        "type": "link out",
+        "z": "7419e6f670b0c2f6",
+        "name": "begin re-init cube",
+        "mode": "link",
+        "links": [
+            "5aebb0b38ba2e191"
+        ],
+        "x": 1195,
+        "y": 760,
+        "wires": []
+    },
+    {
+        "id": "9ecac5e72feeaa9c",
         "type": "function",
-        "z": "5f562f66.a301e",
-        "name": "Init File",
-        "func": "msg.payload = \"Hi There\";\nmsg.payload = msg.payload + '\\nBead Pos(mm),S11 mag,S11 phase(deg)';\nreturn msg;",
+        "z": "7419e6f670b0c2f6",
+        "name": "Set input filename",
+        "func": "var deviceProps = flow.get('deviceProps');\nreturn {topic: 'readFile', 'filename':deviceProps.configFile};",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 1050,
+        "y": 760,
+        "wires": [
+            [
+                "961b85c2472cee35"
+            ]
+        ]
+    },
+    {
+        "id": "71ae80a656c00e15",
+        "type": "inject",
+        "z": "7419e6f670b0c2f6",
+        "name": "read Status",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "2",
+        "crontab": "",
+        "once": true,
+        "onceDelay": "15",
+        "topic": "readTable",
+        "payloadType": "date",
+        "x": 130,
+        "y": 640,
+        "wires": [
+            [
+                "e7e361e5afc232d7"
+            ]
+        ]
+    },
+    {
+        "id": "e7e361e5afc232d7",
+        "type": "function",
+        "z": "7419e6f670b0c2f6",
+        "name": "Read Modbus",
+        "func": "if (flow.get('device').settingInProgress == 1) return null;\nvar modeBusCommand = { 'fc': 0x3, 'unitid': 1, 'address': 0 , 'quantity': 11 } ;\nreturn {topic: \"readStatus\", payload:modeBusCommand};\n",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 320,
+        "y": 640,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "f126a9c492d622d3",
+        "type": "tcp request",
+        "z": "7419e6f670b0c2f6",
+        "server": "$(NWAIP)",
+        "port": "$(NWAPORT)",
+        "out": "char",
+        "ret": "buffer",
+        "splitc": "\\n",
+        "name": "NWA",
+        "x": 830,
+        "y": 1280,
+        "wires": [
+            [
+                "8866f14a97b19cc4"
+            ]
+        ]
+    },
+    {
+        "id": "a32e79efa68414e9",
+        "type": "function",
+        "z": "7419e6f670b0c2f6",
+        "name": "CALC1:MARK1:X?",
+        "func": "msg.topic = \"markerFreq\"\nmsg.payload = \"CALC1:MARK1:X?\\n\"\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 650,
+        "y": 1280,
+        "wires": [
+            [
+                "f126a9c492d622d3"
+            ]
+        ]
+    },
+    {
+        "id": "8866f14a97b19cc4",
+        "type": "function",
+        "z": "7419e6f670b0c2f6",
+        "name": "Parse Data",
+        "func": "var device = flow.get('device');\ndevice[msg.topic].value = Number(msg.payload.toString());\nreturn msg;",
+        "outputs": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 990,
+        "y": 1280,
+        "wires": []
+    },
+    {
+        "id": "fd93fa3b95f3b346",
+        "type": "function",
+        "z": "7419e6f670b0c2f6",
+        "name": "FREQ:CENT?",
+        "func": "msg.topic = \"centerFreq\"\nmsg.payload = \"FREQ:CENT?\\n\"\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 640,
+        "y": 1320,
+        "wires": [
+            [
+                "f126a9c492d622d3"
+            ]
+        ]
+    },
+    {
+        "id": "730ff45656985dd3",
+        "type": "function",
+        "z": "7419e6f670b0c2f6",
+        "name": "FREQ:SPAN?",
+        "func": "msg.topic = \"freqSpan\"\nmsg.payload = \"FREQ:SPAN?\\n\"\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 640,
+        "y": 1360,
+        "wires": [
+            [
+                "f126a9c492d622d3",
+                "a7cb4e3ee86fe6c8"
+            ]
+        ]
+    },
+    {
+        "id": "cb41dfd09d2249df",
+        "type": "delay",
+        "z": "7419e6f670b0c2f6",
+        "name": "",
+        "pauseType": "delay",
+        "timeout": "2",
+        "timeoutUnits": "seconds",
+        "rate": "1",
+        "nbRateUnits": "1",
+        "rateUnits": "second",
+        "randomFirst": "1",
+        "randomLast": "5",
+        "randomUnits": "seconds",
+        "drop": false,
+        "allowrate": false,
+        "outputs": 1,
+        "x": 480,
+        "y": 1320,
+        "wires": [
+            [
+                "fd93fa3b95f3b346"
+            ]
+        ]
+    },
+    {
+        "id": "115966deba3a4062",
+        "type": "delay",
+        "z": "7419e6f670b0c2f6",
+        "name": "",
+        "pauseType": "delay",
+        "timeout": "4",
+        "timeoutUnits": "seconds",
+        "rate": "1",
+        "nbRateUnits": "1",
+        "rateUnits": "second",
+        "randomFirst": "1",
+        "randomLast": "5",
+        "randomUnits": "seconds",
+        "drop": false,
+        "allowrate": false,
+        "outputs": 1,
+        "x": 480,
+        "y": 1360,
+        "wires": [
+            [
+                "730ff45656985dd3"
+            ]
+        ]
+    },
+    {
+        "id": "ab3f7fefc4b64ebd",
+        "type": "mqtt in",
+        "z": "7419e6f670b0c2f6",
+        "name": "Stepper Readings",
+        "topic": "$(STEPPER)",
+        "qos": "0",
+        "datatype": "auto",
+        "broker": "79250bf3.365cc4",
+        "nl": false,
+        "rap": false,
+        "inputs": 0,
+        "x": 130,
+        "y": 1440,
+        "wires": [
+            [
+                "1f120421a285026e"
+            ]
+        ]
+    },
+    {
+        "id": "1f120421a285026e",
+        "type": "json",
+        "z": "7419e6f670b0c2f6",
+        "name": "",
+        "property": "payload",
+        "action": "obj",
+        "pretty": false,
+        "x": 290,
+        "y": 1440,
+        "wires": [
+            [
+                "108509ff25075341"
+            ]
+        ]
+    },
+    {
+        "id": "108509ff25075341",
+        "type": "function",
+        "z": "7419e6f670b0c2f6",
+        "name": "Filter MQTT",
+        "func": "return {topic:msg.topic.split('/')[3], payload:msg.payload};",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "x": 430,
+        "y": 1440,
+        "wires": [
+            [
+                "4e3d5dee310c0b43"
+            ]
+        ]
+    },
+    {
+        "id": "4e3d5dee310c0b43",
+        "type": "function",
+        "z": "7419e6f670b0c2f6",
+        "name": "Save stepper",
+        "func": "flow.set('stepper',msg.payload);\nvar stepperProps = flow.get('stepperProps');\nvar device = \n{\n    project     : stepperProps.project,\n    deviceType  : stepperProps.deviceType,\n    name        : stepperProps.name,\n    prop        : 'reading',\n};\nreturn {topic : msg.topic, payload:{topic:'readings', mqttDevice : device, payload:JSON.stringify(msg.payload)}};\n",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 590,
+        "y": 1440,
+        "wires": [
+            [
+                "37f29422ea8d6801"
+            ]
+        ]
+    },
+    {
+        "id": "a6f8dc5f376617e6",
+        "type": "mqtt out",
+        "z": "7419e6f670b0c2f6",
+        "name": "Publish Stepper Command",
+        "topic": "",
+        "qos": "",
+        "retain": "",
+        "respTopic": "",
+        "contentType": "",
+        "userProps": "",
+        "correl": "",
+        "expiry": "",
+        "broker": "79250bf3.365cc4",
+        "x": 1340,
+        "y": 1440,
+        "wires": []
+    },
+    {
+        "id": "e906052a64178ea3",
+        "type": "function",
+        "z": "7419e6f670b0c2f6",
+        "name": "Parse Stepper Command",
+        "func": "var stepperProps = flow.get('stepperProps');\nvar newMsg = \n{\n    topic: stepperProps.project + '/' + stepperProps.deviceType + '/' + stepperProps.name + '/setting/' + msg.topic,\n    payload: JSON.stringify(msg.payload)\n}\nreturn newMsg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 1090,
+        "y": 1440,
+        "wires": [
+            [
+                "a6f8dc5f376617e6"
+            ]
+        ]
+    },
+    {
+        "id": "645d1b1b2fe0de5e",
+        "type": "inject",
+        "z": "7419e6f670b0c2f6",
+        "name": "Get status",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "getStatus",
+        "payload": "true",
+        "payloadType": "bool",
+        "x": 140,
+        "y": 1200,
+        "wires": [
+            [
+                "8db2a5c93a1e1304"
+            ]
+        ]
+    },
+    {
+        "id": "581c8429d5fbe0fd",
+        "type": "inject",
+        "z": "7419e6f670b0c2f6",
+        "name": "STEPPER",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": true,
+        "onceDelay": "2",
+        "topic": "stepperProps",
+        "payload": "STEPPER",
+        "payloadType": "env",
+        "x": 150,
+        "y": 1100,
+        "wires": [
+            [
+                "95815bba5da68215"
+            ]
+        ]
+    },
+    {
+        "id": "95815bba5da68215",
+        "type": "function",
+        "z": "7419e6f670b0c2f6",
+        "name": "Init flow Variables",
+        "func": "var mqttSplit = msg.payload.split('/');\nvar stepperProps = {\n    project     :   mqttSplit[0],\n    deviceType  :   mqttSplit[1],\n    name        :   mqttSplit[2]\n};\nflow.set('stepperProps',stepperProps);\n",
+        "outputs": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 330,
+        "y": 1100,
+        "wires": []
+    },
+    {
+        "id": "d1faf0727b9fe690",
+        "type": "link in",
+        "z": "7419e6f670b0c2f6",
+        "name": "Stepper Command in",
+        "links": [
+            "d016d34c401f0f1b",
+            "2d12d213648d4c21",
+            "e749a6b872d3e7b3",
+            "cc44e67b6334d5d0",
+            "43c147daf212bebf",
+            "2147ec5c8bc364ad",
+            "940cb8ddcf1ec577"
+        ],
+        "x": 935,
+        "y": 1440,
+        "wires": [
+            [
+                "e906052a64178ea3"
+            ]
+        ]
+    },
+    {
+        "id": "8f1029a3c4a8c539",
+        "type": "function",
+        "z": "7419e6f670b0c2f6",
+        "name": "Ping stepper",
+        "func": "return {topic:\"ping\",payload:true};",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 630,
+        "y": 1240,
+        "wires": [
+            [
+                "d016d34c401f0f1b"
+            ]
+        ]
+    },
+    {
+        "id": "cb723eef4eb12e91",
+        "type": "link in",
+        "z": "7419e6f670b0c2f6",
+        "name": "Get Status in",
+        "links": [
+            "8db2a5c93a1e1304",
+            "78dc1ef55e87344f"
+        ],
+        "x": 95,
+        "y": 1300,
+        "wires": [
+            [
+                "f744f6fb5398d1ca"
+            ]
+        ]
+    },
+    {
+        "id": "d016d34c401f0f1b",
+        "type": "link out",
+        "z": "7419e6f670b0c2f6",
+        "name": "Status Ping stepper out",
+        "mode": "link",
+        "links": [
+            "d1faf0727b9fe690"
+        ],
+        "x": 765,
+        "y": 1240,
+        "wires": []
+    },
+    {
+        "id": "8db2a5c93a1e1304",
+        "type": "link out",
+        "z": "7419e6f670b0c2f6",
+        "name": "",
+        "mode": "link",
+        "links": [
+            "cb723eef4eb12e91"
+        ],
+        "x": 235,
+        "y": 1200,
+        "wires": []
+    },
+    {
+        "id": "c885844e7352e16d",
+        "type": "function",
+        "z": "7419e6f670b0c2f6",
+        "name": "Publish status",
+        "func": "return {topic:'status',payload:true};",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 980,
+        "y": 1360,
+        "wires": [
+            [
+                "761d94ca7c02287b"
+            ]
+        ]
+    },
+    {
+        "id": "a7cb4e3ee86fe6c8",
+        "type": "delay",
+        "z": "7419e6f670b0c2f6",
+        "name": "",
+        "pauseType": "delay",
+        "timeout": "2",
+        "timeoutUnits": "seconds",
+        "rate": "1",
+        "nbRateUnits": "1",
+        "rateUnits": "second",
+        "randomFirst": "1",
+        "randomLast": "5",
+        "randomUnits": "seconds",
+        "drop": false,
+        "allowrate": false,
+        "outputs": 1,
+        "x": 820,
+        "y": 1360,
+        "wires": [
+            [
+                "c885844e7352e16d"
+            ]
+        ]
+    },
+    {
+        "id": "761d94ca7c02287b",
+        "type": "link out",
+        "z": "7419e6f670b0c2f6",
+        "name": "Get Status Out",
+        "mode": "link",
+        "links": [
+            "2150949730b4ba06"
+        ],
+        "x": 1115,
+        "y": 1360,
+        "wires": []
+    },
+    {
+        "id": "f744f6fb5398d1ca",
+        "type": "function",
+        "z": "7419e6f670b0c2f6",
+        "name": "Check for scan in progress",
+        "func": "if (flow.get('device').scan.value != 0) return null;\nif (flow.get('device').settingInProgress > 0) return null;\nreturn msg;",
         "outputs": 1,
         "noerr": 0,
         "initialize": "",
         "finalize": "",
         "libs": [],
         "x": 260,
-        "y": 480,
+        "y": 1300,
         "wires": [
             [
-                "d831b8ea.99eff8"
+                "cb41dfd09d2249df",
+                "115966deba3a4062",
+                "a32e79efa68414e9",
+                "8f1029a3c4a8c539"
             ]
         ]
     },
     {
-        "id": "3d63f8b5.a766a8",
-        "type": "inject",
-        "z": "5f562f66.a301e",
-        "name": "",
-        "props": [
-            {
-                "p": "payload"
-            },
-            {
-                "p": "topic",
-                "vt": "str"
-            }
+        "id": "37f29422ea8d6801",
+        "type": "link out",
+        "z": "7419e6f670b0c2f6",
+        "name": "Stepper readings out",
+        "mode": "link",
+        "links": [
+            "d033193d.436d68"
         ],
-        "repeat": "",
-        "crontab": "",
-        "once": true,
-        "onceDelay": 0.1,
-        "topic": "scanInLimit",
-        "payload": "-10900",
-        "payloadType": "num",
-        "x": 150,
-        "y": 580,
-        "wires": [
-            [
-                "49bbad3b.962954"
-            ]
-        ]
-    },
-    {
-        "id": "49bbad3b.962954",
-        "type": "function",
-        "z": "5f562f66.a301e",
-        "name": "scanInLimit",
-        "func": "flow.set('scanInLimit',msg.payload);\nreturn msg;",
-        "outputs": 0,
-        "noerr": 0,
-        "initialize": "",
-        "finalize": "",
-        "libs": [],
-        "x": 350,
-        "y": 580,
+        "x": 695,
+        "y": 1440,
         "wires": []
     },
     {
-        "id": "db1db9b.db2c648",
-        "type": "inject",
-        "z": "5f562f66.a301e",
-        "name": "",
-        "props": [
+        "id": "206e7ac1ca299eb6",
+        "type": "switch",
+        "z": "7419e6f670b0c2f6",
+        "name": "Setting Attr Switch",
+        "property": "payload.attr",
+        "propertyType": "msg",
+        "rules": [
             {
-                "p": "payload"
+                "t": "eq",
+                "v": "markerFreq",
+                "vt": "str"
             },
             {
-                "p": "topic",
+                "t": "eq",
+                "v": "noScanPts",
+                "vt": "str"
+            },
+            {
+                "t": "eq",
+                "v": "scan",
+                "vt": "str"
+            },
+            {
+                "t": "eq",
+                "v": "homeBead",
                 "vt": "str"
             }
         ],
-        "repeat": "",
-        "crontab": "",
-        "once": true,
-        "onceDelay": 0.1,
-        "topic": "scanOutLimit",
-        "payload": "1",
-        "payloadType": "num",
-        "x": 140,
-        "y": 640,
+        "checkall": "true",
+        "repair": false,
+        "outputs": 4,
+        "x": 210,
+        "y": 1680,
         "wires": [
             [
-                "d33d9b73.98f138"
+                "25838bdf06b7d935"
+            ],
+            [
+                "014df999fe9aa32a"
+            ],
+            [
+                "824e5ca94e25e597"
+            ],
+            [
+                "68ac0acb1b27c444"
             ]
         ]
     },
     {
-        "id": "d33d9b73.98f138",
-        "type": "function",
-        "z": "5f562f66.a301e",
-        "name": "scanOutLimit",
-        "func": "flow.set('scanOutLimit',msg.payload)\nreturn msg;",
-        "outputs": 0,
-        "noerr": 0,
-        "initialize": "",
-        "finalize": "",
-        "libs": [],
-        "x": 350,
-        "y": 640,
-        "wires": []
-    },
-    {
-        "id": "8b227869.2c02f8",
-        "type": "inject",
-        "z": "5f562f66.a301e",
-        "name": "false",
-        "props": [
-            {
-                "p": "payload"
-            },
-            {
-                "p": "topic",
-                "vt": "str"
-            }
+        "id": "eab465e18d030930",
+        "type": "link in",
+        "z": "7419e6f670b0c2f6",
+        "name": "nonModbusSettingSwitch",
+        "links": [
+            "8ab264450a444a5c"
         ],
-        "repeat": "",
-        "crontab": "",
-        "once": true,
-        "onceDelay": 0.1,
-        "topic": "",
-        "payload": "false",
-        "payloadType": "bool",
-        "x": 110,
-        "y": 700,
+        "x": 75,
+        "y": 1680,
         "wires": [
             [
-                "a941fc84.9c3de"
+                "206e7ac1ca299eb6"
             ]
         ]
     },
     {
-        "id": "a941fc84.9c3de",
-        "type": "function",
-        "z": "5f562f66.a301e",
-        "name": "AllowScan",
-        "func": "flow.set('AllowScan',msg.payload)\nreturn msg;",
-        "outputs": 0,
-        "noerr": 0,
-        "initialize": "",
-        "finalize": "",
-        "libs": [],
-        "x": 350,
-        "y": 700,
-        "wires": []
-    },
-    {
-        "id": "5f691867.559ab8",
-        "type": "inject",
-        "z": "5f562f66.a301e",
-        "name": "true",
-        "props": [
-            {
-                "p": "payload"
-            },
-            {
-                "p": "topic",
-                "vt": "str"
-            }
+        "id": "8ab264450a444a5c",
+        "type": "link out",
+        "z": "7419e6f670b0c2f6",
+        "name": "nonModBus Setting out",
+        "mode": "link",
+        "links": [
+            "eab465e18d030930"
         ],
-        "repeat": "",
-        "crontab": "",
-        "once": false,
-        "onceDelay": 0.1,
-        "topic": "",
-        "payload": "true",
-        "payloadType": "bool",
-        "x": 110,
-        "y": 760,
-        "wires": [
-            [
-                "5b6c475d.53dbe8"
-            ]
-        ]
-    },
-    {
-        "id": "5b6c475d.53dbe8",
-        "type": "function",
-        "z": "5f562f66.a301e",
-        "name": "AllowScan",
-        "func": "flow.set('AllowScan',msg.payload)\nreturn msg;",
-        "outputs": 0,
-        "noerr": 0,
-        "initialize": "",
-        "finalize": "",
-        "libs": [],
-        "x": 350,
-        "y": 760,
+        "x": 315,
+        "y": 380,
         "wires": []
     },
     {
-        "id": "26f87b3e.6d5af4",
+        "id": "25838bdf06b7d935",
         "type": "function",
-        "z": "5f562f66.a301e",
-        "name": "Get Limits",
-        "func": "node.warn(flow.get('scanInLimit'));\nnode.warn(flow.get('scanOutLimit'));\nnode.warn(flow.get('AllowScan'));\nreturn msg;",
+        "z": "7419e6f670b0c2f6",
+        "name": "CALC1:MARK1:x",
+        "func": "msg.topic = msg.payload.attr\nmsg.payload = \"CALC1:MARK1:X \" + msg.payload.value.toString() + \"\\n\"\nreturn msg;",
         "outputs": 1,
         "noerr": 0,
         "initialize": "",
         "finalize": "",
         "libs": [],
-        "x": 340,
-        "y": 820,
-        "wires": [
-            []
-        ]
-    },
-    {
-        "id": "7311db4d.ff9514",
-        "type": "inject",
-        "z": "5f562f66.a301e",
-        "name": "true",
-        "props": [
-            {
-                "p": "payload"
-            },
-            {
-                "p": "topic",
-                "vt": "str"
-            }
-        ],
-        "repeat": "",
-        "crontab": "",
-        "once": false,
-        "onceDelay": 0.1,
-        "topic": "",
-        "payload": "true",
-        "payloadType": "bool",
-        "x": 110,
-        "y": 820,
+        "x": 450,
+        "y": 1660,
         "wires": [
             [
-                "26f87b3e.6d5af4"
+                "9ca5958d24194b75",
+                "04d5a1f0b58d6aac"
             ]
         ]
     },
     {
-        "id": "28326986.c1e0c6",
-        "type": "link out",
-        "z": "5f562f66.a301e",
-        "name": "Pull Move Done",
-        "links": [
-            "f5801a8b.d6f388"
-        ],
-        "x": 1855,
-        "y": 200,
+        "id": "04d5a1f0b58d6aac",
+        "type": "tcp out",
+        "z": "7419e6f670b0c2f6",
+        "host": "$(NWAIP)",
+        "port": "$(NWAPORT)",
+        "beserver": "client",
+        "base64": false,
+        "end": true,
+        "name": "NWA Set",
+        "x": 660,
+        "y": 1660,
         "wires": []
     },
     {
-        "id": "f5801a8b.d6f388",
-        "type": "link in",
-        "z": "5f562f66.a301e",
-        "name": "Move Motor In",
-        "links": [
-            "28326986.c1e0c6",
-            "932321d9.f1eea"
-        ],
-        "x": 115,
-        "y": 260,
-        "wires": [
-            [
-                "9115ea87.0ca208"
-            ]
-        ]
-    },
-    {
-        "id": "fc29d176.a826b",
-        "type": "tcp request",
-        "z": "5f562f66.a301e",
-        "server": "192.168.10.10",
-        "port": "5025",
-        "out": "char",
-        "splitc": "\\n",
-        "name": "",
-        "x": 530,
-        "y": 920,
-        "wires": [
-            [
-                "df5cd3ae.645f4"
-            ]
-        ]
-    },
-    {
-        "id": "20fd6cd4.8e4b24",
+        "id": "2979a5e397af8737",
         "type": "function",
-        "z": "5f562f66.a301e",
+        "z": "7419e6f670b0c2f6",
         "name": "CALC1:MARK1:X?",
         "func": "msg.payload = \"CALC1:MARK1:X?\\n\"\nreturn msg;",
         "outputs": 1,
@@ -1319,706 +2438,375 @@
         "initialize": "",
         "finalize": "",
         "libs": [],
-        "x": 280,
-        "y": 920,
+        "x": 790,
+        "y": 1580,
         "wires": [
             [
-                "fc29d176.a826b"
+                "39bd692ca28c5ee0"
             ]
         ]
     },
     {
-        "id": "1d158384.658afc",
-        "type": "inject",
-        "z": "5f562f66.a301e",
-        "name": "true",
-        "props": [
-            {
-                "p": "payload"
-            },
-            {
-                "p": "topic",
-                "vt": "str"
-            }
-        ],
-        "repeat": "",
-        "crontab": "",
-        "once": false,
-        "onceDelay": 0.1,
-        "topic": "",
-        "payload": "true",
-        "payloadType": "bool",
-        "x": 110,
-        "y": 920,
-        "wires": [
-            [
-                "20fd6cd4.8e4b24"
-            ]
-        ]
-    },
-    {
-        "id": "df5cd3ae.645f4",
-        "type": "function",
-        "z": "5f562f66.a301e",
-        "name": "PullData",
-        "func": "msg.payload = msg.payload.toString();\nreturn msg;",
-        "outputs": 1,
-        "noerr": 0,
-        "initialize": "",
-        "finalize": "",
-        "libs": [],
-        "x": 720,
-        "y": 920,
-        "wires": [
-            [
-                "46982bdd.a0ea84"
-            ]
-        ]
-    },
-    {
-        "id": "46982bdd.a0ea84",
-        "type": "debug",
-        "z": "5f562f66.a301e",
-        "name": "",
-        "active": true,
-        "tosidebar": true,
-        "console": false,
-        "tostatus": false,
-        "complete": "false",
-        "statusVal": "",
-        "statusType": "auto",
-        "x": 890,
-        "y": 920,
-        "wires": []
-    },
-    {
-        "id": "527c0526.c99aec",
-        "type": "link out",
-        "z": "5f562f66.a301e",
-        "name": "Stop Scan out",
-        "links": [
-            "efbf6c36.a2d0c"
-        ],
-        "x": 1855,
-        "y": 260,
-        "wires": []
-    },
-    {
-        "id": "efbf6c36.a2d0c",
-        "type": "link in",
-        "z": "5f562f66.a301e",
-        "name": "Publish to Stepper",
-        "links": [
-            "527c0526.c99aec",
-            "ac021ea4.5f68e",
-            "b78fbadf.c15378",
-            "a846c692.64bc88"
-        ],
-        "x": 1175,
-        "y": 40,
-        "wires": [
-            [
-                "93049b70.2dc5c8"
-            ]
-        ]
-    },
-    {
-        "id": "7143d2aa.87707c",
+        "id": "39bd692ca28c5ee0",
         "type": "tcp request",
-        "z": "5f562f66.a301e",
-        "server": "192.168.10.10",
-        "port": "5025",
+        "z": "7419e6f670b0c2f6",
+        "server": "$(NWAIP)",
+        "port": "$(NWAPORT)",
         "out": "char",
+        "ret": "buffer",
         "splitc": "\\n",
-        "name": "",
-        "x": 530,
-        "y": 980,
+        "name": "NWA",
+        "x": 950,
+        "y": 1580,
         "wires": [
             [
-                "6c4d3461.3203ac"
+                "fdc1bc82c2c03db6"
             ]
         ]
     },
     {
-        "id": "7929f446.ef381c",
+        "id": "9ca5958d24194b75",
+        "type": "delay",
+        "z": "7419e6f670b0c2f6",
+        "name": "",
+        "pauseType": "delay",
+        "timeout": "2",
+        "timeoutUnits": "seconds",
+        "rate": "1",
+        "nbRateUnits": "1",
+        "rateUnits": "second",
+        "randomFirst": "1",
+        "randomLast": "5",
+        "randomUnits": "seconds",
+        "drop": false,
+        "allowrate": false,
+        "outputs": 1,
+        "x": 620,
+        "y": 1580,
+        "wires": [
+            [
+                "2979a5e397af8737"
+            ]
+        ]
+    },
+    {
+        "id": "fdc1bc82c2c03db6",
         "type": "function",
-        "z": "5f562f66.a301e",
-        "name": "CALC1:MARK1:x",
-        "func": "msg.payload = \"CALC1:MARK1:X 2996300000\\n\"\n//msg.payload = \"CALC1:MARK1:Y?\\n\"\nreturn msg;",
+        "z": "7419e6f670b0c2f6",
+        "name": "Parse Data",
+        "func": "var device = flow.get('device');\ndevice.settingInProgress = 0;\ndevice[msg.topic].value = Number(msg.payload.toString());\nreturn {topic:'settingComplete', payload:true};",
         "outputs": 1,
         "noerr": 0,
         "initialize": "",
         "finalize": "",
         "libs": [],
-        "x": 280,
-        "y": 980,
+        "x": 1090,
+        "y": 1580,
         "wires": [
             [
-                "7143d2aa.87707c"
+                "8287f2bf4cdd395b"
             ]
         ]
     },
     {
-        "id": "252bc65b.5e9d6a",
-        "type": "inject",
-        "z": "5f562f66.a301e",
-        "name": "true",
-        "props": [
-            {
-                "p": "payload"
-            },
-            {
-                "p": "topic",
-                "vt": "str"
-            }
-        ],
-        "repeat": "",
-        "crontab": "",
-        "once": false,
-        "onceDelay": 0.1,
-        "topic": "",
-        "payload": "true",
-        "payloadType": "bool",
-        "x": 110,
-        "y": 980,
-        "wires": [
-            [
-                "7929f446.ef381c"
-            ]
-        ]
-    },
-    {
-        "id": "6c4d3461.3203ac",
+        "id": "014df999fe9aa32a",
         "type": "function",
-        "z": "5f562f66.a301e",
-        "name": "PullData",
-        "func": "msg.payload = msg.payload.toString();\nreturn msg;",
+        "z": "7419e6f670b0c2f6",
+        "name": "Set device Setting value",
+        "func": "var device = flow.get('device');\ndevice.settingInProgress = 0;\ndevice[msg.payload.attr].value = msg.payload.value;\nreturn {topic:'settingComplete', payload:true};",
         "outputs": 1,
         "noerr": 0,
         "initialize": "",
         "finalize": "",
         "libs": [],
-        "x": 720,
-        "y": 980,
+        "x": 470,
+        "y": 1700,
         "wires": [
             [
-                "7fd2d86d.e84b18"
+                "8287f2bf4cdd395b"
             ]
         ]
     },
     {
-        "id": "7fd2d86d.e84b18",
-        "type": "debug",
-        "z": "5f562f66.a301e",
-        "name": "",
-        "active": true,
-        "tosidebar": true,
-        "console": false,
-        "tostatus": false,
-        "complete": "false",
-        "statusVal": "",
-        "statusType": "auto",
-        "x": 890,
-        "y": 980,
-        "wires": []
-    },
-    {
-        "id": "81a16614.311608",
-        "type": "tcp request",
-        "z": "5f562f66.a301e",
-        "server": "192.168.10.10",
-        "port": "5025",
-        "out": "char",
-        "splitc": "\\n",
-        "name": "",
-        "x": 530,
-        "y": 1120,
-        "wires": [
-            [
-                "6657aa78.aff854"
-            ]
-        ]
-    },
-    {
-        "id": "57aa8ce3.ecf5f4",
+        "id": "3b38ea092f7e33f1",
         "type": "function",
-        "z": "5f562f66.a301e",
-        "name": "FREQ:CENT?",
-        "func": "msg.payload = \"FREQ:CENT?\\n\"\nreturn msg;",
-        "outputs": 1,
-        "noerr": 0,
-        "initialize": "",
-        "finalize": "",
-        "libs": [],
-        "x": 270,
-        "y": 1120,
-        "wires": [
-            [
-                "81a16614.311608"
-            ]
-        ]
-    },
-    {
-        "id": "df623b8.ed4e7c8",
-        "type": "inject",
-        "z": "5f562f66.a301e",
-        "name": "true",
-        "props": [
-            {
-                "p": "payload"
-            },
-            {
-                "p": "topic",
-                "vt": "str"
-            }
-        ],
-        "repeat": "",
-        "crontab": "",
-        "once": false,
-        "onceDelay": 0.1,
-        "topic": "",
-        "payload": "true",
-        "payloadType": "bool",
-        "x": 110,
-        "y": 1120,
-        "wires": [
-            [
-                "57aa8ce3.ecf5f4"
-            ]
-        ]
-    },
-    {
-        "id": "6657aa78.aff854",
-        "type": "function",
-        "z": "5f562f66.a301e",
-        "name": "PullData",
-        "func": "msg.payload = msg.payload.toString();\nreturn msg;",
-        "outputs": 1,
-        "noerr": 0,
-        "initialize": "",
-        "finalize": "",
-        "libs": [],
-        "x": 720,
-        "y": 1120,
-        "wires": [
-            [
-                "30f502b7.78885e"
-            ]
-        ]
-    },
-    {
-        "id": "30f502b7.78885e",
-        "type": "debug",
-        "z": "5f562f66.a301e",
-        "name": "",
-        "active": true,
-        "tosidebar": true,
-        "console": false,
-        "tostatus": false,
-        "complete": "false",
-        "statusVal": "",
-        "statusType": "auto",
-        "x": 870,
-        "y": 1120,
-        "wires": []
-    },
-    {
-        "id": "71158c48.fc0a64",
-        "type": "tcp request",
-        "z": "5f562f66.a301e",
-        "server": "192.168.10.10",
-        "port": "5025",
-        "out": "char",
-        "splitc": "\\n",
-        "name": "",
-        "x": 530,
-        "y": 1180,
-        "wires": [
-            [
-                "7e28d40a.c2b37c"
-            ]
-        ]
-    },
-    {
-        "id": "4d1129bc.cf7b98",
-        "type": "function",
-        "z": "5f562f66.a301e",
-        "name": "FREQ:CENT",
-        "func": "msg.payload = \"FREQ:CENT     3000000000\\n\"\nreturn msg;",
-        "outputs": 1,
-        "noerr": 0,
-        "initialize": "",
-        "finalize": "",
-        "libs": [],
-        "x": 260,
-        "y": 1180,
-        "wires": [
-            [
-                "71158c48.fc0a64"
-            ]
-        ]
-    },
-    {
-        "id": "3619ae15.041232",
-        "type": "inject",
-        "z": "5f562f66.a301e",
-        "name": "true",
-        "props": [
-            {
-                "p": "payload"
-            },
-            {
-                "p": "topic",
-                "vt": "str"
-            }
-        ],
-        "repeat": "",
-        "crontab": "",
-        "once": false,
-        "onceDelay": 0.1,
-        "topic": "",
-        "payload": "true",
-        "payloadType": "bool",
-        "x": 110,
-        "y": 1180,
-        "wires": [
-            [
-                "4d1129bc.cf7b98"
-            ]
-        ]
-    },
-    {
-        "id": "7e28d40a.c2b37c",
-        "type": "function",
-        "z": "5f562f66.a301e",
-        "name": "PullData",
-        "func": "msg.payload = msg.payload.toString();\nreturn msg;",
-        "outputs": 1,
-        "noerr": 0,
-        "initialize": "",
-        "finalize": "",
-        "libs": [],
-        "x": 720,
-        "y": 1180,
-        "wires": [
-            [
-                "c2b4f915.489918"
-            ]
-        ]
-    },
-    {
-        "id": "c2b4f915.489918",
-        "type": "debug",
-        "z": "5f562f66.a301e",
-        "name": "",
-        "active": true,
-        "tosidebar": true,
-        "console": false,
-        "tostatus": false,
-        "complete": "false",
-        "statusVal": "",
-        "statusType": "auto",
-        "x": 870,
-        "y": 1180,
-        "wires": []
-    },
-    {
-        "id": "617b6fbd.1ef96",
-        "type": "tcp request",
-        "z": "5f562f66.a301e",
-        "server": "192.168.10.10",
-        "port": "5025",
-        "out": "char",
-        "splitc": "\\n",
-        "name": "",
-        "x": 530,
-        "y": 1280,
-        "wires": [
-            [
-                "bcd9e058.b8d11"
-            ]
-        ]
-    },
-    {
-        "id": "f6a8a93.28a4a58",
-        "type": "function",
-        "z": "5f562f66.a301e",
-        "name": "FREQ:SPAN?",
-        "func": "msg.payload = \"FREQ:SPAN?\\n\"\nreturn msg;",
-        "outputs": 1,
-        "noerr": 0,
-        "initialize": "",
-        "finalize": "",
-        "libs": [],
-        "x": 270,
-        "y": 1280,
-        "wires": [
-            [
-                "617b6fbd.1ef96"
-            ]
-        ]
-    },
-    {
-        "id": "9f89f7e3.90c188",
-        "type": "inject",
-        "z": "5f562f66.a301e",
-        "name": "true",
-        "props": [
-            {
-                "p": "payload"
-            },
-            {
-                "p": "topic",
-                "vt": "str"
-            }
-        ],
-        "repeat": "",
-        "crontab": "",
-        "once": false,
-        "onceDelay": 0.1,
-        "topic": "",
-        "payload": "true",
-        "payloadType": "bool",
-        "x": 110,
-        "y": 1280,
-        "wires": [
-            [
-                "f6a8a93.28a4a58"
-            ]
-        ]
-    },
-    {
-        "id": "bcd9e058.b8d11",
-        "type": "function",
-        "z": "5f562f66.a301e",
-        "name": "PullData",
-        "func": "msg.payload = msg.payload.toString();\nreturn msg;",
-        "outputs": 1,
-        "noerr": 0,
-        "initialize": "",
-        "finalize": "",
-        "libs": [],
-        "x": 720,
-        "y": 1280,
-        "wires": [
-            [
-                "ea208592.f6e6c8"
-            ]
-        ]
-    },
-    {
-        "id": "ea208592.f6e6c8",
-        "type": "debug",
-        "z": "5f562f66.a301e",
-        "name": "",
-        "active": true,
-        "tosidebar": true,
-        "console": false,
-        "tostatus": false,
-        "complete": "false",
-        "statusVal": "",
-        "statusType": "auto",
-        "x": 870,
-        "y": 1280,
-        "wires": []
-    },
-    {
-        "id": "b639abc1.cb90e8",
-        "type": "tcp request",
-        "z": "5f562f66.a301e",
-        "server": "192.168.10.10",
-        "port": "5025",
-        "out": "char",
-        "splitc": "\\n",
-        "name": "",
-        "x": 530,
-        "y": 1340,
-        "wires": [
-            [
-                "7dc5d0a5.3f846"
-            ]
-        ]
-    },
-    {
-        "id": "e5304f72.6d6db",
-        "type": "function",
-        "z": "5f562f66.a301e",
-        "name": "FREQ:SPAN",
-        "func": "msg.payload = \"FREQ:SPAN     20000000\\n\"\nreturn msg;",
-        "outputs": 1,
-        "noerr": 0,
-        "initialize": "",
-        "finalize": "",
-        "libs": [],
-        "x": 260,
-        "y": 1340,
-        "wires": [
-            [
-                "b639abc1.cb90e8"
-            ]
-        ]
-    },
-    {
-        "id": "caab2d33.7b154",
-        "type": "inject",
-        "z": "5f562f66.a301e",
-        "name": "true",
-        "props": [
-            {
-                "p": "payload"
-            },
-            {
-                "p": "topic",
-                "vt": "str"
-            }
-        ],
-        "repeat": "",
-        "crontab": "",
-        "once": false,
-        "onceDelay": 0.1,
-        "topic": "",
-        "payload": "true",
-        "payloadType": "bool",
-        "x": 110,
-        "y": 1340,
-        "wires": [
-            [
-                "e5304f72.6d6db"
-            ]
-        ]
-    },
-    {
-        "id": "7dc5d0a5.3f846",
-        "type": "function",
-        "z": "5f562f66.a301e",
-        "name": "PullData",
-        "func": "msg.payload = msg.payload.toString();\nreturn msg;",
-        "outputs": 1,
-        "noerr": 0,
-        "initialize": "",
-        "finalize": "",
-        "libs": [],
-        "x": 720,
-        "y": 1340,
-        "wires": [
-            [
-                "ca5716fa.a90a68"
-            ]
-        ]
-    },
-    {
-        "id": "ca5716fa.a90a68",
-        "type": "debug",
-        "z": "5f562f66.a301e",
-        "name": "",
-        "active": true,
-        "tosidebar": true,
-        "console": false,
-        "tostatus": false,
-        "complete": "false",
-        "statusVal": "",
-        "statusType": "auto",
-        "x": 870,
-        "y": 1340,
-        "wires": []
-    },
-    {
-        "id": "a2c45645.be6a18",
-        "type": "function",
-        "z": "5f562f66.a301e",
-        "name": "Set Stay Awake on Motor",
-        "func": "var device = flow.get('blinky-stepper-02');\nif (device == undefined) return null;\nvar newMsg = \n{\n    topic: 'blinky-lite-v3/blinky-stepper/02/setting/setting',\n    payload: JSON.stringify({'attr': 'stayAwakeAfterRotation', 'value':1})\n}\nreturn [msg,newMsg];\n\n",
+        "z": "7419e6f670b0c2f6",
+        "name": "Init Stepper for Scan",
+        "func": "flow.get('device').scan.value = 1;\nvar stepperProps = flow.get('stepperProps');\nvar stepperMsgs = []\nstepperMsgs[0] = {'attr': 'stayAwakeAfterRotation', 'value':1}\nstepperMsgs[1] = {'attr': 'stepForward', 'value':0}\nstepperMsgs[2] = {'attr': 'resolution', 'value':0}\nreturn [msg, {topic : 'setting', payload: stepperMsgs}];\n\n",
         "outputs": 2,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 300,
+        "y": 1880,
+        "wires": [
+            [
+                "f3bc543b5f4ee347",
+                "f8b072282c47a5f0"
+            ],
+            [
+                "2134d3a9102ee7b8"
+            ]
+        ]
+    },
+    {
+        "id": "2134d3a9102ee7b8",
+        "type": "split",
+        "z": "7419e6f670b0c2f6",
+        "name": "",
+        "splt": "",
+        "spltType": "str",
+        "arraySplt": "1",
+        "arraySpltType": "len",
+        "stream": false,
+        "addname": "",
+        "x": 250,
+        "y": 1940,
+        "wires": [
+            [
+                "e45b9b5f96ba6d73"
+            ]
+        ]
+    },
+    {
+        "id": "e45b9b5f96ba6d73",
+        "type": "delay",
+        "z": "7419e6f670b0c2f6",
+        "name": "",
+        "pauseType": "rate",
+        "timeout": "5",
+        "timeoutUnits": "seconds",
+        "rate": "1",
+        "nbRateUnits": "1",
+        "rateUnits": "second",
+        "randomFirst": "1",
+        "randomLast": "5",
+        "randomUnits": "seconds",
+        "drop": false,
+        "allowrate": false,
+        "outputs": 1,
+        "x": 390,
+        "y": 1940,
+        "wires": [
+            [
+                "2d12d213648d4c21"
+            ]
+        ]
+    },
+    {
+        "id": "2d12d213648d4c21",
+        "type": "link out",
+        "z": "7419e6f670b0c2f6",
+        "name": "Init Stepper for Scan out",
+        "mode": "link",
+        "links": [
+            "d1faf0727b9fe690"
+        ],
+        "x": 515,
+        "y": 1940,
+        "wires": []
+    },
+    {
+        "id": "d4b30df4db5d49d5",
+        "type": "function",
+        "z": "7419e6f670b0c2f6",
+        "name": "Move Motor",
+        "func": "var newMsg = {topic : 'setting', payload: {'attr': 'moveMotor', 'value':1}}\nreturn newMsg;",
+        "outputs": 1,
         "noerr": 0,
         "initialize": "",
         "finalize": "",
         "libs": [],
         "x": 670,
-        "y": 480,
+        "y": 1880,
         "wires": [
             [
-                "bf084b12.9a8cf8"
+                "d31debe5db2eb0ad",
+                "e749a6b872d3e7b3"
+            ]
+        ]
+    },
+    {
+        "id": "d31debe5db2eb0ad",
+        "type": "delay",
+        "z": "7419e6f670b0c2f6",
+        "name": "",
+        "pauseType": "delay",
+        "timeout": "1",
+        "timeoutUnits": "seconds",
+        "rate": "1",
+        "nbRateUnits": "1",
+        "rateUnits": "second",
+        "randomFirst": "1",
+        "randomLast": "5",
+        "randomUnits": "seconds",
+        "drop": false,
+        "outputs": 1,
+        "x": 840,
+        "y": 1880,
+        "wires": [
+            [
+                "67590a653bd1e1ce"
+            ]
+        ]
+    },
+    {
+        "id": "67590a653bd1e1ce",
+        "type": "function",
+        "z": "7419e6f670b0c2f6",
+        "name": "ping Stepper",
+        "func": "var newMsg = {topic : 'ping', payload: true}\nreturn newMsg;\n",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 990,
+        "y": 1880,
+        "wires": [
+            [
+                "80832f44d11bbad6",
+                "cc44e67b6334d5d0"
+            ]
+        ]
+    },
+    {
+        "id": "3cd5b7708ff789e8",
+        "type": "tcp request",
+        "z": "7419e6f670b0c2f6",
+        "server": "$(NWAIP)",
+        "port": "$(NWAPORT)",
+        "out": "char",
+        "ret": "buffer",
+        "splitc": "\\n",
+        "name": "NWA",
+        "x": 1750,
+        "y": 1880,
+        "wires": [
+            [
+                "e9d7901717246036"
+            ]
+        ]
+    },
+    {
+        "id": "4e21f8659645855b",
+        "type": "function",
+        "z": "7419e6f670b0c2f6",
+        "name": "Start Sweep",
+        "func": "msg.payload = \"INIT:IMM:ALL\\n*WAI\\nCALC1:MARK1:Y?\\n\"\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 1610,
+        "y": 1880,
+        "wires": [
+            [
+                "3cd5b7708ff789e8"
+            ]
+        ]
+    },
+    {
+        "id": "e9d7901717246036",
+        "type": "function",
+        "z": "7419e6f670b0c2f6",
+        "name": "PullData",
+        "func": "var device = flow.get('device');\nvar stepper = flow.get('stepper');\nvar nwaData = msg.payload.toString().split(',');\nvar pullData = \n{\n    s11Mag   : Number(nwaData[0]),\n    s11Phase : Number(nwaData[1]),\n    beadPos  : -flow.get('stepper').stepLocation.value,\n}\nvar scanInLimit = device.noScanPts.value * stepper.noStepsToTurn.value;\nvar scanOutLimit = 0;\nvar allowScan = true;\nif (device.scan.value == -1)\n{\n    allowScan = false;\n    device.scan.value = 0;\n    device.settingInProgress = 0;\n}\nif (!allowScan ||(pullData.beadPos >= scanInLimit) || (pullData.beadPos < flow.get('scanOutLimit')) )\n{\n    device.scan.value = 0;\n    device.settingInProgress = 0;\n    var stopScanMsg = {topic: 'setting', payload: {'attr': 'stayAwakeAfterRotation', 'value':0}};\n    return [null,stopScanMsg,{topic : 'pullData', payload : pullData}];\n}\nreturn [{topic : 'pullData', payload : pullData}, null,null];",
+        "outputs": 3,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 1880,
+        "y": 1880,
+        "wires": [
+            [
+                "0dfb5a672810fe13",
+                "c7e40e57f961d363"
             ],
             [
-                "ac021ea4.5f68e"
-            ]
-        ]
-    },
-    {
-        "id": "bf084b12.9a8cf8",
-        "type": "delay",
-        "z": "5f562f66.a301e",
-        "name": "",
-        "pauseType": "delay",
-        "timeout": "1",
-        "timeoutUnits": "seconds",
-        "rate": "1",
-        "nbRateUnits": "1",
-        "rateUnits": "second",
-        "randomFirst": "1",
-        "randomLast": "5",
-        "randomUnits": "seconds",
-        "drop": false,
-        "x": 880,
-        "y": 480,
-        "wires": [
+                "43c147daf212bebf"
+            ],
             [
-                "932321d9.f1eea"
+                "2fcde4c43deefbba"
             ]
         ]
     },
     {
-        "id": "932321d9.f1eea",
-        "type": "link out",
-        "z": "5f562f66.a301e",
-        "name": "Stay Awake delayed",
-        "links": [
-            "f5801a8b.d6f388"
-        ],
-        "x": 975,
-        "y": 480,
+        "id": "c7e40e57f961d363",
+        "type": "debug",
+        "z": "7419e6f670b0c2f6",
+        "name": "",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 2010,
+        "y": 1780,
         "wires": []
     },
     {
-        "id": "ac021ea4.5f68e",
+        "id": "ea4ae6a16ae9d3f5",
         "type": "link out",
-        "z": "5f562f66.a301e",
-        "name": "Stay awake",
+        "z": "7419e6f670b0c2f6",
+        "name": "Pull Move Done",
+        "mode": "link",
         "links": [
-            "efbf6c36.a2d0c"
+            "2150949730b4ba06",
+            "52c3ee5d26adffbe"
         ],
-        "x": 835,
-        "y": 540,
+        "x": 2175,
+        "y": 1920,
         "wires": []
     },
     {
-        "id": "b78fbadf.c15378",
+        "id": "43c147daf212bebf",
         "type": "link out",
-        "z": "5f562f66.a301e",
+        "z": "7419e6f670b0c2f6",
+        "name": "Stop Scan out",
+        "mode": "link",
+        "links": [
+            "d1faf0727b9fe690"
+        ],
+        "x": 2015,
+        "y": 1880,
+        "wires": []
+    },
+    {
+        "id": "e749a6b872d3e7b3",
+        "type": "link out",
+        "z": "7419e6f670b0c2f6",
         "name": "Move Motor Out",
+        "mode": "link",
         "links": [
-            "efbf6c36.a2d0c"
+            "d1faf0727b9fe690"
         ],
-        "x": 335,
-        "y": 260,
+        "x": 775,
+        "y": 1940,
         "wires": []
     },
     {
-        "id": "a846c692.64bc88",
+        "id": "cc44e67b6334d5d0",
         "type": "link out",
-        "z": "5f562f66.a301e",
+        "z": "7419e6f670b0c2f6",
         "name": "Ping Setpper out",
+        "mode": "link",
         "links": [
-            "efbf6c36.a2d0c"
+            "d1faf0727b9fe690"
         ],
-        "x": 675,
-        "y": 260,
+        "x": 1095,
+        "y": 1940,
         "wires": []
     },
     {
-        "id": "36d61fb.9f305e",
+        "id": "80832f44d11bbad6",
         "type": "delay",
-        "z": "5f562f66.a301e",
+        "z": "7419e6f670b0c2f6",
         "name": "",
         "pauseType": "delay",
         "timeout": "1",
@@ -2030,62 +2818,1402 @@
         "randomLast": "5",
         "randomUnits": "seconds",
         "drop": false,
-        "x": 720,
-        "y": 220,
+        "outputs": 1,
+        "x": 1160,
+        "y": 1880,
         "wires": [
             [
-                "7f7f46b.e1c4fb8"
+                "b1d2ea74b63306bc"
             ]
         ]
     },
     {
-        "id": "b0755621.d41868",
-        "type": "link in",
-        "z": "5f562f66.a301e",
-        "name": "Ping Stepper in",
-        "links": [
-            "4aba1825.f884f8"
-        ],
-        "x": 415,
-        "y": 180,
-        "wires": [
-            [
-                "64a437fc.bc10e8"
-            ]
-        ]
-    },
-    {
-        "id": "7f7f46b.e1c4fb8",
+        "id": "b1d2ea74b63306bc",
         "type": "function",
-        "z": "5f562f66.a301e",
+        "z": "7419e6f670b0c2f6",
         "name": "Check Stepper Location",
-        "func": "if (flow.get('blinky-stepper-02').moveMotor.value == 1)\n{\n    return [null,{topic:\"ping\",payload:true}];\n}\nelse\n{\n    return [{topic:\"motorMoved\",payload:true},null];\n}\n\nreturn msg;",
+        "func": "if (flow.get('stepper').moveMotor.value == 1)\n{\n    return [null,{topic:\"ping\",payload:true}];\n}\nelse\n{\n    return [{topic:\"motorMoved\",payload:true},null];\n}\n\nreturn msg;",
         "outputs": 2,
         "noerr": 0,
         "initialize": "",
         "finalize": "",
         "libs": [],
-        "x": 910,
-        "y": 220,
+        "x": 1370,
+        "y": 1880,
         "wires": [
             [
-                "be0920a6.0a0e5"
+                "4e21f8659645855b"
             ],
             [
-                "4aba1825.f884f8"
+                "c77e3f82b4bceb42"
             ]
         ]
     },
     {
-        "id": "4aba1825.f884f8",
+        "id": "c77e3f82b4bceb42",
         "type": "link out",
-        "z": "5f562f66.a301e",
+        "z": "7419e6f670b0c2f6",
         "name": "Check Stepper Location out to Ping",
+        "mode": "link",
         "links": [
-            "b0755621.d41868"
+            "496d99b505832580"
         ],
-        "x": 1055,
+        "x": 1515,
+        "y": 1940,
+        "wires": []
+    },
+    {
+        "id": "f3bc543b5f4ee347",
+        "type": "delay",
+        "z": "7419e6f670b0c2f6",
+        "name": "",
+        "pauseType": "delay",
+        "timeout": "4",
+        "timeoutUnits": "seconds",
+        "rate": "1",
+        "nbRateUnits": "1",
+        "rateUnits": "second",
+        "randomFirst": "1",
+        "randomLast": "5",
+        "randomUnits": "seconds",
+        "drop": false,
+        "allowrate": false,
+        "outputs": 1,
+        "x": 520,
+        "y": 1880,
+        "wires": [
+            [
+                "d4b30df4db5d49d5"
+            ]
+        ]
+    },
+    {
+        "id": "824e5ca94e25e597",
+        "type": "switch",
+        "z": "7419e6f670b0c2f6",
+        "name": "scan switch",
+        "property": "payload.value",
+        "propertyType": "msg",
+        "rules": [
+            {
+                "t": "eq",
+                "v": "-1",
+                "vt": "num"
+            },
+            {
+                "t": "eq",
+                "v": "1",
+                "vt": "num"
+            }
+        ],
+        "checkall": "true",
+        "repair": false,
+        "outputs": 2,
+        "x": 430,
+        "y": 1740,
+        "wires": [
+            [
+                "cc349e68bfb30a7f"
+            ],
+            [
+                "3b38ea092f7e33f1"
+            ]
+        ]
+    },
+    {
+        "id": "cc349e68bfb30a7f",
+        "type": "function",
+        "z": "7419e6f670b0c2f6",
+        "name": "Set Abort Scan flag",
+        "func": "flow.get('device').scan.value = -1;\n",
+        "outputs": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 650,
+        "y": 1740,
+        "wires": []
+    },
+    {
+        "id": "496d99b505832580",
+        "type": "link in",
+        "z": "7419e6f670b0c2f6",
+        "name": "Ping Stepper in",
+        "links": [
+            "c77e3f82b4bceb42"
+        ],
+        "x": 895,
+        "y": 1840,
+        "wires": [
+            [
+                "67590a653bd1e1ce"
+            ]
+        ]
+    },
+    {
+        "id": "9b8ad20289b3caaa",
+        "type": "link in",
+        "z": "7419e6f670b0c2f6",
+        "name": "Move Motor In",
+        "links": [
+            "62c3829a5c30cc2d"
+        ],
+        "x": 575,
+        "y": 1840,
+        "wires": [
+            [
+                "d4b30df4db5d49d5"
+            ]
+        ]
+    },
+    {
+        "id": "0dfb5a672810fe13",
+        "type": "function",
+        "z": "7419e6f670b0c2f6",
+        "name": "Save pull data",
+        "func": "\nreturn {topic:\"scanInProgress\",payload:true};",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 2050,
+        "y": 1840,
+        "wires": [
+            [
+                "62c3829a5c30cc2d"
+            ]
+        ]
+    },
+    {
+        "id": "62c3829a5c30cc2d",
+        "type": "link out",
+        "z": "7419e6f670b0c2f6",
+        "name": "Save Pull data out",
+        "mode": "link",
+        "links": [
+            "2150949730b4ba06",
+            "9b8ad20289b3caaa"
+        ],
+        "x": 2175,
+        "y": 1840,
+        "wires": []
+    },
+    {
+        "id": "f2dd6600413a040c",
+        "type": "link out",
+        "z": "7419e6f670b0c2f6",
+        "name": "Start Scan out",
+        "mode": "link",
+        "links": [
+            "2150949730b4ba06"
+        ],
+        "x": 795,
+        "y": 1780,
+        "wires": []
+    },
+    {
+        "id": "2fcde4c43deefbba",
+        "type": "function",
+        "z": "7419e6f670b0c2f6",
+        "name": "Save pull data",
+        "func": "return {topic:\"scanComplete\",payload:true}",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 2060,
+        "y": 1920,
+        "wires": [
+            [
+                "ea4ae6a16ae9d3f5"
+            ]
+        ]
+    },
+    {
+        "id": "f8b072282c47a5f0",
+        "type": "function",
+        "z": "7419e6f670b0c2f6",
+        "name": "Start Scan Msg",
+        "func": "return {topic:\"scanInProgress\",payload:true};",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 640,
+        "y": 1780,
+        "wires": [
+            [
+                "f2dd6600413a040c"
+            ]
+        ]
+    },
+    {
+        "id": "12290bb2bc28e9ca",
+        "type": "function",
+        "z": "7419e6f670b0c2f6",
+        "name": "Home Bead",
+        "func": "if (msg.payload.value != 1)\n{\n    var device = flow.get('device');\n    device.homeBead.value = 0;\n    device.settingInProgress = 0;\n    return [null,null,{topic:\"settingComplete\",payload:true}];\n}\nvar stepper = flow.get('stepper');\nflow.set('oldNoStepsToTurn',stepper.noStepsToTurn.value);\nvar stepLocation = stepper.stepLocation.value;\nvar stepForward = 1;\nif (stepLocation > 0) stepForward = 0;\nnoStepsToTurn = stepLocation;\nif (noStepsToTurn < 0) noStepsToTurn = -noStepsToTurn;\nvar stepperMsgs = []\nstepperMsgs[0] = {'attr': 'stepForward',   'value':stepForward}\nstepperMsgs[1] = {'attr': 'noStepsToTurn', 'value':noStepsToTurn}\nstepperMsgs[2] = {'attr': 'moveMotor', 'value':1};\nreturn [msg, {topic : 'setting', payload: stepperMsgs},null];\n",
+        "outputs": 3,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 210,
+        "y": 2180,
+        "wires": [
+            [
+                "654c95510c07f46b"
+            ],
+            [
+                "b6314654b1e9f759"
+            ],
+            [
+                "3956daee839b899a"
+            ]
+        ]
+    },
+    {
+        "id": "b6314654b1e9f759",
+        "type": "split",
+        "z": "7419e6f670b0c2f6",
+        "name": "",
+        "splt": "",
+        "spltType": "str",
+        "arraySplt": "1",
+        "arraySpltType": "len",
+        "stream": false,
+        "addname": "",
+        "x": 350,
+        "y": 2180,
+        "wires": [
+            [
+                "672bb5cd5fc1e24b"
+            ]
+        ]
+    },
+    {
+        "id": "672bb5cd5fc1e24b",
+        "type": "delay",
+        "z": "7419e6f670b0c2f6",
+        "name": "",
+        "pauseType": "rate",
+        "timeout": "5",
+        "timeoutUnits": "seconds",
+        "rate": "1",
+        "nbRateUnits": "1",
+        "rateUnits": "second",
+        "randomFirst": "1",
+        "randomLast": "5",
+        "randomUnits": "seconds",
+        "drop": false,
+        "allowrate": false,
+        "outputs": 1,
+        "x": 490,
+        "y": 2180,
+        "wires": [
+            [
+                "2147ec5c8bc364ad"
+            ]
+        ]
+    },
+    {
+        "id": "2147ec5c8bc364ad",
+        "type": "link out",
+        "z": "7419e6f670b0c2f6",
+        "name": "Home Bead Out",
+        "mode": "link",
+        "links": [
+            "d1faf0727b9fe690"
+        ],
+        "x": 595,
+        "y": 2180,
+        "wires": []
+    },
+    {
+        "id": "654c95510c07f46b",
+        "type": "delay",
+        "z": "7419e6f670b0c2f6",
+        "name": "",
+        "pauseType": "delay",
+        "timeout": "4",
+        "timeoutUnits": "seconds",
+        "rate": "1",
+        "nbRateUnits": "1",
+        "rateUnits": "second",
+        "randomFirst": "1",
+        "randomLast": "5",
+        "randomUnits": "seconds",
+        "drop": false,
+        "allowrate": false,
+        "outputs": 1,
+        "x": 400,
+        "y": 2120,
+        "wires": [
+            [
+                "d759ef165e18047b"
+            ]
+        ]
+    },
+    {
+        "id": "d759ef165e18047b",
+        "type": "function",
+        "z": "7419e6f670b0c2f6",
+        "name": "ping Stepper",
+        "func": "var newMsg = {topic : 'ping', payload: true}\nreturn newMsg;\n",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 550,
+        "y": 2120,
+        "wires": [
+            [
+                "71cae57009264e2b"
+            ]
+        ]
+    },
+    {
+        "id": "71cae57009264e2b",
+        "type": "delay",
+        "z": "7419e6f670b0c2f6",
+        "name": "",
+        "pauseType": "delay",
+        "timeout": "1",
+        "timeoutUnits": "seconds",
+        "rate": "1",
+        "nbRateUnits": "1",
+        "rateUnits": "second",
+        "randomFirst": "1",
+        "randomLast": "5",
+        "randomUnits": "seconds",
+        "drop": false,
+        "outputs": 1,
+        "x": 700,
+        "y": 2120,
+        "wires": [
+            [
+                "050397522312ac58"
+            ]
+        ]
+    },
+    {
+        "id": "050397522312ac58",
+        "type": "function",
+        "z": "7419e6f670b0c2f6",
+        "name": "Check Stepper Location",
+        "func": "if (flow.get('stepper').moveMotor.value == 1)\n{\n    return [null,{topic:\"ping\",payload:true}];\n}\nelse\n{\n    return [{topic:'setting', payload:{'attr': 'noStepsToTurn', 'value':flow.get('oldNoStepsToTurn')}},null];\n}\n\nreturn msg;",
+        "outputs": 2,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 890,
+        "y": 2120,
+        "wires": [
+            [
+                "940cb8ddcf1ec577",
+                "4010b0698d0f981f"
+            ],
+            [
+                "74c7434e5056933d"
+            ]
+        ]
+    },
+    {
+        "id": "5be722754a2fd50a",
+        "type": "link in",
+        "z": "7419e6f670b0c2f6",
+        "name": "Home Bead Ping Stepper in",
+        "links": [
+            "74c7434e5056933d"
+        ],
+        "x": 475,
+        "y": 2060,
+        "wires": [
+            [
+                "d759ef165e18047b"
+            ]
+        ]
+    },
+    {
+        "id": "74c7434e5056933d",
+        "type": "link out",
+        "z": "7419e6f670b0c2f6",
+        "name": "Home Bead Check Stepper Location out to Ping",
+        "mode": "link",
+        "links": [
+            "5be722754a2fd50a"
+        ],
+        "x": 1035,
+        "y": 2160,
+        "wires": []
+    },
+    {
+        "id": "940cb8ddcf1ec577",
+        "type": "link out",
+        "z": "7419e6f670b0c2f6",
+        "name": "Home Bead Check Stepper Location out publish",
+        "mode": "link",
+        "links": [
+            "d1faf0727b9fe690"
+        ],
+        "x": 1035,
+        "y": 2080,
+        "wires": []
+    },
+    {
+        "id": "68ac0acb1b27c444",
+        "type": "link out",
+        "z": "7419e6f670b0c2f6",
+        "name": "Home Bead switch out",
+        "mode": "link",
+        "links": [
+            "9d642f374d9095e5"
+        ],
+        "x": 245,
+        "y": 1780,
+        "wires": []
+    },
+    {
+        "id": "9d642f374d9095e5",
+        "type": "link in",
+        "z": "7419e6f670b0c2f6",
+        "name": "Home Bead In",
+        "links": [
+            "68ac0acb1b27c444"
+        ],
+        "x": 95,
+        "y": 2180,
+        "wires": [
+            [
+                "12290bb2bc28e9ca"
+            ]
+        ]
+    },
+    {
+        "id": "3956daee839b899a",
+        "type": "link out",
+        "z": "7419e6f670b0c2f6",
+        "name": "HomeBead Bad Setting",
+        "mode": "link",
+        "links": [
+            "2150949730b4ba06"
+        ],
+        "x": 315,
+        "y": 2220,
+        "wires": []
+    },
+    {
+        "id": "4010b0698d0f981f",
+        "type": "function",
+        "z": "7419e6f670b0c2f6",
+        "name": "HomeBead Complete",
+        "func": "var device = flow.get('device');\ndevice.homeBead.value = 0;\ndevice.settingInProgress = 0;\nreturn {topic:\"settingComplete\",payload:true};\n",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 1190,
+        "y": 2120,
+        "wires": [
+            [
+                "57e5757ed3278d69"
+            ]
+        ]
+    },
+    {
+        "id": "57e5757ed3278d69",
+        "type": "link out",
+        "z": "7419e6f670b0c2f6",
+        "name": "Home Bead Complete",
+        "mode": "link",
+        "links": [
+            "2150949730b4ba06"
+        ],
+        "x": 1325,
+        "y": 2120,
+        "wires": []
+    },
+    {
+        "id": "68f91193.6031a",
+        "type": "template",
+        "z": "152d879257fe666c",
+        "name": "Set Title",
+        "field": "payload.title",
+        "fieldType": "msg",
+        "format": "html",
+        "syntax": "mustache",
+        "template": "Blinky Bead Pull {{{payload.script.name}}}",
+        "output": "str",
+        "x": 300,
+        "y": 460,
+        "wires": [
+            [
+                "493fb622.d8afc8"
+            ]
+        ]
+    },
+    {
+        "id": "6ff41f15.de1a2",
+        "type": "template",
+        "z": "152d879257fe666c",
+        "name": "navBarIcon",
+        "field": "payload.navBarIcon",
+        "fieldType": "msg",
+        "format": "html",
+        "syntax": "mustache",
+        "template": "beadYellow.png",
+        "output": "str",
+        "x": 310,
+        "y": 420,
+        "wires": [
+            [
+                "68f91193.6031a"
+            ]
+        ]
+    },
+    {
+        "id": "cf44f6bf.8956b8",
+        "type": "websocket in",
+        "z": "152d879257fe666c",
+        "name": "/blinky-beadpull/websocket",
+        "server": "44b51478.9c022c",
+        "client": "",
+        "x": 270,
+        "y": 840,
+        "wires": [
+            [
+                "16c60d1b8ba8d827"
+            ]
+        ]
+    },
+    {
+        "id": "62aaa250.9b67dc",
+        "type": "websocket out",
+        "z": "152d879257fe666c",
+        "name": "/blinky-beadpull/websocket",
+        "server": "44b51478.9c022c",
+        "client": "",
+        "x": 1220,
+        "y": 980,
+        "wires": []
+    },
+    {
+        "id": "ea909034.6fb25",
+        "type": "link out",
+        "z": "152d879257fe666c",
+        "name": "Web socket out",
+        "links": [
+            "2f289f87.fe2ff",
+            "c7f3b5bf.85c9a8",
+            "916409fc.7bc138",
+            "080e8b7be1b3f16a"
+        ],
+        "x": 715,
+        "y": 800,
+        "wires": []
+    },
+    {
+        "id": "d033193d.436d68",
+        "type": "link in",
+        "z": "152d879257fe666c",
+        "name": "Web socket in",
+        "links": [
+            "1cdcbcd8.9514e3",
+            "78ceea9e.d0b204",
+            "d0d46d90.cf476",
+            "9c19993afce72c6e",
+            "37f29422ea8d6801"
+        ],
+        "x": 1035,
+        "y": 980,
+        "wires": [
+            [
+                "62aaa250.9b67dc"
+            ]
+        ]
+    },
+    {
+        "id": "1482e22f.57fa2e",
+        "type": "http in",
+        "z": "152d879257fe666c",
+        "name": "/blinky-beadpull",
+        "url": "/blinky-beadpull",
+        "method": "get",
+        "upload": false,
+        "swaggerDoc": "",
+        "x": 140,
+        "y": 380,
+        "wires": [
+            [
+                "71ce0943.81bf18"
+            ]
+        ]
+    },
+    {
+        "id": "71ce0943.81bf18",
+        "type": "function",
+        "z": "152d879257fe666c",
+        "name": "Set Name And Device Type",
+        "func": "msg.payload['beadpull'] = {};\nmsg.payload['beadpull']['name'] = msg.payload.name\nmsg.payload['beadpull']['deviceType'] = flow.get('beadpullDeviceProps').deviceType;\nmsg.payload['beadpull']['project'] = flow.get('beadpullDeviceProps').project;\nmsg.payload['stepper'] = {};\nmsg.payload['stepper']['name'] = flow.get('stepperDeviceProps').name;\nmsg.payload['stepper']['deviceType'] = flow.get('stepperDeviceProps').deviceType;\nmsg.payload['stepper']['project'] = flow.get('stepperDeviceProps').project;\nreturn msg;\n",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 360,
+        "y": 380,
+        "wires": [
+            [
+                "6ff41f15.de1a2"
+            ]
+        ]
+    },
+    {
+        "id": "70be1872.dfaf48",
+        "type": "http in",
+        "z": "152d879257fe666c",
+        "name": "/apps",
+        "url": "/apps",
+        "method": "get",
+        "upload": false,
+        "swaggerDoc": "",
+        "x": 110,
         "y": 260,
+        "wires": [
+            [
+                "af9642ae.0c0da"
+            ]
+        ]
+    },
+    {
+        "id": "b1885d32.8d9cc",
+        "type": "template",
+        "z": "152d879257fe666c",
+        "name": "Body",
+        "field": "payload.body",
+        "fieldType": "msg",
+        "format": "html",
+        "syntax": "mustache",
+        "template": "<!-- Body HTML -->\n    <div class='container' width=\"100%\">\n        <div class='row vert-pad' >\n            <div class='col-md-12'>\n                <a class=\"btn jumbotron-button btn-block big-text bold-text\" width='80%' href=\"/blinky-beadpull?name={{{payload.beadpullDeviceName}}}\" >\n                    <table width=\"100%\" alight=\"left\">\n                        <tr>\n                            <td width=\"30%\" align='center'> <img src=\"/img/beadYellow.png\" height=\"70px\"/></td>\n                            <td width=\"70%\" align=\"left\">Blinky Bead Pull {{{payload.beadpullDeviceName}}}</td>\n                        </tr>\n                    </table>\n                </a>\n            </div>\n        </div>\n        <div class='row vert-pad' >\n            <div class='col-md-12'>\n                <a class=\"btn jumbotron-button btn-block big-text bold-text\" width='80%' href=\"/setup\" >\n                    <table width=\"100%\" alight=\"left\">\n                        <tr>\n                            <td width=\"30%\" align='center'> <img src=\"/img/basicYellow.png\" height=\"70px\"/></td>\n                            <td width=\"70%\" align=\"left\">Setup</td>\n                        </tr>\n                    </table>\n                </a>\n            </div>\n        </div>\n    </div>",
+        "output": "str",
+        "x": 850,
+        "y": 260,
+        "wires": [
+            [
+                "c1ea8a4a6c9d59df"
+            ]
+        ]
+    },
+    {
+        "id": "18e277b4.8fc208",
+        "type": "template",
+        "z": "152d879257fe666c",
+        "name": "Title",
+        "field": "payload.title",
+        "fieldType": "msg",
+        "format": "html",
+        "syntax": "mustache",
+        "template": "Blinky Bead Pull",
+        "output": "str",
+        "x": 570,
+        "y": 260,
+        "wires": [
+            [
+                "fd81c62c.98f018"
+            ]
+        ]
+    },
+    {
+        "id": "f328fcb4.91dc",
+        "type": "template",
+        "z": "152d879257fe666c",
+        "name": "JavaScript",
+        "field": "payload.javascript",
+        "fieldType": "msg",
+        "format": "javascript",
+        "syntax": "mustache",
+        "template": "        useWebSockets(false);\n        function onDocumentReady()\n        {\n        }\n        function onWebSocketOpen()\n        {\n        }\n        function onWebSocketClose()\n        {\n            \n        }\n        function onWebSocketMessage(msg)\n        {\n        }\n\n",
+        "output": "str",
+        "x": 430,
+        "y": 260,
+        "wires": [
+            [
+                "18e277b4.8fc208"
+            ]
+        ]
+    },
+    {
+        "id": "fd81c62c.98f018",
+        "type": "template",
+        "z": "152d879257fe666c",
+        "name": "navBarIcon",
+        "field": "payload.navBarIcon",
+        "fieldType": "msg",
+        "format": "html",
+        "syntax": "mustache",
+        "template": "beadYellow.png",
+        "output": "str",
+        "x": 710,
+        "y": 260,
+        "wires": [
+            [
+                "b1885d32.8d9cc"
+            ]
+        ]
+    },
+    {
+        "id": "f14573da.0a788",
+        "type": "inject",
+        "z": "152d879257fe666c",
+        "name": "project",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": true,
+        "onceDelay": 0.1,
+        "topic": "project",
+        "payload": "PROJECT",
+        "payloadType": "env",
+        "x": 540,
+        "y": 60,
+        "wires": [
+            [
+                "938904a0.58d668"
+            ]
+        ]
+    },
+    {
+        "id": "938904a0.58d668",
+        "type": "function",
+        "z": "152d879257fe666c",
+        "name": "Save global env variables",
+        "func": "global.set(msg.topic,msg.payload);\nreturn null;",
+        "outputs": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "x": 730,
+        "y": 60,
+        "wires": []
+    },
+    {
+        "id": "c634a8d3.297848",
+        "type": "http in",
+        "z": "152d879257fe666c",
+        "name": "/",
+        "url": "/",
+        "method": "get",
+        "upload": false,
+        "swaggerDoc": "",
+        "x": 110,
+        "y": 200,
+        "wires": [
+            [
+                "ca68de71.c19fe"
+            ]
+        ]
+    },
+    {
+        "id": "65a7590b.59a2a8",
+        "type": "template",
+        "z": "152d879257fe666c",
+        "name": "Body",
+        "field": "payload.body",
+        "fieldType": "msg",
+        "format": "html",
+        "syntax": "mustache",
+        "template": "<!-- Body HTML -->\n",
+        "output": "str",
+        "x": 850,
+        "y": 200,
+        "wires": [
+            [
+                "442b832cdc12d085"
+            ]
+        ]
+    },
+    {
+        "id": "9709fa69.9daac8",
+        "type": "template",
+        "z": "152d879257fe666c",
+        "name": "Title",
+        "field": "payload.title",
+        "fieldType": "msg",
+        "format": "html",
+        "syntax": "mustache",
+        "template": "Blinky Bead Pull",
+        "output": "str",
+        "x": 570,
+        "y": 200,
+        "wires": [
+            [
+                "a36869fc.6f5e58"
+            ]
+        ]
+    },
+    {
+        "id": "ca68de71.c19fe",
+        "type": "template",
+        "z": "152d879257fe666c",
+        "name": "JavaScript",
+        "field": "payload.javascript",
+        "fieldType": "msg",
+        "format": "javascript",
+        "syntax": "mustache",
+        "template": "        useWebSockets(false);\n        function onDocumentReady()\n        {\n            window.location = '/apps'\n        }\n        function onWebSocketOpen()\n        {\n        }\n        function onWebSocketClose()\n        {\n            \n        }\n        function onWebSocketMessage(msg)\n        {\n        }\n\n",
+        "output": "str",
+        "x": 430,
+        "y": 200,
+        "wires": [
+            [
+                "9709fa69.9daac8"
+            ]
+        ]
+    },
+    {
+        "id": "a36869fc.6f5e58",
+        "type": "template",
+        "z": "152d879257fe666c",
+        "name": "navBarIcon",
+        "field": "payload.navBarIcon",
+        "fieldType": "msg",
+        "format": "html",
+        "syntax": "mustache",
+        "template": "beadYellow.png",
+        "output": "str",
+        "x": 710,
+        "y": 200,
+        "wires": [
+            [
+                "65a7590b.59a2a8"
+            ]
+        ]
+    },
+    {
+        "id": "c87aa87d.aef928",
+        "type": "inject",
+        "z": "152d879257fe666c",
+        "name": "beadpullDevice",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": true,
+        "onceDelay": 0.1,
+        "topic": "beadpullDevice",
+        "payload": "MQTTDEVICEA",
+        "payloadType": "env",
+        "x": 160,
+        "y": 60,
+        "wires": [
+            [
+                "fdfbcac7.35b388"
+            ]
+        ]
+    },
+    {
+        "id": "fdfbcac7.35b388",
+        "type": "function",
+        "z": "152d879257fe666c",
+        "name": "Init device name",
+        "func": "var mqttSplit = msg.payload.split('/');\nvar deviceProps = {\n    project     :   mqttSplit[0],\n    deviceType  :   mqttSplit[1],\n    name        :   mqttSplit[2],\n};\nflow.set(msg.topic + 'Props',deviceProps);\nreturn null;",
+        "outputs": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 340,
+        "y": 60,
+        "wires": []
+    },
+    {
+        "id": "af9642ae.0c0da",
+        "type": "function",
+        "z": "152d879257fe666c",
+        "name": "Device Names",
+        "func": "msg.payload['beadpullDeviceName'] = flow.get('beadpullDeviceProps').name;\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 260,
+        "y": 260,
+        "wires": [
+            [
+                "f328fcb4.91dc"
+            ]
+        ]
+    },
+    {
+        "id": "442b832cdc12d085",
+        "type": "subflow:8341090a.df9758",
+        "z": "152d879257fe666c",
+        "name": "",
+        "x": 1010,
+        "y": 200,
+        "wires": []
+    },
+    {
+        "id": "c1ea8a4a6c9d59df",
+        "type": "subflow:8341090a.df9758",
+        "z": "152d879257fe666c",
+        "name": "",
+        "x": 1010,
+        "y": 260,
+        "wires": []
+    },
+    {
+        "id": "ba79496e.4e42b8",
+        "type": "exec",
+        "z": "152d879257fe666c",
+        "command": "iwconfig",
+        "addpay": false,
+        "append": "",
+        "useSpawn": "false",
+        "timer": "",
+        "oldrc": false,
+        "name": "",
+        "x": 1120,
+        "y": 60,
+        "wires": [
+            [
+                "25a2b2c8.26f4ce"
+            ],
+            [],
+            []
+        ]
+    },
+    {
+        "id": "fc7d9351.a3d0a",
+        "type": "inject",
+        "z": "152d879257fe666c",
+        "name": "",
+        "repeat": "5",
+        "crontab": "",
+        "once": true,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "",
+        "payloadType": "date",
+        "x": 960,
+        "y": 60,
+        "wires": [
+            [
+                "ba79496e.4e42b8"
+            ]
+        ]
+    },
+    {
+        "id": "25a2b2c8.26f4ce",
+        "type": "function",
+        "z": "152d879257fe666c",
+        "name": "Get Signal Quality",
+        "func": "var info = msg.payload;\nvar linkStartIndex  = info.indexOf('Link Quality=');\nvar levelStartIndex = info.indexOf('Signal level=');\nvar linkQuality = Number(info.substring(linkStartIndex + 13, linkStartIndex + 15));\nvar signalLevel =  Number(info.substring(levelStartIndex + 13, levelStartIndex + 16));\nvar ssid = info.substring(info.indexOf('ESSID') + 7);\nssid = ssid.substring(0,ssid.indexOf('\"'));\nvar val = {linkQuality : linkQuality, signalLevel: signalLevel, ssid:ssid};\nglobal.set('linkQuality',linkQuality);\nglobal.set('signalLevel', signalLevel);\nglobal.set('ssid', ssid);\nreturn {topic :'test',payload : val};",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "x": 1300,
+        "y": 60,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "493fb622.d8afc8",
+        "type": "template",
+        "z": "152d879257fe666c",
+        "name": "script.global",
+        "field": "payload.script.global",
+        "fieldType": "msg",
+        "format": "javascript",
+        "syntax": "mustache",
+        "template": "// Global Javascript\n        useWebSockets(true);\n        var archiveRequestList = [];\n        var archiveList = [];\n        var archiveList = [];\n\n        var beadpullDeviceConfig = \n        {\n            deviceType  : '{{{payload.beadpull.deviceType}}}',\n            name        : '{{{payload.beadpull.name}}}',\n            project     : '{{{payload.beadpull.project}}}'\n        };\n        var stepperDeviceConfig = \n        {\n            deviceType  : '{{{payload.stepper.deviceType}}}',\n            name        : '{{{payload.stepper.name}}}',\n            project     : '{{{payload.stepper.project}}}'\n        };\n\n        function onDocumentReady()\n        {\n            setRemoteApp(false);\n            if (remoteApp)\n            {\n                getCreds();\n                setInterval(function(){getCreds();}, 1000);\n            }\n            else\n            {\n                $('#userCardId').hide();\n            }\n            $('#archiveCardId').hide();\n            $('#noStepsToTurnButtonId').hide();\n            $('#stepDelayuSButtonId').hide();\n            $('#delayAfterRotationmSButtonId').hide();\n            $('#noScanPtsButtonId').hide();\n            $('#markerFreqButtonId').hide();\n\n            disableBeadPullSettings(true);\n            disableStepperSettings(true);\n            $('#scanButton').prop('disabled',true);\n            $('#homeBeadButton').prop('disabled',true);\n\n        }\n        function onWebSocketOpen()\n        {\n            if (remoteApp) getArchive(24);\n            var actionMsg = \n                {\n                    topic   : beadpullDeviceConfig.project + '/' +  beadpullDeviceConfig.deviceType + '/' +  beadpullDeviceConfig.name + '/setting/ping',\n                    payload : true\n                };\n            sendActionMsg('ping', 'ping', actionMsg);\n        }\n        function onWebSocketClose()\n        {\n            \n        }\n        function onWebSocketMessage(msg)\n        {\n            switch(msg.topic)\n            {\n                case 'readings':\n                    if ((msg.mqttDevice.name == beadpullDeviceConfig.name) && (msg.mqttDevice.deviceType == beadpullDeviceConfig.deviceType)  && (msg.mqttDevice.project == beadpullDeviceConfig.project) )\n                    {\n                        heartbeat();\n                        updateBeadpullReadings(JSON.parse(msg.payload));\n                    }\n                    if ((msg.mqttDevice.name == stepperDeviceConfig.name) && (msg.mqttDevice.deviceType == stepperDeviceConfig.deviceType)  && (msg.mqttDevice.project == stepperDeviceConfig.project) )\n                    {\n                        heartbeat();\n                        updateStepperReadings(JSON.parse(msg.payload));\n                    }\n                    break;\n                case 'readDatabase':\n                    if (msg.userID == userID)\n                    {\n                        if ((msg.payload.device.deviceType == beadpullDeviceConfig.deviceType) && (msg.payload.device.name == beadpullDeviceConfig.name) )\n                            putArchiveValues(msg.payload);\n                    }\n                    break;\n                case 'renew':\n                    if (msg.userID == userID)\n                    {\n                        updateCookie(msg);\n                    }\n                    break;\n                case 'permissionError':\n                    if (msg.userID == userID)\n                    {\n                        acknowledgeDialog('Permission', 'Error', msg.payload);\n                    }\n                    break;\n                case 'loginExpired':\n                    if (msg.userID == userID)\n                    {\n                       location.reload();\n                    }\n                    break;\n                default:\n                    break;\n            }\n        }\n        function sendSetting(deviceConfig, payload)\n        {\n            var actionMsg = \n                {\n                    topic   : deviceConfig.project + '/' +  deviceConfig.deviceType + '/' +  deviceConfig.name + '/setting/setting',\n                    payload : payload\n                };\n            sendActionMsg('setting','setting',actionMsg);\n        }\n        function reset(deviceConfig, actionFlag)\n        {\n            var headerText = 'Warning';\n            var title = 'Resetting Tray';\n            var text = 'I hope you know what you are doing.';\n            var buttonTexts = ['Reset', 'Cancel'];\n            var buttonFunctions = \n            [\n                function()\n                {\n                    $( this ).dialog( \"close\" );\n                    var actionMsg = \n                        {\n                            topic   : deviceConfig.project + '/' +  deviceConfig.deviceType + '/' +  deviceConfig.name + '/setting/reset',\n                            payload : actionFlag\n                        };\n                    sendActionMsg('reset','setting',actionMsg);\n                 }, \n                function()\n                {\n                    $( this ).dialog( \"close\" );\n                }\n            ];\n            if (actionFlag == 2)\n            {\n                title = 'Rebooting Tray';\n                buttonTexts[0] = 'Reboot';\n            }\n            optionDialog(headerText, title, text, buttonTexts, buttonFunctions);\n            \n        }\n",
+        "output": "str",
+        "x": 650,
+        "y": 380,
+        "wires": [
+            [
+                "e29616e2.2e2988"
+            ]
+        ]
+    },
+    {
+        "id": "9c813756.6c5c38",
+        "type": "template",
+        "z": "152d879257fe666c",
+        "name": "javascript",
+        "field": "payload.javascript",
+        "fieldType": "msg",
+        "format": "javascript",
+        "syntax": "mustache",
+        "template": "{{{payload.script.global}}}\n{{{payload.script.updateReadings}}}\n{{{payload.script.timePlot}}}\n{{{payload.script.archive}}}\n{{{payload.script.user}}}\n",
+        "output": "str",
+        "x": 640,
+        "y": 580,
+        "wires": [
+            [
+                "f6ab8485.5f47e8"
+            ]
+        ]
+    },
+    {
+        "id": "864cffa0.3724b",
+        "type": "template",
+        "z": "152d879257fe666c",
+        "name": "body",
+        "field": "payload.body",
+        "fieldType": "msg",
+        "format": "html",
+        "syntax": "mustache",
+        "template": "    <div width=\"100%\">\n{{{payload.html.dashboard}}}\n{{{payload.html.timePlot}}}\n{{{payload.html.archive}}}\n        <div class='row' style='padding-bottom: 25px;'>\n            <div class='col-md-12'>\n{{{payload.html.user}}}\n            </div>\n        </div>\n        <div class='row' style='padding-bottom: 25px;'>\n            <div class='col-md-12'>\n{{{payload.html.wifimon}}}\n            </div>\n        </div>\n        <div class='row' style='padding-bottom: 25px;'>\n            <div class='col-md-12'>\n{{{payload.html.reset}}}\n            </div>\n        </div>\n    </div>",
+        "output": "str",
+        "x": 950,
+        "y": 620,
+        "wires": [
+            [
+                "9caafb0f1f33ec3d"
+            ]
+        ]
+    },
+    {
+        "id": "cefdafa8.91d69",
+        "type": "template",
+        "z": "152d879257fe666c",
+        "name": "html.wifimon",
+        "field": "payload.html.wifimon",
+        "fieldType": "msg",
+        "format": "html",
+        "syntax": "mustache",
+        "template": "<!-- Dashboard HTML -->\n                <div class='card'>\n                    <p class='card-title'>WiFi Connection</p>\n                    <div class='card-body' align=\"center\">\n                        <div class='row'  style='padding-top: 0px;'>\n                            <table width='100%'>\n                                <tr>\n                                    <td width='60%' >\n                                        <span class='card-text' >Device Update</span>\n                                    </td>\n                                    <td width='20%' align='center'></td>\n                                    <td width='20%' align='center'>\n                                        <img src='/img/heartRed.png' id='heartBeatID' width='100px' height='100px'/>\n                                    </td>\n                                </tr>\n                                <tr>\n                                    <td width='60%' >\n                                        <span class='card-text' >Signal Level (dBm)</span>\n                                    </td>\n                                    <td width='20%' align='center'></td>\n                                    <td width='20%' align='center'>\n                                        <span class='card-text' id='signalLevelId' >-100</span>\n                                    </td>\n                                </tr>\n                                <tr>\n                                    <td width='60%' >\n                                        <span class='card-text' >Link Quality (/70)</span>\n                                    </td>\n                                    <td width='20%' align='center'></td>\n                                    <td width='20%' align='center'>\n                                        <span class='card-text' id='linkQualityId' >-1</span>\n                                    </td>\n                                </tr>\n                            </table>\n                        </div>\n                    </div>\n                </div>\n",
+        "output": "str",
+        "x": 970,
+        "y": 540,
+        "wires": [
+            [
+                "3fb4b4a8.ec76fc"
+            ]
+        ]
+    },
+    {
+        "id": "7974c464.11ebac",
+        "type": "template",
+        "z": "152d879257fe666c",
+        "name": "html.archive",
+        "field": "payload.html.archive",
+        "fieldType": "msg",
+        "format": "html",
+        "syntax": "mustache",
+        "template": "<!-- Archive HTML -->\n        <div class='row' style='padding-bottom: 25px;'>\n            <div class='col-md-12' align='center'>\n                <div class='card' id=archiveCardId>\n                    <p class='card-title'>Archive</p>\n                    <div class='card-body' align=\"center\">\n                        <div class='row' >\n                            <table width='100%'>\n                                <tr>\n                                    <td width='10%' align='center'>\n                                        <button class='btn btn-block big-text' style='background-color:var(--color1);color:var(--color5)' id=\"archive2hrButton\" onclick=\"getArchive(2)\" >2</button>\n                                    </td>\n                                    <td width='10%'  align='center'>\n                                        <button class='btn btn-block big-text' style='background-color:var(--color1);color:var(--color5)' id=\"archive4hrButton\" onclick=\"getArchive(4)\" >4</button>\n                                    </td>\n                                    <td width='10%'  align='center'>\n                                        <button class='btn btn-block big-text' style='background-color:var(--color1);color:var(--color5)' id=\"archive8hrButton\" onclick=\"getArchive(8)\" >8</button>\n                                    </td>\n                                    <td width='10%'  align='center'>\n                                        <button class='btn btn-block big-text' style='background-color:var(--color1);color:var(--color5)' id=\"archive24hrButton\" onclick=\"getArchive(24)\" >24</button>\n                                    </td>\n                                    <td width='10%' align='center'>\n                                        <button class='btn btn-block big-text' style='background-color:var(--color1);color:var(--color5)' id=\"archive72hrButton\" onclick=\"getArchive(72)\" >72</button>\n                                    </td>\n                                    <td width='10%' align='center'>\n                                        <button class='btn btn-block big-text' style='background-color:var(--color1);color:var(--color5)' id=\"archive168hrButton\" onclick=\"getArchive(168)\" >168</button>\n                                    </td>\n                                    <td width='10%' align='center'>\n                                        <span class='big-text' >Hours</span>\n                                    </td>\n                                </tr>\n                            </table>\n                        </div>\n                        <div class='row vert-pad'>\n                            <div class='col-md-12'>\n                                <div id=\"archiveChart\" width=\"100%\" ></div>\n                            </div>\n                        </div>\n                    </div>\n                </div>\n            </div>\n        </div>\n",
+        "output": "str",
+        "x": 970,
+        "y": 460,
+        "wires": [
+            [
+                "4f8cafa.a57065"
+            ]
+        ]
+    },
+    {
+        "id": "4f8cafa.a57065",
+        "type": "template",
+        "z": "152d879257fe666c",
+        "name": "html.user",
+        "field": "payload.html.user",
+        "fieldType": "msg",
+        "format": "html",
+        "syntax": "mustache",
+        "template": "                <div class='card' id='userCardId'>\n                    <div class='card-body' align=\"center\">\n                        <table width=\"100%\">\n                            <tr>\n                                <td  align=\"left\">\n                                     <span class='card-text' style='color:black;'>User:</span>\n                                </td>\n                                <td  align=\"right\">\n                                     <span class='card-text' id='usernameId'></span>\n                                </td>\n                            </tr>\n                            <tr>\n                                <td  align=\"left\">\n                                    <span class='card-text' style='color:black;'>Time left:</span>\n                                </td>\n                                <td  align=\"right\">\n                                     <span class='card-text' id='expTimeId'></span>\n                                </td>\n                            </tr>\n                        </table>\n                        <table width=\"100%\">\n                            <tr>\n                                <td width=\"40%\">\n                                    <button class='btn btn-block card-button big-text' id='logoutButton' onclick=\"renew()\" >Renew</button>\n                                </td>\n                                <td width=\"10%\"></td>\n                                <td width=\"40%\">\n                                    <button class='btn btn-block card-button big-text' id='logoutButton' onclick=\"logout()\" >Logout</button>\n                                </td>\n                            </tr>\n                        </table>\n                    </div>\n                </div>\n",
+        "output": "str",
+        "x": 960,
+        "y": 500,
+        "wires": [
+            [
+                "cefdafa8.91d69"
+            ]
+        ]
+    },
+    {
+        "id": "6f5a5e46.8a941",
+        "type": "template",
+        "z": "152d879257fe666c",
+        "name": "script.user",
+        "field": "payload.script.user",
+        "fieldType": "msg",
+        "format": "javascript",
+        "syntax": "mustache",
+        "template": "        function getCreds()\n        {\n            var now = new Date().getTime();\n            var expDate = Number(getCookie('ExpDate'));\n            if (expDate > 0)\n            {\n                expDate = expDate - now;\n                if(expDate < 0)\n                {\n                    logout();\n                }\n                else\n                {\n                    var hours = Math.floor(expDate / 3600000);\n                    var minutes = expDate - hours * 3600000;\n                    minutes = Math.floor(minutes / 60000);\n                    var seconds = expDate - (hours * 3600000) - (minutes * 60000);\n                    seconds = Math.floor(seconds / 1000);\n                    hours = hours.toString();\n                    if (hours.length == 1) hours = '0' + hours; \n                    minutes = minutes.toString();\n                    if (minutes.length == 1) minutes = '0' + minutes; \n                    seconds = seconds.toString();\n                    if (seconds.length == 1) seconds = '0' + seconds; \n                    var timeString = hours + ':' + minutes + ':' + seconds;\n                    $('#usernameId').text(getCookie('Username'));\n                    $('#expTimeId').text(timeString);\n                }\n            }\n            else\n            {\n                $('#usernameId').text(getCookie('Username'));\n                $('#expTimeId').text('Forever');\n            }\n        }\n        function logout()\n        {\n            document.cookie = project + \"Role= ; expires = Thu, 01 Jan 1970 00:00:00 GMT\";\n            document.cookie = project + \"ExpDate= ; expires = Thu, 01 Jan 1970 00:00:00 GMT\";\n            document.cookie = project + \"Username= ; expires = Thu, 01 Jan 1970 00:00:00 GMT\";\n            window.location.href = \"/\";\n        }\n        function renew()\n        {\n            var actionMsg = {};\n            sendActionMsg('renew', 'renew', actionMsg);\n        }\n        function updateCookie(msg)\n        {\n            document.cookie = project + \"Role=\" + msg.role;\n            document.cookie = project + \"ExpDate=\" + msg.expDate;\n            document.cookie = project + \"Username=\" + msg.username;\n        }\n        function downloadToken()\n        {\n            downloadString(getCookie(\"Role\"), \"text/plain\", project + \"-token.txt\");\n        }\n// from https://gist.github.com/danallison/3ec9d5314788b337b682\n        function downloadString(text, fileType, fileName) \n        {\n            var blob = new Blob([text], { type: fileType });\n            \n            var a = document.createElement('a');\n            a.download = fileName;\n            a.href = URL.createObjectURL(blob);\n            a.dataset.downloadurl = [fileType, a.download, a.href].join(':');\n            a.style.display = \"none\";\n            document.body.appendChild(a);\n            a.click();\n            document.body.removeChild(a);\n            setTimeout(function() { URL.revokeObjectURL(a.href); }, 1500);\n        }",
+        "output": "str",
+        "x": 650,
+        "y": 540,
+        "wires": [
+            [
+                "9c813756.6c5c38"
+            ]
+        ]
+    },
+    {
+        "id": "3fb4b4a8.ec76fc",
+        "type": "template",
+        "z": "152d879257fe666c",
+        "name": "html.reset",
+        "field": "payload.html.reset",
+        "fieldType": "msg",
+        "format": "html",
+        "syntax": "mustache",
+        "template": "                <div class='card' id='reset'>\n                    <div class='card-body' align=\"center\">\n                         <table width=\"100%\">\n                            <tr>\n                                <td width=\"40%\">\n                                    <button class='btn btn-block card-button big-text' id='resetButton' onclick=\"reset(beadpullDeviceConfig, 1)\" >Reset</button>\n                                </td>\n                                <td width=\"10%\"></td>\n                                <td width=\"40%\">\n                                    <button class='btn btn-block card-button big-text' id='rebootButton'onclick=\"reset(beadpullDeviceConfig, 2)\" >Reboot</button>\n                                </td>\n                            </tr>\n                        </table>\n                    </div>\n                </div>\n",
+        "output": "str",
+        "x": 960,
+        "y": 580,
+        "wires": [
+            [
+                "864cffa0.3724b"
+            ]
+        ]
+    },
+    {
+        "id": "f6ab8485.5f47e8",
+        "type": "template",
+        "z": "152d879257fe666c",
+        "name": "html.dashboard",
+        "field": "payload.html.dashboard",
+        "fieldType": "msg",
+        "format": "html",
+        "syntax": "mustache",
+        "template": "<!-- Dashboard HTML -->\n        <div class='row' style='padding-top:20px;padding-bottom:20px;'>\n            <div class='col-md-12' align='center'>\n                <table  width='100%'>\n                   <tr>\n                        <td width='20%' align='left'> </td>\n                        <td width='60%' align='center'>\n                            <button class='btn btn-block card-button big-text' id=\"scanButton\" scanAttr=\"10\" onclick=\"scan()\" >Start Scan</button>\n                        </td>\n                        <td width='20%' align='left'> </td>\n                    </tr>\n                   <tr>\n                        <td width='20%' align='left'> </td>\n                        <td width='60%' align='center' style='padding-top:20px;'>\n                            <button class='btn btn-block card-button big-text' id=\"homeBeadButton\" onclick=\"homeBead()\" >Home Bead</button>\n                        </td>\n                        <td width='20%' align='left'> </td>\n                    </tr>\n                </table>\n            </div>\n        </div>\n        <div class='row' style='padding-bottom: 25px;'>\n            <div class='col-md-12' align='center'>\n                <div class='card'>\n                    <p class='card-title'>Controls</p>\n                    <div class='card-body' align=\"center\">\n                        <div class='row' style='padding-bottom: 25px;'>\n                            <div class=\"container-fluid \" align=\"center\" style='padding-top: 0px;'>\n                                <div class='row' style='padding-bottom: 15px;'>\n                                    <div class=\"container-fluid \" align=\"center\">\n                                        <table  width='100%'>\n                                            <tr>\n                                                <td width='60%'>\n                                                    <span class='card-text' >Bead location</span>\n                                                </td>\n                                                <td width='20%'>\n                                                    <span class='card-text' id=\"stepLocationId\" >0</span>\n                                                </td>\n                                                <td width='20%'>\n                                                </td>\n                                            </tr>\n                                        </table>\n                                    </div>\n                                </div>\n                                <div class='row' style='padding-bottom: 15px;'>\n                                    <div class=\"container-fluid \" align=\"center\">\n                                        <table  width='100%'>\n                                            <tr>\n                                                <td width='60%'>\n                                                    <span class='card-text' >No. of points / scan</span>\n                                                </td>\n                                                <td width='20%'>\n                                                    <input id=\"noScanPtsInputId\" type=\"text\" value=\"0\" class=\"big-text\"  size=\"8\" oninput=\"noScanPtsChange()\"/>\n                                                </td>\n                                                <td width='20%'>\n                                                    <button class='btn btn-block card-button big-text' id=\"noScanPtsButtonId\" onclick=\"noScanPts()\" >&#10003;</button>\n                                                </td>\n                                            </tr>\n                                        </table>\n                                    </div>\n                                </div>\n                                <div class='row' style='padding-bottom: 15px;'>\n                                    <div class=\"container-fluid \" align=\"center\">\n                                        <table  width='100%'>\n                                            <tr>\n                                                <td width='60%'>\n                                                    <span class='card-text' >Marker Freq (Hz)</span>\n                                                </td>\n                                                <td width='20%'>\n                                                    <input id=\"markerFreqInputId\" type=\"text\" value=\"0\" class=\"big-text\"  size=\"8\" oninput=\"markerFreqChange()\"/>\n                                                </td>\n                                                <td width='20%'>\n                                                    <button class='btn btn-block card-button big-text' id=\"markerFreqButtonId\" onclick=\"markerFreq()\" >&#10003;</button>\n                                                </td>\n                                            </tr>\n                                        </table>\n                                    </div>\n                                </div>\n                                <div class='row' style='padding-bottom: 15px;'>\n                                    <div class=\"container-fluid \" align=\"center\">\n                                        <table  width='100%'>\n                                            <tr>\n                                                <td width='60%'>\n                                                    <span class='card-text' >No. of steps / pt.</span>\n                                                </td>\n                                                <td width='20%'>\n                                                    <input id=\"noStepsToTurnInputId\" type=\"text\" value=\"0\" class=\"big-text\"  size=\"8\" oninput=\"noStepsToTurnChange()\"/>\n                                                </td>\n                                                <td width='20%'>\n                                                    <button class='btn btn-block card-button big-text' id=\"noStepsToTurnButtonId\" onclick=\"noStepsToTurn()\" >&#10003;</button>\n                                                </td>\n                                            </tr>\n                                        </table>\n                                    </div>\n                                </div>\n                                <div class='row' style='padding-bottom: 15px;'>\n                                    <div class=\"container-fluid \" align=\"center\">\n                                        <table  width='100%'>\n                                            <tr>\n                                                <td width='60%'>\n                                                    <span class='card-text' >Step Delay (uS)</span>\n                                                </td>\n                                                <td width='20%'>\n                                                    <input id=\"stepDelayuSInputId\" type=\"text\" value=\"0\" class=\"big-text\"  size=\"8\" oninput=\"stepDelayuSChange()\"/>\n                                                </td>\n                                                <td width='20%'>\n                                                    <button class='btn btn-block card-button big-text' id=\"stepDelayuSButtonId\" onclick=\"stepDelayuS()\" >&#10003;</button>\n                                                </td>\n                                            </tr>\n                                        </table>\n                                    </div>\n                                </div>\n                                <div class='row' style='padding-bottom: 15px;'>\n                                    <div class=\"container-fluid \" align=\"center\">\n                                        <table  width='100%'>\n                                            <tr>\n                                                <td width='60%'>\n                                                    <span class='card-text' >Delay After Rotation (mS)</span>\n                                                </td>\n                                                <td width='20%'>\n                                                    <input id=\"delayAfterRotationmSInputId\" type=\"text\" value=\"0\" class=\"big-text\"  size=\"8\" oninput=\"delayAfterRotationmSChange()\"/>\n                                                </td>\n                                                <td width='20%'>\n                                                    <button class='btn btn-block card-button big-text' id=\"delayAfterRotationmSButtonId\" onclick=\"delayAfterRotationmS()\" >&#10003;</button>\n                                                </td>\n                                            </tr>\n                                        </table>\n                                    </div>\n                                </div>\n                                <div class='row' style='padding-bottom: 15px;'>\n                                    <div class=\"container-fluid \" align=\"center\">\n                                        <table  width='100%'>\n                                            <tr>\n                                                <td width='60%'>\n                                                    <span class='card-text' >Reset Steps</span>\n                                                </td>\n                                                <td width='20%'>\n                                                    <select class=\"custom-select big-text\"  id=\"resetStepReadingInputId\" onchange=\"resetStepReading()\" >\n                                                        <option value=\"0\">No</option>\n                                                        <option value=\"1\">Reset</option>\n                                                    </select>\n                                                </td>\n                                                <td width='20%'>\n                                                </td>\n                                            </tr>\n                                        </table>\n                                    </div>\n                                </div>\n                                <div class='row' style='padding-bottom: 15px;'>\n                                    <div class=\"container-fluid \" align=\"center\">\n                                        <table  width='100%'>\n                                            <tr>\n                                                <td width='60%'>\n                                                    <span class='card-text' >NWA Center Frequency(Hz)</span>\n                                                </td>\n                                                <td width='20%'>\n                                                    <span class='card-text' id=\"centerFreqId\" >0</span>\n                                                </td>\n                                                <td width='20%'>\n                                                </td>\n                                            </tr>\n                                            <tr>\n                                                <td width='60%'>\n                                                    <span class='card-text' >NWA Frequency Span(Hz)</span>\n                                                </td>\n                                                <td width='20%'>\n                                                    <span class='card-text' id=\"freqSpanId\" >0</span>\n                                                </td>\n                                                <td width='20%'>\n                                                </td>\n                                            </tr>\n                                        </table>\n                                    </div>\n                                </div>\n                            </div>\n                        </div>\n                   </div>\n                </div>\n            </div>\n        </div>\n",
+        "output": "str",
+        "x": 980,
+        "y": 380,
+        "wires": [
+            [
+                "64b8974a8d469849"
+            ]
+        ]
+    },
+    {
+        "id": "e29616e2.2e2988",
+        "type": "template",
+        "z": "152d879257fe666c",
+        "name": "script.updateReadings",
+        "field": "payload.script.updateReadings",
+        "fieldType": "msg",
+        "format": "javascript",
+        "syntax": "mustache",
+        "template": "// Update Readings Javascript\n        var noStepsToTurnChanged = false;\n        var stepDelayuSChanged = false;\n        var delayAfterRotationmSChanged = false;\n        var noScanPtsChanged = false;\n        var markerFreqChanged = false;\n        function updateBeadpullReadings(device)\n        {\n            if (!noScanPtsChanged) $('#noScanPtsInputId').val(device.noScanPts.value);\n            if (!markerFreqChanged) $('#markerFreqInputId').val(device.markerFreq.value);\n            $('#centerFreqId').text(device.centerFreq.value);\n            $('#freqSpanId').text(device.freqSpan.value);\n            $('#scanButton').attr('scanAttr',device.scan.value.toString());\n            switch(device.scan.value)\n            {\n                case -1:\n                    $('#scanButton').text(\"Abort in Progress\");\n                    disableBeadPullSettings(true);\n                    disableStepperSettings(true);\n                    $('#scanButton').prop('disabled',true);\n                    $('#homeBeadButton').prop('disabled',true);\n                    break;\n                case  0:\n                    if (device.homeBead.value == 0)\n                    {\n                        $('#scanButton').text(\"Start Scan\");\n                        $('#scanButton').prop('disabled',false);\n                        $('#homeBeadButton').prop('disabled',false);\n                        disableBeadPullSettings(false);\n                    }\n                    else\n                    {\n                        $('#scanButton').text(\"Start Scan\");\n                        $('#scanButton').prop('disabled',true);\n                        $('#homeBeadButton').prop('disabled',true);\n                        disableBeadPullSettings(true);\n                    }\n                    break;\n                case  1:\n                    $('#scanButton').text(\"Abort Scan\");\n                    $('#scanButton').prop('disabled',false);\n                    $('#homeBeadButton').prop('disabled',true);\n                    disableBeadPullSettings(true);\n                    disableStepperSettings(true);\n                    break;\n                default:\n                    break;\n            }\n\n        }\n        function updateStepperReadings(device)\n        {\n            var scanVal = Number($('#scanButton').attr('scanAttr'));\n            if (scanVal == 0)\n            {\n                if (device.settingInProgress == 0)\n                {\n                    disableStepperSettings(false);\n                }\n                else\n                {\n                    disableStepperSettings(true);\n                }\n            }\n            else\n            {\n                disableStepperSettings(true);\n            }\n            $('#linkQualityId').text(device.linkQuality.value);\n            $('#signalLevelId').text(device.signalLevel.value);\n            if (!noStepsToTurnChanged) $('#noStepsToTurnInputId').val(device.noStepsToTurn.value);\n            if (!stepDelayuSChanged)   $('#stepDelayuSInputId').val(device.stepDelayuS.value);\n            if (!delayAfterRotationmSChanged)   $('#delayAfterRotationmSInputId').val(device.delayAfterRotationmS.value);\n\n            $('#resolutionInputId').val(device.resolution.value);\n            $('#stayAwakeAfterRotationInputId').val(device.stayAwakeAfterRotation.value);\n            $('#stepForwardInputId').val(device.stepForward.value);\n            $('#resetStepReadingInputId').val(device.resetStepReading.value);\n\n            $('#stepLocationId').text(device.stepLocation.value);\n            addTracePointsToTimePlot([device.stepLocation.value]);\n\n        }\n        function disableStepperSettings(disable)\n        {\n            $('#noStepsToTurnInputId').attr('disabled',disable);\n            $('#stepDelayuSInputId').attr('disabled',disable);\n            $('#delayAfterRotationmSInputId').attr('disabled',disable);\n            $('#resetStepReadingInputId').attr('disabled',disable);\n            \n        }\n        function disableBeadPullSettings(disable)\n        {\n            $('#noScanPtsInputId').attr('disabled',disable);\n            $('#markerFreqInputId').attr('disabled',disable);\n\n        }\n        function noStepsToTurnChange()\n        {\n            noStepsToTurnChanged = true;\n            $('#noStepsToTurnButtonId').show();\n        }\n        function stepDelayuSChange()\n        {\n            stepDelayuSChanged = true;\n            $('#stepDelayuSButtonId').show();\n        }\n        function delayAfterRotationmSChange()\n        {\n            delayAfterRotationmSChanged = true;\n            $('#delayAfterRotationmSButtonId').show();\n        }\n\n        function noScanPtsChange()\n        {\n            noScanPtsChanged = true;\n            $('#noScanPtsButtonId').show();\n        }\n        function markerFreqChange()\n        {\n            markerFreqChanged = true;\n            $('#markerFreqButtonId').show();\n        }\n\n        function noStepsToTurn()\n        {\n            $('#noStepsToTurnButtonId').hide();\n            if (isNaN($('#noStepsToTurnInputId').val()))\n            {\n                noStepsToTurnChanged = false;\n                return;\n            }\n            var payload = {'attr': 'noStepsToTurn', 'value':Number($('#noStepsToTurnInputId').val())};\n            sendSetting(stepperDeviceConfig, payload);\n            noStepsToTurnChanged = false;\n        }\n        function stepDelayuS()\n        {\n            $('#stepDelayuSButtonId').hide();\n            if (isNaN($('#stepDelayuSInputId').val()))\n            {\n                stepDelayuSChanged = false;\n                return;\n            }\n            var payload = {'attr': 'stepDelayuS', 'value':Number($('#stepDelayuSInputId').val())};\n            sendSetting(stepperDeviceConfig,payload);\n            stepDelayuSChanged = false;\n        }\n        function delayAfterRotationmS()\n        {\n            $('#delayAfterRotationmSButtonId').hide();\n            if (isNaN($('#delayAfterRotationmSInputId').val()))\n            {\n                delayAfterRotationmSChanged = false;\n                return;\n            }\n            var payload = {'attr': 'delayAfterRotationmS', 'value':Number($('#delayAfterRotationmSInputId').val())};\n            sendSetting(stepperDeviceConfig,payload);\n            delayAfterRotationmSChanged = false;\n        }\n        function resetStepReading()\n        {\n            if (isNaN($('#resetNrevReadingInputId').val()))\n            {\n                 return;\n            }\n            var payload = {'attr': 'resetStepReading', 'value':Number($('#resetStepReadingInputId').val())};\n            sendSetting(stepperDeviceConfig,payload);\n        }\n        function noScanPts()\n        {\n            $('#noScanPtsButtonId').hide();\n            if (isNaN($('#noScanPtsInputId').val()))\n            {\n                noScanPtsChanged = false;\n                return;\n            }\n            var payload = {'attr': 'noScanPts', 'value':Number($('#noScanPtsInputId').val())};\n            sendSetting(beadpullDeviceConfig, payload);\n            noScanPtsChanged = false;\n        }\n        function markerFreq()\n        {\n            $('#markerFreqButtonId').hide();\n            if (isNaN($('#markerFreqInputId').val()))\n            {\n                markerFreqChanged = false;\n                return;\n            }\n            var payload = {'attr': 'markerFreq', 'value':Number($('#markerFreqInputId').val())};\n            sendSetting(beadpullDeviceConfig, payload);\n            markerFreqChanged = false;\n        }\n        function scan()\n        {\n           var scanVal = Number($('#scanButton').attr('scanAttr'));\n           switch(scanVal)\n           {\n                case  0:\n                    $('#scanButton').text(\"Abort Scan\");\n                    $('#scanButton').attr('disable',false);\n                    $('#homeBeadButton').prop('disabled',true);\n                    scanVal = 1;\n                    break;\n                case  1:\n                    scanVal = -1;\n                    $('#scanButton').text(\"Abort in Progress\");\n                    $('#scanButton').attr('disable',true);\n                    $('#homeBeadButton').prop('disabled',true);\n                    break;\n                default:\n                    break;\n            }\n            $('#scanButton').attr('scanAttr',scanVal.toString());\n            var payload = {'attr': 'scan', 'value':scanVal};\n            sendSetting(beadpullDeviceConfig, payload);\n        }\n        function homeBead()\n        {\n            \n        }\n",
+        "output": "str",
+        "x": 680,
+        "y": 420,
+        "wires": [
+            [
+                "ea72affbdba78c7b"
+            ]
+        ]
+    },
+    {
+        "id": "8a2cca551d64f879",
+        "type": "template",
+        "z": "152d879257fe666c",
+        "name": "script.archive",
+        "field": "payload.script.archive",
+        "fieldType": "msg",
+        "format": "javascript",
+        "syntax": "mustache",
+        "template": "// Archive JavaScript\n        function getArchive(hours)\n        { \n            $('#archiveCardId').show();\n\n//            if (hours > 2) messageDialog('Info', 'Wait', 'Getting Archive Data');\n            $('#archive2hrButton').attr(\"disabled\", true); \n            $('#archive4hrButton').attr(\"disabled\", true); \n            $('#archive8hrButton').attr(\"disabled\", true); \n            $('#archive24hrButton').attr(\"disabled\", true); \n            $('#archive72hrButton').attr(\"disabled\", true); \n            $('#archive168hrButton').attr(\"disabled\", true); \n            $('#archive2hrButton').css('color', 'var(--color5)'); \n            $('#archive2hrButton').css('background-color', 'var(--color1)'); \n            $('#archive4hrButton').css('color', 'var(--color5)'); \n            $('#archive4hrButton').css('background-color', 'var(--color1)'); \n            $('#archive8hrButton').css('color', 'var(--color5)'); \n            $('#archive8hrButton').css('background-color', 'var(--color1)'); \n            $('#archive24hrButton').css('color', 'var(--color5)'); \n            $('#archive24hrButton').css('background-color', 'var(--color1)'); \n            $('#archive72hrButton').css('color', 'var(--color5)'); \n            $('#archive72hrButton').css('background-color', 'var(--color1)'); \n            $('#archive168hrButton').css('color', 'var(--color5)'); \n            $('#archive168hrButton').css('background-color', 'var(--color1)'); \n            switch(hours)\n            {\n                case 2:\n                    $('#archive2hrButton').css('color', 'var(--color1)'); \n                    $('#archive2hrButton').css('background-color', 'var(--color5)'); \n                    break;\n                case 4:\n                    $('#archive4hrButton').css('color', 'var(--color1)'); \n                    $('#archive4hrButton').css('background-color', 'var(--color5)'); \n                    break;\n                case 8:\n                    $('#archive8hrButton').css('color', 'var(--color1)'); \n                    $('#archive8hrButton').css('background-color', 'var(--color5)'); \n                    break;\n                case 24:\n                    $('#archive24hrButton').css('color', 'var(--color1)'); \n                    $('#archive24hrButton').css('background-color', 'var(--color5)'); \n                    break;\n                case 72:\n                    $('#archive72hrButton').css('color', 'var(--color1)'); \n                    $('#archive72hrButton').css('background-color', 'var(--color5)'); \n                    break;\n                case 168:\n                    $('#archive168hrButton').css('color', 'var(--color1)'); \n                    $('#archive168hrButton').css('background-color', 'var(--color5)'); \n                    break;\n                default:\n                // code block\n            }\n\n            archiveRequestList = [];\n            archiveList = [];\n            var stopDate = new Date().getTime();\n            var startDate = stopDate - hours * 3600000;\n            archiveRequestList[0] = \n            {\n                deviceType : beadpullDeviceConfig.deviceType,\n                name : beadpullDeviceConfig.name, \n                attr : ['stepLocation'],\n                startDate: startDate, \n                stopDate: stopDate,\n            };\n            getArchiveValues();\n\n        }\n        function getArchiveValues()\n        {\n            var actionMsg = \n                {\n                    device      : archiveRequestList[0]\n                };\n            sendActionMsg('readDatabase','readDatabase', actionMsg);\n            archiveRequestList.shift();\n            return;\n        }\n        function putArchiveValues(data)\n        {\n            archiveList.push(data);\n            if (archiveRequestList.length > 0)\n            {\n                getArchiveValues();\n            }\n            else\n            {\n                plotArchive();\n            }\n        }\n\n        function plotArchive()\n        {\n//            $( \"#messageDialog\" ).dialog( \"close\" );\n            var layout =\n            {\n                showlegend  : true,\n                legend      : { x: 0, y: 1.15},\n                height      : '500',\n                width       : '',\n                xaxis       :\n                {\n//                    title: 'Hours since ' + new Date(archiveList[0].device.stopDate).toLocaleString(),\n                    type: 'date'\n                },\n            yaxis:\n            {\n                title           : 'Position (Steps)',\n                titlefont       : {color: '#557a95'},\n                tickfont        : {color: '#557a95'},\n                gridcolor       : '#beceda',\n                zerolinecolor   : '#beceda',\n                linecolor       : '#beceda'\n//                rangemode       : 'tozero'\n            },\n/*\n            yaxis2:\n            {\n                title           : 'Steps to turn',\n                titlefont       : {color: '#f2a31f'},\n                tickfont        : {color: '#f2a31f'},\n                gridcolor       : '#f2a31f',\n                zerolinecolor   : '#f2a31f',\n                linecolor       : '#f2a31f',\n                overlaying: 'y',\n                side: 'right'\n                range: [0, 100]\n            },\n*/\n                margin: \n                    {\n                        t: 30, //top margin\n    //                    l: 0, //left margin\n    //                    r: 0, //right margin\n    //                    b: 20 //bottom margin\n                    },\n            };\n            var trace1 = \n            {\n                x: [],\n                y: [],\n                name: 'Position',\n                yaxis: 'y1',\n                type: 'scatter',\n                mode: 'lines',\n                line: {color: 'blue'}\n        \n            };\n            for (var ii = 0; ii < archiveList[0].trace.length; ++ii)\n            {\n//                var x = (archiveList[0].trace[ii].timeStamp - archiveList[0].device.stopDate) / 3600000.0;\n                var x = archiveList[0].trace[ii].timeStamp;\n                trace1.x[ii] = x;\n                trace1.y[ii] = archiveList[0].trace[ii][archiveList[0].device.attr[0]] ;\n             }\n\n\n            Plotly.newPlot('archiveChart', [trace1], layout);\n            $('#archive2hrButton').attr(\"disabled\", false); \n            $('#archive4hrButton').attr(\"disabled\", false); \n            $('#archive8hrButton').attr(\"disabled\", false); \n            $('#archive24hrButton').attr(\"disabled\", false); \n            $('#archive72hrButton').attr(\"disabled\", false); \n            $('#archive168hrButton').attr(\"disabled\", false); \n        }\n",
+        "output": "str",
+        "x": 650,
+        "y": 500,
+        "wires": [
+            [
+                "6f5a5e46.8a941"
+            ]
+        ]
+    },
+    {
+        "id": "9caafb0f1f33ec3d",
+        "type": "subflow:8341090a.df9758",
+        "z": "152d879257fe666c",
+        "name": "",
+        "x": 1290,
+        "y": 620,
+        "wires": []
+    },
+    {
+        "id": "ea72affbdba78c7b",
+        "type": "template",
+        "z": "152d879257fe666c",
+        "name": "script.timePlot",
+        "field": "payload.script.timePlot",
+        "fieldType": "msg",
+        "format": "javascript",
+        "syntax": "mustache",
+        "template": "// Archive JavaScript\n        var timePlotLength = 600000;\n        var timePlotLayout =\n        {\n            showlegend  : true,\n            legend      : { x: 0, y: 1.15},\n            height      : '500',\n            width       : '',\n            xaxis       :\n            {\n                type: 'date'\n            },\n            yaxis:\n            {\n                title           : 'Position (Steps)',\n                titlefont       : {color: '#557a95'},\n                tickfont        : {color: '#557a95'},\n                gridcolor       : '#beceda',\n                zerolinecolor   : '#beceda',\n                linecolor       : '#beceda'\n//                rangemode       : 'tozero'\n            },\n/*\n            yaxis2:\n            {\n                title           : 'Steps to turn',\n                titlefont       : {color: '#f2a31f'},\n                tickfont        : {color: '#f2a31f'},\n                gridcolor       : '#f2a31f',\n                zerolinecolor   : '#f2a31f',\n                linecolor       : '#f2a31f',\n                overlaying: 'y',\n                side: 'right'\n                range: [0, 100]\n            },\n*/\n            margin: \n                {\n                    t: 30, //top margin\n//                    l: 0, //left margin\n//                    r: 0, //right margin\n//                    b: 20 //bottom margin\n                },\n        };\n        var timePlotTraces = [];\n        timePlotTraces[0] = \n        {\n            x: [],\n            y: [],\n            name: 'Position',\n            yaxis: 'y1',\n            type: 'scatter',\n            mode: 'lines',\n            line: {color: 'blue'}\n    \n        };\n        function addTracePointsToTimePlot(pts)\n        {\n            var now = new Date().getTime();\n            var plotBeginning = now - timePlotLength;\n            var removeDone = false;\n            while(!removeDone)\n            {\n                if (timePlotTraces[0].x[0] < plotBeginning)\n                {\n                    for (var ii = 0; ii < timePlotTraces.length; ++ii)\n                    {\n                        timePlotTraces[ii].x.shift();\n                        timePlotTraces[ii].y.shift();\n                    }\n                }\n                else\n                {\n                    removeDone = true;\n                }\n            }\n            for (var ii = 0; ii < timePlotTraces.length; ++ii)\n            {\n                timePlotTraces[ii].x.push(now);\n                timePlotTraces[ii].y.push(pts[ii]);\n            }    \n            Plotly.newPlot(\"timePlotChart\", timePlotTraces, timePlotLayout);\n        }\n\n",
+        "output": "str",
+        "x": 660,
+        "y": 460,
+        "wires": [
+            [
+                "8a2cca551d64f879"
+            ]
+        ]
+    },
+    {
+        "id": "64b8974a8d469849",
+        "type": "template",
+        "z": "152d879257fe666c",
+        "name": "html.timePlot",
+        "field": "payload.html.timePlot",
+        "fieldType": "msg",
+        "format": "html",
+        "syntax": "mustache",
+        "template": "<!-- Dashboard HTML -->\n        <div class='row' style='padding-bottom: 25px;'>\n            <div class='col-md-12' align='center'>\n                <div class='card'>\n                    <p class='card-title'>Time Plot</p>\n                    <div class='card-body' align=\"center\">\n                        <div id=\"timePlotChart\" width=\"100%\" ></div>\n                    </div>\n                </div>\n            </div>\n        </div>\n",
+        "output": "str",
+        "x": 970,
+        "y": 420,
+        "wires": [
+            [
+                "7974c464.11ebac"
+            ]
+        ]
+    },
+    {
+        "id": "94525342a884393d",
+        "type": "inject",
+        "z": "152d879257fe666c",
+        "name": "stepperDevice",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": true,
+        "onceDelay": 0.1,
+        "topic": "stepperDevice",
+        "payload": "STEPPER",
+        "payloadType": "env",
+        "x": 160,
+        "y": 100,
+        "wires": [
+            [
+                "fdfbcac7.35b388"
+            ]
+        ]
+    },
+    {
+        "id": "16c60d1b8ba8d827",
+        "type": "function",
+        "z": "152d879257fe666c",
+        "name": "Route msg",
+        "func": "msg.topic = JSON.parse(msg.payload).payload.topic.split(\"/\")[1];\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 470,
+        "y": 840,
+        "wires": [
+            [
+                "2df225765b4657d9"
+            ]
+        ]
+    },
+    {
+        "id": "2df225765b4657d9",
+        "type": "switch",
+        "z": "152d879257fe666c",
+        "name": "",
+        "property": "topic",
+        "propertyType": "msg",
+        "rules": [
+            {
+                "t": "eq",
+                "v": "blinky-beadpull",
+                "vt": "str"
+            },
+            {
+                "t": "eq",
+                "v": "blinky-stepper",
+                "vt": "str"
+            }
+        ],
+        "checkall": "true",
+        "repair": false,
+        "outputs": 2,
+        "x": 620,
+        "y": 840,
+        "wires": [
+            [
+                "ea909034.6fb25"
+            ],
+            [
+                "8e614b0d16edaa84"
+            ]
+        ]
+    },
+    {
+        "id": "8e614b0d16edaa84",
+        "type": "function",
+        "z": "152d879257fe666c",
+        "name": "Prep MQTT",
+        "func": "var mqttMsg = JSON.parse(msg.payload).payload\nreturn mqttMsg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 780,
+        "y": 860,
+        "wires": [
+            [
+                "79338dae9648d70e"
+            ]
+        ]
+    },
+    {
+        "id": "79338dae9648d70e",
+        "type": "mqtt out",
+        "z": "152d879257fe666c",
+        "name": "Publish to Stepper",
+        "topic": "",
+        "qos": "",
+        "retain": "",
+        "respTopic": "",
+        "contentType": "",
+        "userProps": "",
+        "correl": "",
+        "expiry": "",
+        "broker": "79250bf3.365cc4",
+        "x": 970,
+        "y": 860,
         "wires": []
     }
 ]
