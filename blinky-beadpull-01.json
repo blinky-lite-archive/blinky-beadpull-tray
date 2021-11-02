@@ -165,5 +165,10 @@
         "time": 0
       }
     }
+  },
+  "scanName": {
+    "action": "setting",
+    "type": "text",
+    "value": "scan2"
   }
 }
