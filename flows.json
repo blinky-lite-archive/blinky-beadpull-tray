@@ -3314,7 +3314,7 @@
         "type": "function",
         "z": "7419e6f670b0c2f6",
         "name": "Save pull data",
-        "func": "var pullData = flow.get('pullData');\nvar device = flow.get('device');\nvar dbEntry = \n{\n    'name' : device.scanName.value,\n    'scanData' : pullData\n}\nreturn {topic:'scanData', payload:dbEntry};",
+        "func": "var pullData = flow.get('pullData');\nvar device = flow.get('device');\nvar dbEntry = \n{\n    'name' : device.scanName.value,\n    'freq'  :device.markerFreq.value,\n    'scanData' : pullData\n}\nreturn {topic:'scanData', payload:dbEntry};",
         "outputs": 1,
         "noerr": 0,
         "initialize": "",
