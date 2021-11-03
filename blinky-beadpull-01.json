@@ -109,7 +109,7 @@
   "noScanPts": {
     "action": "setting",
     "type": "scalar",
-    "value": 5,
+    "value": 21,
     "unit": "unit",
     "alarm": {
       "value": 0,
@@ -169,6 +169,6 @@
   "scanName": {
     "action": "setting",
     "type": "text",
-    "value": "scan2"
+    "value": "scan0"
   }
 }
