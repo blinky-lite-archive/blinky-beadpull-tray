@@ -49,27 +49,7 @@
   "centerFreq": {
     "action": "reading",
     "type": "scalar",
-    "value": 3000000000,
-    "unit": "Hz",
-    "alarm": {
-      "value": 0,
-      "limits": {
-        "lolo": 0,
-        "low": 0,
-        "high": 400000000,
-        "hihi": 400000000
-      },
-      "notify": {
-        "name": "",
-        "number": "",
-        "time": 0
-      }
-    }
-  },
-  "freqSpan": {
-    "action": "reading",
-    "type": "scalar",
-    "value": 20000000,
+    "value": 2997000000,
     "unit": "Hz",
     "alarm": {
       "value": 0,
@@ -89,7 +69,7 @@
   "markerFreq": {
     "action": "setting",
     "type": "scalar",
-    "value": 2996300000,
+    "value": 2997000000,
     "unit": "Hz",
     "alarm": {
       "value": 0,
@@ -109,7 +89,7 @@
   "noScanPts": {
     "action": "setting",
     "type": "scalar",
-    "value": 1084,
+    "value": 10,
     "unit": "unit",
     "alarm": {
       "value": 0,
@@ -169,6 +149,6 @@
   "scanName": {
     "action": "setting",
     "type": "text",
-    "value": "scan2"
+    "value": "testGarbage"
   }
 }
